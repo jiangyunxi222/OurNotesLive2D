@@ -1,0 +1,5680 @@
+{
+  "Version": 3,
+  "ConfVer": 0,
+  "Type": 0,
+  "Bounds": {
+    "Width": 2.7558,
+    "Height": 4.4775,
+    "CenterX": 0.0018,
+    "CenterY": 3.6234
+  },
+  "FileReferences": {
+    "Moc": "assets/models/0d6a7695efd3de94bbda765e5fe05148.moc3",
+    "Textures": [
+      "assets/anchor/transparent.png",
+      "assets/anchor/transparent.png",
+      "assets/anchor/transparent.png",
+      "assets/anchor/transparent.png"
+    ],
+    "Physics": "assets/physics/02c18c68e114d4e6d94d73d118e37366.physics3.json",
+    "PhysicsV2": {
+      "File": "assets/physics/02c18c68e114d4e6d94d73d118e37366.physics3.json"
+    },
+    "Motions": {
+      "mtn_action_01": [
+        {
+          "File": "assets/motions/e6a31d9f8d55d9c3c949946fb3cbb952.motion3.json",
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ],
+      "mtn_finish_01": [
+        {
+          "File": "assets/motions/83226d6ddcd9b23152fba1a083a55779.motion3.json",
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ],
+      "mtn_idle_01": [
+        {
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ],
+      "mtn_play01_01": [
+        {
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ],
+      "mtn_play01_02": [
+        {
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ],
+      "mtn_play01_03": [
+        {
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ],
+      "mtn_play02_01": [
+        {
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ],
+      "mtn_play02_02": [
+        {
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ],
+      "mtn_play02_03": [
+        {
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ],
+      "Start": [
+        {
+          "Name": "VoiceLive_17_Live_Natsume_Start_01",
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "Sound": "assets/voices/47d4b9675ff372e86c6344c52a41e054.wav",
+          "Text": "来，要开始了哦",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1825,
+          "MotionDuration": 150,
+          "Priority": 9,
+          "Interruptable": false,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "PostCommand": "replace_tex 0 assets/textures/b21bb98d0dd776afb10e6a0a4df11aea.png; replace_tex 1 assets/textures/8f8004adde594960951bc57852744d56.png; replace_tex 2 assets/textures/f1742bf8903bd6f122d6c89a51f34944.png; replace_tex 3 assets/textures/0f42498475cc3825e513658d50c92b04.png",
+          "WrapMode": 1,
+          "FadeIn": 0,
+          "FadeOut": 0
+        }
+      ],
+      "Tap": [
+        {
+          "Name": "menu",
+          "Text": "伊泽枣",
+          "Choices": [
+            {
+              "Text": "语音",
+              "NextMtn": "l2d_voice_menu"
+            },
+            {
+              "Text": "动作",
+              "NextMtn": "l2d_action_menu"
+            },
+            {
+              "Text": "表情",
+              "NextMtn": "l2d_expression_menu2"
+            },
+            {
+              "Text": "选择衣装／源变体",
+              "NextMtn": "l2d_menu_sel_002#5"
+            }
+          ],
+          "Command": "stop_mtn 1",
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "lower 2"
+            },
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_release",
+          "Text": "保持中",
+          "Choices": [
+            {
+              "Text": "继续轮换",
+              "NextMtn": "l2d_menu_sel_004#5"
+            },
+            {
+              "Text": "回到待机",
+              "NextMtn": "l2d_menu_sel_005#5"
+            },
+            {
+              "Text": "完整菜单（解除保持）",
+              "NextMtn": "l2d_menu_sel_006#5"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 2"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "Idle": [
+        {
+          "Name": "idle",
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "Interruptable": true
+        }
+      ],
+      "body": [
+        {
+          "Name": "mtn_play01_01",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play01_02",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play01_03",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play02_01",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play02_02",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play02_03",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        }
+      ],
+      "left": [
+        {
+          "Name": "mtn_play01_01",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play01_02",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play01_03",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play02_01",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play02_02",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play02_03",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        }
+      ],
+      "right": [
+        {
+          "Name": "mtn_play01_01",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play01_02",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play01_03",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play02_01",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play02_02",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "mtn_play02_03",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        }
+      ],
+      "l2d_voice#2": [
+        {
+          "Name": "curated_01_adv_voice_anotherstory_10449_001_65437bf8",
+          "Sound": "assets/voices/36005da7bd13569cd8bfd3c931206680.wav",
+          "Text": "你很喜欢这里吧",
+          "Command": "stop_mtn 1; set_exp assets/expressions/a44e5eaee0ad2af45bb78bb54b32e126.exp3.json; lip_sync enforce",
+          "PostCommand": "clear_exp",
+          "TextDuration": 1771,
+          "MotionDuration": 1821,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_02_adv_voice_millsage_004_1_12_144_ad3af088",
+          "Sound": "assets/voices/1601db35530cdeea5df810dec466ed14.wav",
+          "Text": "你这不是能弹好嘛！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1792,
+          "MotionDuration": 1842,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_03_spot_04_02_03_natsume_01_after_45973bbf",
+          "Sound": "assets/voices/0874b42b7ecb1131956cf3e2e3cc86b3.wav",
+          "Text": "这种程度很正常吧",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1771,
+          "MotionDuration": 1821,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_04_adv_voice_millsage_004_1_04_121",
+          "Sound": "assets/voices/127d431d7c5e77529c003a2e1ae92a03.wav",
+          "Text": "……你们几个，到底想干什么？",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 2116,
+          "MotionDuration": 2166,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_05_adv_voice_millsage_004_1_04_137",
+          "Sound": "assets/voices/f9edb23874cd746035c3e9f71258fc23.wav",
+          "Text": "……你是初中部的吧。几年级？",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 3833,
+          "MotionDuration": 3883,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_06_adv_voice_millsage_004_1_04_139",
+          "Sound": "assets/voices/72ba721346352c794ba97aeec871c5cf.wav",
+          "Text": "哼——我可是3年级。懂了吧？",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 3963,
+          "MotionDuration": 4013,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_07_adv_voice_millsage_004_1_04_175",
+          "Sound": "assets/voices/c5c701211afccd66fccaaa5278d57cd2.wav",
+          "Text": "此Cool非彼Cool啦！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 2409,
+          "MotionDuration": 2459,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_08_adv_voice_millsage_004_1_04_144",
+          "Sound": "assets/voices/59f7bf7aba1b6bf148888670260449a3.wav",
+          "Text": "反正也就是个会弹跳蚤圆舞曲的水平吧",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 2245,
+          "MotionDuration": 2295,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_09_adv_voice_millsage_004_1_04_123",
+          "Sound": "assets/voices/87b9ce4e88a9204efac0f31c2108aa03.wav",
+          "Text": "我怎么可能愿意！ 居然把人硬拽到这种地方来！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 3135,
+          "MotionDuration": 3185,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_10_adv_voice_millsage_004_1_04_133",
+          "Sound": "assets/voices/2d8931700bbbc950508a45cf60e04038.wav",
+          "Text": "哼。我跟你们这些平庸之辈可不一样， 不爱扎堆",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 6067,
+          "MotionDuration": 6117,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_11_adv_voice_millsage_004_1_14_116_464f575f",
+          "Sound": "assets/voices/f30e48dee3c78a94b7d724dff0c7a442.wav",
+          "Text": "既然定了，那就马上开练。 还得把每首歌的唱段分一分呢",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 4651,
+          "MotionDuration": 4701,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_12_adv_voice_millsage_004_1_04_127",
+          "Sound": "assets/voices/9cb42f09747e3679f59e42214fa30f6c.wav",
+          "Text": "你这家伙到底什么毛病！ 我说了多少遍放开我，你都完全不听！ 我要回去了",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 5972,
+          "MotionDuration": 6022,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_13_adv_voice_millsage_004_1_04_130",
+          "Sound": "assets/voices/5a1f1f94d921793cbef724a1e3a45698.wav",
+          "Text": "……伊泽枣",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1399,
+          "MotionDuration": 1449,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_14_spot_04_02_02_natsume_01_after_8294ff6a",
+          "Sound": "assets/voices/73161dfa7cf6ed530bbf8d71b4caa318.wav",
+          "Text": "——我还没输！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 2005,
+          "MotionDuration": 2055,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_15_spot_04_02_02_natsume_01_tap_b1ec10bc",
+          "Sound": "assets/voices/07badb3c518f25d33935951fdbd87423.wav",
+          "Text": "……再来一次！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 2155,
+          "MotionDuration": 2205,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_16_adv_voice_millsage_004_1_08_121_e7449294",
+          "Sound": "assets/voices/77d563889224176899272b4470eb97cc.wav",
+          "Text": "喂，赶紧开始了！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1963,
+          "MotionDuration": 2013,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_17_adv_voice_millsage_004_1_14_107_0c6060e0",
+          "Sound": "assets/voices/3f8940e229bbf08d5016dafa942178f1.wav",
+          "Text": "倒是值得一试",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1877,
+          "MotionDuration": 1927,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "curated_18_spot_04_01_02_natsume_02_tap_5e9cf9b4",
+          "Sound": "assets/voices/05948abd8b80daac594cf09fefb12d33.wav",
+          "Text": "你在干什么啊……！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1429,
+          "MotionDuration": 1479,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_short#2": [
+        {
+          "Name": "adv_voice_millsage_004_1_12_144_ad3af088",
+          "Sound": "assets/voices/1601db35530cdeea5df810dec466ed14.wav",
+          "Text": "你这不是能弹好嘛！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1792,
+          "MotionDuration": 1842,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "spot_04_01_02_natsume_02_tap_5e9cf9b4",
+          "Sound": "assets/voices/05948abd8b80daac594cf09fefb12d33.wav",
+          "Text": "你在干什么啊……！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1429,
+          "MotionDuration": 1479,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "spot_04_02_02_natsume_01_tap_b1ec10bc",
+          "Sound": "assets/voices/07badb3c518f25d33935951fdbd87423.wav",
+          "Text": "……再来一次！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 2155,
+          "MotionDuration": 2205,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "spot_04_02_03_natsume_01_after_45973bbf",
+          "Sound": "assets/voices/0874b42b7ecb1131956cf3e2e3cc86b3.wav",
+          "Text": "这种程度很正常吧",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1771,
+          "MotionDuration": 1821,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_anotherstory_10449_001_65437bf8",
+          "Sound": "assets/voices/36005da7bd13569cd8bfd3c931206680.wav",
+          "Text": "你很喜欢这里吧",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1771,
+          "MotionDuration": 1821,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "spot_04_02_02_natsume_01_after_8294ff6a",
+          "Sound": "assets/voices/73161dfa7cf6ed530bbf8d71b4caa318.wav",
+          "Text": "——我还没输！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 2005,
+          "MotionDuration": 2055,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_14_107_0c6060e0",
+          "Sound": "assets/voices/3f8940e229bbf08d5016dafa942178f1.wav",
+          "Text": "倒是值得一试",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1877,
+          "MotionDuration": 1927,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_08_121_e7449294",
+          "Sound": "assets/voices/77d563889224176899272b4470eb97cc.wav",
+          "Text": "喂，赶紧开始了！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1963,
+          "MotionDuration": 2013,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu#4": [
+        {
+          "Name": "menu",
+          "Text": "伊泽枣",
+          "Choices": [
+            {
+              "Text": "语音",
+              "NextMtn": "l2d_voice_menu"
+            },
+            {
+              "Text": "动作",
+              "NextMtn": "l2d_action_menu"
+            },
+            {
+              "Text": "表情",
+              "NextMtn": "l2d_expression_menu2"
+            },
+            {
+              "Text": "选择衣装／源变体",
+              "NextMtn": "l2d_menu_sel_016#5"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "lower 2"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_release",
+          "Text": "保持中",
+          "Choices": [
+            {
+              "Text": "继续轮换",
+              "NextMtn": "l2d_menu_sel_018#5"
+            },
+            {
+              "Text": "回到待机",
+              "NextMtn": "l2d_menu_sel_019#5"
+            },
+            {
+              "Text": "完整菜单（解除保持）",
+              "NextMtn": "l2d_menu_sel_020#5"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 2"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_release_menu#4": [
+        {
+          "Name": "l2d_release_menu",
+          "Command": "stop_mtn 1",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_menu#4",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_motion_menu": [
+        {
+          "Name": "l2d_motion_menu_still",
+          "Text": "动作",
+          "Choices": [
+            {
+              "Text": "随机动作",
+              "NextMtn": "l2d_menu_sel_021#5"
+            },
+            {
+              "Text": "随机动作并保持",
+              "NextMtn": "l2d_menu_sel_022#5"
+            },
+            {
+              "Text": "开启自动轮换",
+              "NextMtn": "l2d_menu_sel_023#5"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_motion_menu_rotating",
+          "Text": "动作",
+          "Choices": [
+            {
+              "Text": "随机动作",
+              "NextMtn": "l2d_menu_sel_024#5"
+            },
+            {
+              "Text": "随机动作并保持",
+              "NextMtn": "l2d_menu_sel_025#5"
+            },
+            {
+              "Text": "关闭自动轮换",
+              "NextMtn": "l2d_menu_sel_026#5"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_hold_pose#1": [
+        {
+          "Name": "hold_00_mtn_play01_01",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2
+        },
+        {
+          "Name": "hold_01_mtn_play01_02",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2
+        },
+        {
+          "Name": "hold_02_mtn_play01_03",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2
+        },
+        {
+          "Name": "hold_03_mtn_play02_01",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2
+        },
+        {
+          "Name": "hold_04_mtn_play02_02",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2
+        },
+        {
+          "Name": "hold_05_mtn_play02_03",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2
+        }
+      ],
+      "l2d_hold_motion": [
+        {
+          "Name": "start_hold_00_mtn_play01_01",
+          "Command": "start_mtn ournotes_l2d_carrier_natsume_costume_007 l2d_hold_pose#1:hold_00_mtn_play01_01",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 2"
+            }
+          ]
+        },
+        {
+          "Name": "start_hold_01_mtn_play01_02",
+          "Command": "start_mtn ournotes_l2d_carrier_natsume_costume_007 l2d_hold_pose#1:hold_01_mtn_play01_02",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 2"
+            }
+          ]
+        },
+        {
+          "Name": "start_hold_02_mtn_play01_03",
+          "Command": "start_mtn ournotes_l2d_carrier_natsume_costume_007 l2d_hold_pose#1:hold_02_mtn_play01_03",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 2"
+            }
+          ]
+        },
+        {
+          "Name": "start_hold_03_mtn_play02_01",
+          "Command": "start_mtn ournotes_l2d_carrier_natsume_costume_007 l2d_hold_pose#1:hold_03_mtn_play02_01",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 2"
+            }
+          ]
+        },
+        {
+          "Name": "start_hold_04_mtn_play02_02",
+          "Command": "start_mtn ournotes_l2d_carrier_natsume_costume_007 l2d_hold_pose#1:hold_04_mtn_play02_02",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 2"
+            }
+          ]
+        },
+        {
+          "Name": "start_hold_05_mtn_play02_03",
+          "Command": "start_mtn ournotes_l2d_carrier_natsume_costume_007 l2d_hold_pose#1:hold_05_mtn_play02_03",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 2"
+            }
+          ]
+        }
+      ],
+      "l2d_rotate_on": [
+        {
+          "Name": "l2d_rotate_on",
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "WrapMode": 1,
+          "Text": "自动轮换：开",
+          "TextDuration": 1500,
+          "MotionDuration": 1500,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_step",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_rotate_off": [
+        {
+          "Name": "l2d_rotate_off",
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "WrapMode": 1,
+          "Text": "自动轮换：关",
+          "Command": "stop_mtn 1; clear_exp",
+          "TextDuration": 1500,
+          "MotionDuration": 1500,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_release_rotate": [
+        {
+          "Name": "l2d_release_rotate",
+          "Command": "stop_mtn 1",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_step",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_release_idle": [
+        {
+          "Name": "l2d_release_idle",
+          "Command": "stop_mtn 1; clear_exp",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_rotate_step": [
+        {
+          "Name": "rotate_combo_body_mtn_play01_01_motion3",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_wait",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "rotate_combo_body_mtn_play01_02_motion3",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_wait",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "rotate_combo_body_mtn_play01_03_motion3",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_wait",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "rotate_combo_body_mtn_play02_01_motion3",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_wait",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "rotate_combo_body_mtn_play02_02_motion3",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_wait",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "rotate_combo_body_mtn_play02_03_motion3",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_wait",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "l2d_rotate_wait": [
+        {
+          "Name": "wait_20000",
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "WrapMode": 1,
+          "MotionDuration": 20000,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_step",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "wait_25000",
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "WrapMode": 1,
+          "MotionDuration": 25000,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_step",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "wait_30000",
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "WrapMode": 1,
+          "MotionDuration": 30000,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_step",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "wait_35000",
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "WrapMode": 1,
+          "MotionDuration": 35000,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_step",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "wait_40000",
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "WrapMode": 1,
+          "MotionDuration": 40000,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_step",
+          "VarFloats": [
+            {
+              "Name": "l2d_mode",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_000#5": [
+        {
+          "Name": "menu_select_000",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_voice#2",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_001#5": [
+        {
+          "Name": "menu_select_001",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_motion_menu",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_002#5": [
+        {
+          "Name": "menu_select_002",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_carrier_wardrobe",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_003#5": [
+        {
+          "Name": "menu_select_003",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_carrier_random",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_004#5": [
+        {
+          "Name": "menu_select_004",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_release_rotate",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_005#5": [
+        {
+          "Name": "menu_select_005",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_release_idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_006#5": [
+        {
+          "Name": "menu_select_006",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_release_menu#4",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_014#5": [
+        {
+          "Name": "menu_select_014",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_voice#2",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_015#5": [
+        {
+          "Name": "menu_select_015",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_motion_menu",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_016#5": [
+        {
+          "Name": "menu_select_016",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_carrier_wardrobe",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_017#5": [
+        {
+          "Name": "menu_select_017",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_carrier_random",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_018#5": [
+        {
+          "Name": "menu_select_018",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_release_rotate",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_019#5": [
+        {
+          "Name": "menu_select_019",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_release_idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_020#5": [
+        {
+          "Name": "menu_select_020",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_release_menu#4",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_021#5": [
+        {
+          "Name": "menu_select_021",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "body",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_022#5": [
+        {
+          "Name": "menu_select_022",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_023#5": [
+        {
+          "Name": "menu_select_023",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_on",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_024#5": [
+        {
+          "Name": "menu_select_024",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "body",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_025#5": [
+        {
+          "Name": "menu_select_025",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_sel_026#5": [
+        {
+          "Name": "menu_select_026",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_rotate_off",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_down#5": [
+        {
+          "Name": "menu_down",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 2"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_up#5": [
+        {
+          "Name": "menu_up",
+          "MotionDuration": 260,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_menu_verify#5",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 1,
+              "Code": "equal 2"
+            }
+          ]
+        }
+      ],
+      "l2d_menu_verify#5": [
+        {
+          "Name": "menu_verify",
+          "Command": "hide_text",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 1,
+              "Code": "equal 2"
+            },
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_tap_switch": [
+        {
+          "Name": "switch_notice",
+          "File": "assets/motions/b516b7becd8b9494d1f2bd843781eda0.motion3.json",
+          "WrapMode": 1,
+          "Text": "换装中…",
+          "Command": "start_mtn ournotes_l2d_carrier_natsume carrier_random",
+          "TextDuration": 1000,
+          "MotionDuration": 1000,
+          "Priority": 2,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_tap_body": [
+        {
+          "Name": "combo_body_mtn_play01_01_motion3",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_body_mtn_play01_02_motion3",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_body_mtn_play01_03_motion3",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_body_mtn_play02_01_motion3",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_body_mtn_play02_02_motion3",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_body_mtn_play02_03_motion3",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        }
+      ],
+      "l2d_tap_left": [
+        {
+          "Name": "combo_left_mtn_play01_01_motion3",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_left_mtn_play01_02_motion3",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_left_mtn_play01_03_motion3",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_left_mtn_play02_01_motion3",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_left_mtn_play02_02_motion3",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_left_mtn_play02_03_motion3",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        }
+      ],
+      "l2d_tap_right": [
+        {
+          "Name": "combo_right_mtn_play01_01_motion3",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_right_mtn_play01_02_motion3",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_right_mtn_play01_03_motion3",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_right_mtn_play02_01_motion3",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_right_mtn_play02_02_motion3",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "combo_right_mtn_play02_03_motion3",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        }
+      ],
+      "l2d_carrier_wardrobe": [
+        {
+          "Name": "carrier_wardrobe",
+          "Command": "start_mtn ournotes_l2d_carrier_natsume carrier_wardrobe",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ],
+      "l2d_carrier_random": [
+        {
+          "Name": "carrier_random",
+          "Command": "start_mtn ournotes_l2d_carrier_natsume carrier_random",
+          "MotionDuration": 200,
+          "Priority": 2
+        }
+      ],
+      "talk_short": [
+        {
+          "Name": "adv_voice_millsage_004_1_04_121",
+          "Sound": "assets/voices/127d431d7c5e77529c003a2e1ae92a03.wav",
+          "Text": "……你们几个，到底想干什么？",
+          "Command": "lip_sync enforce",
+          "TextDuration": 2116,
+          "MotionDuration": 2166,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_123",
+          "Sound": "assets/voices/87b9ce4e88a9204efac0f31c2108aa03.wav",
+          "Text": "我怎么可能愿意！\n居然把人硬拽到这种地方来！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 3135,
+          "MotionDuration": 3185,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_127",
+          "Sound": "assets/voices/9cb42f09747e3679f59e42214fa30f6c.wav",
+          "Text": "你这家伙到底什么毛病！\n我说了多少遍放开我，你都完全不听！\n我要回去了",
+          "Command": "lip_sync enforce",
+          "TextDuration": 5972,
+          "MotionDuration": 6022,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_130",
+          "Sound": "assets/voices/5a1f1f94d921793cbef724a1e3a45698.wav",
+          "Text": "……伊泽枣",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1399,
+          "MotionDuration": 1449,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "talk_medium": [
+        {
+          "Name": "adv_voice_millsage_004_1_04_133",
+          "Sound": "assets/voices/2d8931700bbbc950508a45cf60e04038.wav",
+          "Text": "哼。我跟你们这些平庸之辈可不一样，\n不爱扎堆",
+          "Command": "lip_sync enforce",
+          "TextDuration": 6067,
+          "MotionDuration": 6117,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_137",
+          "Sound": "assets/voices/f9edb23874cd746035c3e9f71258fc23.wav",
+          "Text": "……你是初中部的吧。几年级？",
+          "Command": "lip_sync enforce",
+          "TextDuration": 3833,
+          "MotionDuration": 3883,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_139",
+          "Sound": "assets/voices/72ba721346352c794ba97aeec871c5cf.wav",
+          "Text": "哼——我可是3年级。懂了吧？",
+          "Command": "lip_sync enforce",
+          "TextDuration": 3963,
+          "MotionDuration": 4013,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_144",
+          "Sound": "assets/voices/59f7bf7aba1b6bf148888670260449a3.wav",
+          "Text": "反正也就是个会弹跳蚤圆舞曲的水平吧",
+          "Command": "lip_sync enforce",
+          "TextDuration": 2245,
+          "MotionDuration": 2295,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "talk_long": [
+        {
+          "Name": "adv_voice_millsage_004_1_04_155",
+          "Sound": "assets/voices/567c5c76c74d92b065dfa06225713c7e.wav",
+          "Text": "万一你真能让我认可的话，\n那加入乐队的事，我倒是可以考虑考虑",
+          "Command": "lip_sync enforce",
+          "TextDuration": 6717,
+          "MotionDuration": 6767,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_156",
+          "Sound": "assets/voices/aa2a32b43effeaadee6d562864f2c1ec.wav",
+          "Text": "哼？我这个天才吉他手，\n怎么可能输给这种外行？",
+          "Command": "lip_sync enforce",
+          "TextDuration": 7202,
+          "MotionDuration": 7252,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_175",
+          "Sound": "assets/voices/c5c701211afccd66fccaaa5278d57cd2.wav",
+          "Text": "此Cool非彼Cool啦！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 2409,
+          "MotionDuration": 2459,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_05_023",
+          "Sound": "assets/voices/7bab46a85961b09ac6269f38da99903b.wav",
+          "Text": "是谁说要搞练习集训的！\n结果聊天打游戏闹了个通宵就结束了！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 6205,
+          "MotionDuration": 6255,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "talk": [
+        {
+          "Name": "adv_voice_millsage_004_1_04_121",
+          "Sound": "assets/voices/127d431d7c5e77529c003a2e1ae92a03.wav",
+          "Text": "……你们几个，到底想干什么？",
+          "Command": "lip_sync enforce",
+          "TextDuration": 2116,
+          "MotionDuration": 2166,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_123",
+          "Sound": "assets/voices/87b9ce4e88a9204efac0f31c2108aa03.wav",
+          "Text": "我怎么可能愿意！\n居然把人硬拽到这种地方来！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 3135,
+          "MotionDuration": 3185,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_127",
+          "Sound": "assets/voices/9cb42f09747e3679f59e42214fa30f6c.wav",
+          "Text": "你这家伙到底什么毛病！\n我说了多少遍放开我，你都完全不听！\n我要回去了",
+          "Command": "lip_sync enforce",
+          "TextDuration": 5972,
+          "MotionDuration": 6022,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_130",
+          "Sound": "assets/voices/5a1f1f94d921793cbef724a1e3a45698.wav",
+          "Text": "……伊泽枣",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1399,
+          "MotionDuration": 1449,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_133",
+          "Sound": "assets/voices/2d8931700bbbc950508a45cf60e04038.wav",
+          "Text": "哼。我跟你们这些平庸之辈可不一样，\n不爱扎堆",
+          "Command": "lip_sync enforce",
+          "TextDuration": 6067,
+          "MotionDuration": 6117,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_137",
+          "Sound": "assets/voices/f9edb23874cd746035c3e9f71258fc23.wav",
+          "Text": "……你是初中部的吧。几年级？",
+          "Command": "lip_sync enforce",
+          "TextDuration": 3833,
+          "MotionDuration": 3883,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_139",
+          "Sound": "assets/voices/72ba721346352c794ba97aeec871c5cf.wav",
+          "Text": "哼——我可是3年级。懂了吧？",
+          "Command": "lip_sync enforce",
+          "TextDuration": 3963,
+          "MotionDuration": 4013,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_144",
+          "Sound": "assets/voices/59f7bf7aba1b6bf148888670260449a3.wav",
+          "Text": "反正也就是个会弹跳蚤圆舞曲的水平吧",
+          "Command": "lip_sync enforce",
+          "TextDuration": 2245,
+          "MotionDuration": 2295,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_155",
+          "Sound": "assets/voices/567c5c76c74d92b065dfa06225713c7e.wav",
+          "Text": "万一你真能让我认可的话，\n那加入乐队的事，我倒是可以考虑考虑",
+          "Command": "lip_sync enforce",
+          "TextDuration": 6717,
+          "MotionDuration": 6767,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_156",
+          "Sound": "assets/voices/aa2a32b43effeaadee6d562864f2c1ec.wav",
+          "Text": "哼？我这个天才吉他手，\n怎么可能输给这种外行？",
+          "Command": "lip_sync enforce",
+          "TextDuration": 7202,
+          "MotionDuration": 7252,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_04_175",
+          "Sound": "assets/voices/c5c701211afccd66fccaaa5278d57cd2.wav",
+          "Text": "此Cool非彼Cool啦！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 2409,
+          "MotionDuration": 2459,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_05_023",
+          "Sound": "assets/voices/7bab46a85961b09ac6269f38da99903b.wav",
+          "Text": "是谁说要搞练习集训的！\n结果聊天打游戏闹了个通宵就结束了！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 6205,
+          "MotionDuration": 6255,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_menu": [
+        {
+          "Name": "menu_l2d_voice_menu",
+          "Text": "语音",
+          "Choices": [
+            {
+              "Text": "随机语音",
+              "NextMtn": "l2d_voice#2"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "l2d_voice_list_p1"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_menu#4"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_action_body_pick_00": [
+        {
+          "Name": "l2d_action_body_pick_00_play",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_body_pick_01": [
+        {
+          "Name": "l2d_action_body_pick_01_play",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_body_pick_02": [
+        {
+          "Name": "l2d_action_body_pick_02_play",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_body_pick_03": [
+        {
+          "Name": "l2d_action_body_pick_03_play",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_body_pick_04": [
+        {
+          "Name": "l2d_action_body_pick_04_play",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_body_pick_05": [
+        {
+          "Name": "l2d_action_body_pick_05_play",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_body_list_p1": [
+        {
+          "Name": "menu_l2d_action_body_list_p1",
+          "Text": "动作列表·正面 1/2",
+          "Choices": [
+            {
+              "Text": "1. play01",
+              "NextMtn": "l2d_action_body_pick_00"
+            },
+            {
+              "Text": "2. play01",
+              "NextMtn": "l2d_action_body_pick_01"
+            },
+            {
+              "Text": "3. play01",
+              "NextMtn": "l2d_action_body_pick_02"
+            },
+            {
+              "Text": "4. play02",
+              "NextMtn": "l2d_action_body_pick_03"
+            },
+            {
+              "Text": "5. play02",
+              "NextMtn": "l2d_action_body_pick_04"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_action_body_list_p2"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_action_menu"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_action_body_list_p2": [
+        {
+          "Name": "menu_l2d_action_body_list_p2",
+          "Text": "动作列表·正面 2/2",
+          "Choices": [
+            {
+              "Text": "6. play02",
+              "NextMtn": "l2d_action_body_pick_05"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_action_body_list_p1"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_action_menu"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_action_left_pick_00": [
+        {
+          "Name": "l2d_action_left_pick_00_play",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_left_pick_01": [
+        {
+          "Name": "l2d_action_left_pick_01_play",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_left_pick_02": [
+        {
+          "Name": "l2d_action_left_pick_02_play",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_left_pick_03": [
+        {
+          "Name": "l2d_action_left_pick_03_play",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_left_pick_04": [
+        {
+          "Name": "l2d_action_left_pick_04_play",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_left_pick_05": [
+        {
+          "Name": "l2d_action_left_pick_05_play",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_left_list_p1": [
+        {
+          "Name": "menu_l2d_action_left_list_p1",
+          "Text": "动作列表·左手 1/2",
+          "Choices": [
+            {
+              "Text": "1. play01",
+              "NextMtn": "l2d_action_left_pick_00"
+            },
+            {
+              "Text": "2. play01",
+              "NextMtn": "l2d_action_left_pick_01"
+            },
+            {
+              "Text": "3. play01",
+              "NextMtn": "l2d_action_left_pick_02"
+            },
+            {
+              "Text": "4. play02",
+              "NextMtn": "l2d_action_left_pick_03"
+            },
+            {
+              "Text": "5. play02",
+              "NextMtn": "l2d_action_left_pick_04"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_action_left_list_p2"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_action_menu"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_action_left_list_p2": [
+        {
+          "Name": "menu_l2d_action_left_list_p2",
+          "Text": "动作列表·左手 2/2",
+          "Choices": [
+            {
+              "Text": "6. play02",
+              "NextMtn": "l2d_action_left_pick_05"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_action_left_list_p1"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_action_menu"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_action_right_pick_00": [
+        {
+          "Name": "l2d_action_right_pick_00_play",
+          "File": "assets/motions/3d18b5e90f676622ecf0751f427639cd.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_right_pick_01": [
+        {
+          "Name": "l2d_action_right_pick_01_play",
+          "File": "assets/motions/58b0c88f6a13a92208d4c86e2cf8e3c3.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_right_pick_02": [
+        {
+          "Name": "l2d_action_right_pick_02_play",
+          "File": "assets/motions/e6c1ad1acc73f999721a8f237f7539ee.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_right_pick_03": [
+        {
+          "Name": "l2d_action_right_pick_03_play",
+          "File": "assets/motions/da65adcf92d570ef207e816c08292dba.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_right_pick_04": [
+        {
+          "Name": "l2d_action_right_pick_04_play",
+          "File": "assets/motions/23a0face638b9a6000f45746a38f6598.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_right_pick_05": [
+        {
+          "Name": "l2d_action_right_pick_05_play",
+          "File": "assets/motions/49404de9793a30659690dc28fe571ae2.motion3.json",
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "l2d_hold_motion",
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_action_right_list_p1": [
+        {
+          "Name": "menu_l2d_action_right_list_p1",
+          "Text": "动作列表·右手 1/2",
+          "Choices": [
+            {
+              "Text": "1. play01",
+              "NextMtn": "l2d_action_right_pick_00"
+            },
+            {
+              "Text": "2. play01",
+              "NextMtn": "l2d_action_right_pick_01"
+            },
+            {
+              "Text": "3. play01",
+              "NextMtn": "l2d_action_right_pick_02"
+            },
+            {
+              "Text": "4. play02",
+              "NextMtn": "l2d_action_right_pick_03"
+            },
+            {
+              "Text": "5. play02",
+              "NextMtn": "l2d_action_right_pick_04"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_action_right_list_p2"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_action_menu"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_action_right_list_p2": [
+        {
+          "Name": "menu_l2d_action_right_list_p2",
+          "Text": "动作列表·右手 2/2",
+          "Choices": [
+            {
+              "Text": "6. play02",
+              "NextMtn": "l2d_action_right_pick_05"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_action_right_list_p1"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_action_menu"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_action_menu": [
+        {
+          "Name": "menu_l2d_action_menu",
+          "Text": "动作",
+          "Choices": [
+            {
+              "Text": "随机正面",
+              "NextMtn": "body"
+            },
+            {
+              "Text": "正面动作列表",
+              "NextMtn": "l2d_action_body_list_p1"
+            },
+            {
+              "Text": "左手动作列表",
+              "NextMtn": "l2d_action_left_list_p1"
+            },
+            {
+              "Text": "右手动作列表",
+              "NextMtn": "l2d_action_right_list_p1"
+            },
+            {
+              "Text": "保持／轮换",
+              "NextMtn": "l2d_motion_menu"
+            },
+            {
+              "Text": "回到待机",
+              "NextMtn": "l2d_release_idle"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_menu#4"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_00": [
+        {
+          "Name": "l2d_expression_list_pick_00_set",
+          "Command": "set_exp assets/expressions/268375e3b09fe8d8a42fee8659cb12ba.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_01": [
+        {
+          "Name": "l2d_expression_list_pick_01_set",
+          "Command": "set_exp assets/expressions/5f41c43c02c31da48a90cbb92c453715.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_02": [
+        {
+          "Name": "l2d_expression_list_pick_02_set",
+          "Command": "set_exp assets/expressions/df7eb59d7a1d5edd07d3c0569e15b75b.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_03": [
+        {
+          "Name": "l2d_expression_list_pick_03_set",
+          "Command": "set_exp assets/expressions/378076b815430e3b81e103598785ec76.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_04": [
+        {
+          "Name": "l2d_expression_list_pick_04_set",
+          "Command": "set_exp assets/expressions/ba35fd850e3365d935bd4abd0a7984a7.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_05": [
+        {
+          "Name": "l2d_expression_list_pick_05_set",
+          "Command": "set_exp assets/expressions/0b071648951af25c0d6729fe83575e79.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_06": [
+        {
+          "Name": "l2d_expression_list_pick_06_set",
+          "Command": "set_exp assets/expressions/42914eca4ba848ad6b5c60d6d5fc3853.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_07": [
+        {
+          "Name": "l2d_expression_list_pick_07_set",
+          "Command": "set_exp assets/expressions/67b1210816c80c6bad3cca23e0312978.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_08": [
+        {
+          "Name": "l2d_expression_list_pick_08_set",
+          "Command": "set_exp assets/expressions/230f432ad8178be6e915eeb126879851.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_09": [
+        {
+          "Name": "l2d_expression_list_pick_09_set",
+          "Command": "set_exp assets/expressions/7b30bb3a0da516a4ca0bdfff8678616b.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_10": [
+        {
+          "Name": "l2d_expression_list_pick_10_set",
+          "Command": "set_exp assets/expressions/0d4c4b8a3c124cbb422ddac45fb2962f.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_11": [
+        {
+          "Name": "l2d_expression_list_pick_11_set",
+          "Command": "set_exp assets/expressions/523f6988cfc176f8985cb91c8ab3add7.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_12": [
+        {
+          "Name": "l2d_expression_list_pick_12_set",
+          "Command": "set_exp assets/expressions/e0d131f988f038fe387f2021afe0c31c.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_13": [
+        {
+          "Name": "l2d_expression_list_pick_13_set",
+          "Command": "set_exp assets/expressions/c1d133a661b7174e36916c6b3629d6be.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_14": [
+        {
+          "Name": "l2d_expression_list_pick_14_set",
+          "Command": "set_exp assets/expressions/74a7a270055b183678d0b42c3a8c8daa.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_15": [
+        {
+          "Name": "l2d_expression_list_pick_15_set",
+          "Command": "set_exp assets/expressions/4a3f5877dcb08de3c6d5e69df53b527d.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_16": [
+        {
+          "Name": "l2d_expression_list_pick_16_set",
+          "Command": "set_exp assets/expressions/f0f9e49b96dbe90bd10af9176ebeb5cc.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_17": [
+        {
+          "Name": "l2d_expression_list_pick_17_set",
+          "Command": "set_exp assets/expressions/d6957972ad6197b55717dbda60b422d1.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_18": [
+        {
+          "Name": "l2d_expression_list_pick_18_set",
+          "Command": "set_exp assets/expressions/49836e25c26c5869be1acbf482cefa6a.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_19": [
+        {
+          "Name": "l2d_expression_list_pick_19_set",
+          "Command": "set_exp assets/expressions/598fbb6f069858e18a67c723a0f427ef.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_20": [
+        {
+          "Name": "l2d_expression_list_pick_20_set",
+          "Command": "set_exp assets/expressions/e86cea011afff2c817f0eccfaf8a157e.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_21": [
+        {
+          "Name": "l2d_expression_list_pick_21_set",
+          "Command": "set_exp assets/expressions/cbed0b6ef02099a30f120b055781df0e.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_22": [
+        {
+          "Name": "l2d_expression_list_pick_22_set",
+          "Command": "set_exp assets/expressions/71b0fe8809c4dd28caed796f390ec909.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_23": [
+        {
+          "Name": "l2d_expression_list_pick_23_set",
+          "Command": "set_exp assets/expressions/8eaf3599d55da2e10d3fbe4469be4be4.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_24": [
+        {
+          "Name": "l2d_expression_list_pick_24_set",
+          "Command": "set_exp assets/expressions/9eb86b3d798e97d5d97cd0de19516b0a.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_25": [
+        {
+          "Name": "l2d_expression_list_pick_25_set",
+          "Command": "set_exp assets/expressions/df889f70830e6a6bc6fe38857e5aa26e.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_26": [
+        {
+          "Name": "l2d_expression_list_pick_26_set",
+          "Command": "set_exp assets/expressions/93491866d4beef0b75c14129919715a1.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_27": [
+        {
+          "Name": "l2d_expression_list_pick_27_set",
+          "Command": "set_exp assets/expressions/6cbfe44850aafe0cfa68898d2dcd823d.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_28": [
+        {
+          "Name": "l2d_expression_list_pick_28_set",
+          "Command": "set_exp assets/expressions/a44e5eaee0ad2af45bb78bb54b32e126.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_29": [
+        {
+          "Name": "l2d_expression_list_pick_29_set",
+          "Command": "set_exp assets/expressions/f196cc6f69c63f269090f7d81debcc2e.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_30": [
+        {
+          "Name": "l2d_expression_list_pick_30_set",
+          "Command": "set_exp assets/expressions/4ef9081bc4804aa4a9b90fb30a0df751.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_31": [
+        {
+          "Name": "l2d_expression_list_pick_31_set",
+          "Command": "set_exp assets/expressions/b33fbaa82c91350386511656e9a4af8d.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_32": [
+        {
+          "Name": "l2d_expression_list_pick_32_set",
+          "Command": "set_exp assets/expressions/3f74a2500f6e50a568635417e3a57c17.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_33": [
+        {
+          "Name": "l2d_expression_list_pick_33_set",
+          "Command": "set_exp assets/expressions/8b519aff96911b857ac8548822376f06.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_34": [
+        {
+          "Name": "l2d_expression_list_pick_34_set",
+          "Command": "set_exp assets/expressions/34f45b07e5a2551e4fc91eee13e7af15.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_pick_35": [
+        {
+          "Name": "l2d_expression_list_pick_35_set",
+          "Command": "set_exp assets/expressions/1f63617ed00599bf9fb44b61b94a26ec.exp3.json",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_p1": [
+        {
+          "Name": "menu_l2d_expression_list_p1",
+          "Text": "表情列表 1/8",
+          "Choices": [
+            {
+              "Text": "1. 生气01",
+              "NextMtn": "l2d_expression_list_pick_00"
+            },
+            {
+              "Text": "2. 生气02",
+              "NextMtn": "l2d_expression_list_pick_01"
+            },
+            {
+              "Text": "3. 生气03",
+              "NextMtn": "l2d_expression_list_pick_02"
+            },
+            {
+              "Text": "4. 生气04",
+              "NextMtn": "l2d_expression_list_pick_03"
+            },
+            {
+              "Text": "5. 生气05",
+              "NextMtn": "l2d_expression_list_pick_04"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_expression_list_p2"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_expression_menu2"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_p2": [
+        {
+          "Name": "menu_l2d_expression_list_p2",
+          "Text": "表情列表 2/8",
+          "Choices": [
+            {
+              "Text": "6. 生气06",
+              "NextMtn": "l2d_expression_list_pick_05"
+            },
+            {
+              "Text": "7. 微笑01",
+              "NextMtn": "l2d_expression_list_pick_06"
+            },
+            {
+              "Text": "8. 微笑02",
+              "NextMtn": "l2d_expression_list_pick_07"
+            },
+            {
+              "Text": "9. 哭01",
+              "NextMtn": "l2d_expression_list_pick_08"
+            },
+            {
+              "Text": "10. 哭02",
+              "NextMtn": "l2d_expression_list_pick_09"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_expression_list_p1"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_expression_list_p3"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_expression_menu2"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_p3": [
+        {
+          "Name": "menu_l2d_expression_list_p3",
+          "Text": "表情列表 3/8",
+          "Choices": [
+            {
+              "Text": "11. envy01",
+              "NextMtn": "l2d_expression_list_pick_10"
+            },
+            {
+              "Text": "12. 比心01",
+              "NextMtn": "l2d_expression_list_pick_11"
+            },
+            {
+              "Text": "13. 平静01",
+              "NextMtn": "l2d_expression_list_pick_12"
+            },
+            {
+              "Text": "14. 平静02",
+              "NextMtn": "l2d_expression_list_pick_13"
+            },
+            {
+              "Text": "15. 平静03",
+              "NextMtn": "l2d_expression_list_pick_14"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_expression_list_p2"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_expression_list_p4"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_expression_menu2"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_p4": [
+        {
+          "Name": "menu_l2d_expression_list_p4",
+          "Text": "表情列表 4/8",
+          "Choices": [
+            {
+              "Text": "16. 帅气01",
+              "NextMtn": "l2d_expression_list_pick_15"
+            },
+            {
+              "Text": "17. 帅气02",
+              "NextMtn": "l2d_expression_list_pick_16"
+            },
+            {
+              "Text": "18. kirakira01",
+              "NextMtn": "l2d_expression_list_pick_17"
+            },
+            {
+              "Text": "19. 苍白01",
+              "NextMtn": "l2d_expression_list_pick_18"
+            },
+            {
+              "Text": "20. panic01",
+              "NextMtn": "l2d_expression_list_pick_19"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_expression_list_p3"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_expression_list_p5"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_expression_menu2"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_p5": [
+        {
+          "Name": "menu_l2d_expression_list_p5",
+          "Text": "表情列表 5/8",
+          "Choices": [
+            {
+              "Text": "21. question01",
+              "NextMtn": "l2d_expression_list_pick_20"
+            },
+            {
+              "Text": "22. 难过01",
+              "NextMtn": "l2d_expression_list_pick_21"
+            },
+            {
+              "Text": "23. 难过02",
+              "NextMtn": "l2d_expression_list_pick_22"
+            },
+            {
+              "Text": "24. 难过03",
+              "NextMtn": "l2d_expression_list_pick_23"
+            },
+            {
+              "Text": "25. 认真01",
+              "NextMtn": "l2d_expression_list_pick_24"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_expression_list_p4"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_expression_list_p6"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_expression_menu2"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_p6": [
+        {
+          "Name": "menu_l2d_expression_list_p6",
+          "Text": "表情列表 6/8",
+          "Choices": [
+            {
+              "Text": "26. 认真02",
+              "NextMtn": "l2d_expression_list_pick_25"
+            },
+            {
+              "Text": "27. 害羞01",
+              "NextMtn": "l2d_expression_list_pick_26"
+            },
+            {
+              "Text": "28. 害羞02",
+              "NextMtn": "l2d_expression_list_pick_27"
+            },
+            {
+              "Text": "29. 微笑01",
+              "NextMtn": "l2d_expression_list_pick_28"
+            },
+            {
+              "Text": "30. 微笑02",
+              "NextMtn": "l2d_expression_list_pick_29"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_expression_list_p5"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_expression_list_p7"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_expression_menu2"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_p7": [
+        {
+          "Name": "menu_l2d_expression_list_p7",
+          "Text": "表情列表 7/8",
+          "Choices": [
+            {
+              "Text": "31. 微笑03",
+              "NextMtn": "l2d_expression_list_pick_30"
+            },
+            {
+              "Text": "32. 转圈01",
+              "NextMtn": "l2d_expression_list_pick_31"
+            },
+            {
+              "Text": "33. 惊讶01",
+              "NextMtn": "l2d_expression_list_pick_32"
+            },
+            {
+              "Text": "34. 惊讶02",
+              "NextMtn": "l2d_expression_list_pick_33"
+            },
+            {
+              "Text": "35. 惊讶03",
+              "NextMtn": "l2d_expression_list_pick_34"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_expression_list_p6"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_expression_list_p8"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_expression_menu2"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_list_p8": [
+        {
+          "Name": "menu_l2d_expression_list_p8",
+          "Text": "表情列表 8/8",
+          "Choices": [
+            {
+              "Text": "36. 思考01",
+              "NextMtn": "l2d_expression_list_pick_35"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_expression_list_p7"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_expression_menu2"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_random": [
+        {
+          "Name": "l2d_expression_random_00",
+          "Command": "set_exp assets/expressions/268375e3b09fe8d8a42fee8659cb12ba.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_01",
+          "Command": "set_exp assets/expressions/5f41c43c02c31da48a90cbb92c453715.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_02",
+          "Command": "set_exp assets/expressions/df7eb59d7a1d5edd07d3c0569e15b75b.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_03",
+          "Command": "set_exp assets/expressions/378076b815430e3b81e103598785ec76.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_04",
+          "Command": "set_exp assets/expressions/ba35fd850e3365d935bd4abd0a7984a7.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_05",
+          "Command": "set_exp assets/expressions/0b071648951af25c0d6729fe83575e79.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_06",
+          "Command": "set_exp assets/expressions/42914eca4ba848ad6b5c60d6d5fc3853.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_07",
+          "Command": "set_exp assets/expressions/67b1210816c80c6bad3cca23e0312978.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_08",
+          "Command": "set_exp assets/expressions/230f432ad8178be6e915eeb126879851.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_09",
+          "Command": "set_exp assets/expressions/7b30bb3a0da516a4ca0bdfff8678616b.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_10",
+          "Command": "set_exp assets/expressions/0d4c4b8a3c124cbb422ddac45fb2962f.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_11",
+          "Command": "set_exp assets/expressions/523f6988cfc176f8985cb91c8ab3add7.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_12",
+          "Command": "set_exp assets/expressions/e0d131f988f038fe387f2021afe0c31c.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_13",
+          "Command": "set_exp assets/expressions/c1d133a661b7174e36916c6b3629d6be.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_14",
+          "Command": "set_exp assets/expressions/74a7a270055b183678d0b42c3a8c8daa.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_15",
+          "Command": "set_exp assets/expressions/4a3f5877dcb08de3c6d5e69df53b527d.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_16",
+          "Command": "set_exp assets/expressions/f0f9e49b96dbe90bd10af9176ebeb5cc.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_17",
+          "Command": "set_exp assets/expressions/d6957972ad6197b55717dbda60b422d1.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_18",
+          "Command": "set_exp assets/expressions/49836e25c26c5869be1acbf482cefa6a.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_19",
+          "Command": "set_exp assets/expressions/598fbb6f069858e18a67c723a0f427ef.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_20",
+          "Command": "set_exp assets/expressions/e86cea011afff2c817f0eccfaf8a157e.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_21",
+          "Command": "set_exp assets/expressions/cbed0b6ef02099a30f120b055781df0e.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_22",
+          "Command": "set_exp assets/expressions/71b0fe8809c4dd28caed796f390ec909.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_23",
+          "Command": "set_exp assets/expressions/8eaf3599d55da2e10d3fbe4469be4be4.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_24",
+          "Command": "set_exp assets/expressions/9eb86b3d798e97d5d97cd0de19516b0a.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_25",
+          "Command": "set_exp assets/expressions/df889f70830e6a6bc6fe38857e5aa26e.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_26",
+          "Command": "set_exp assets/expressions/93491866d4beef0b75c14129919715a1.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_27",
+          "Command": "set_exp assets/expressions/6cbfe44850aafe0cfa68898d2dcd823d.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_28",
+          "Command": "set_exp assets/expressions/a44e5eaee0ad2af45bb78bb54b32e126.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_29",
+          "Command": "set_exp assets/expressions/f196cc6f69c63f269090f7d81debcc2e.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_30",
+          "Command": "set_exp assets/expressions/4ef9081bc4804aa4a9b90fb30a0df751.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_31",
+          "Command": "set_exp assets/expressions/b33fbaa82c91350386511656e9a4af8d.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_32",
+          "Command": "set_exp assets/expressions/3f74a2500f6e50a568635417e3a57c17.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_33",
+          "Command": "set_exp assets/expressions/8b519aff96911b857ac8548822376f06.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_34",
+          "Command": "set_exp assets/expressions/34f45b07e5a2551e4fc91eee13e7af15.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "l2d_expression_random_35",
+          "Command": "set_exp assets/expressions/1f63617ed00599bf9fb44b61b94a26ec.exp3.json",
+          "PostCommand": "clear_exp",
+          "MotionDuration": 4000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_menu2": [
+        {
+          "Name": "menu_l2d_expression_menu2",
+          "Text": "表情",
+          "Choices": [
+            {
+              "Text": "随机表情",
+              "NextMtn": "l2d_expression_random"
+            },
+            {
+              "Text": "表情列表",
+              "NextMtn": "l2d_expression_list_p1"
+            },
+            {
+              "Text": "清除表情",
+              "NextMtn": "l2d_expression_clear#3"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_menu#4"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_extra#2": [
+        {
+          "Name": "adv_voice_millsage_004_1_12_144_ad3af088",
+          "Sound": "assets/voices/1601db35530cdeea5df810dec466ed14.wav",
+          "Text": "你这不是能弹好嘛！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1792,
+          "MotionDuration": 1842,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "spot_04_01_02_natsume_02_tap_5e9cf9b4",
+          "Sound": "assets/voices/05948abd8b80daac594cf09fefb12d33.wav",
+          "Text": "你在干什么啊……！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1429,
+          "MotionDuration": 1479,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "spot_04_02_02_natsume_01_tap_b1ec10bc",
+          "Sound": "assets/voices/07badb3c518f25d33935951fdbd87423.wav",
+          "Text": "……再来一次！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 2155,
+          "MotionDuration": 2205,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "spot_04_02_03_natsume_01_after_45973bbf",
+          "Sound": "assets/voices/0874b42b7ecb1131956cf3e2e3cc86b3.wav",
+          "Text": "这种程度很正常吧",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1771,
+          "MotionDuration": 1821,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_anotherstory_10449_001_65437bf8",
+          "Sound": "assets/voices/36005da7bd13569cd8bfd3c931206680.wav",
+          "Text": "你很喜欢这里吧",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1771,
+          "MotionDuration": 1821,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "spot_04_02_02_natsume_01_after_8294ff6a",
+          "Sound": "assets/voices/73161dfa7cf6ed530bbf8d71b4caa318.wav",
+          "Text": "——我还没输！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 2005,
+          "MotionDuration": 2055,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_14_107_0c6060e0",
+          "Sound": "assets/voices/3f8940e229bbf08d5016dafa942178f1.wav",
+          "Text": "倒是值得一试",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1877,
+          "MotionDuration": 1927,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_08_121_e7449294",
+          "Sound": "assets/voices/77d563889224176899272b4470eb97cc.wav",
+          "Text": "喂，赶紧开始了！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 1963,
+          "MotionDuration": 2013,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "Result_Natsume_Talk_Common_01_1dc65c6b",
+          "Sound": "assets/voices/46a31c434a24cb18900e536a2a0563f9.wav",
+          "Text": "演出时的照片，不知道有没有人发出来呢",
+          "Command": "lip_sync enforce",
+          "TextDuration": 3029,
+          "MotionDuration": 3079,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_19_210_72469cf1",
+          "Sound": "assets/voices/648759e237064c230cb6777b40604398.wav",
+          "Text": "能站上乐队的圣地，简直太Cool了！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 3776,
+          "MotionDuration": 3826,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_linkstory_natsume_nagi_10562_023_b63a2f90",
+          "Sound": "assets/voices/122cf473bba5fb6581a09da5f2da9b8e.wav",
+          "Text": "哼。把打工的钱都砸在设备上，这才叫乐队人",
+          "Command": "lip_sync enforce",
+          "TextDuration": 4075,
+          "MotionDuration": 4125,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "Result_Natsume_Talk_CP_Mahoro_Call_01_3e0182c1",
+          "Sound": "assets/voices/40422c6a9210a6893fc214e1a34ef2d6.wav",
+          "Text": "对我来说，演出……就像呼吸一般……！",
+          "Command": "lip_sync enforce",
+          "TextDuration": 4928,
+          "MotionDuration": 4978,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_14_089_b296fef1",
+          "Sound": "assets/voices/93706126d8e0bff93de7a92ccea47f51.wav",
+          "Text": "……你会唱歌怎么不早说啊",
+          "Command": "lip_sync enforce",
+          "TextDuration": 3712,
+          "MotionDuration": 3762,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_19_236_4d08c061",
+          "Sound": "assets/voices/daeff27a31378ba6a27329bcbd95bbd2.wav",
+          "Text": "先从演出抓起。场子踩不够，一切免谈",
+          "Command": "lip_sync enforce",
+          "TextDuration": 3819,
+          "MotionDuration": 3869,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "Result_Natsume_Talk_CP_Nagi_Res_03_b7678a84",
+          "Sound": "assets/voices/1abdb785452d013fc3094c0b927dcc76.wav",
+          "Text": "说什么呢。这可是演出，\n照着平时那样弹才叫浪费吧",
+          "Command": "lip_sync enforce",
+          "TextDuration": 4971,
+          "MotionDuration": 5021,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "adv_voice_millsage_004_1_14_116_464f575f",
+          "Sound": "assets/voices/f30e48dee3c78a94b7d724dff0c7a442.wav",
+          "Text": "既然定了，那就马上开练。\n还得把每首歌的唱段分一分呢",
+          "Command": "lip_sync enforce",
+          "TextDuration": 4651,
+          "MotionDuration": 4701,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_00": [
+        {
+          "Name": "l2d_voice_list_pick_00_play",
+          "Sound": "assets/voices/36005da7bd13569cd8bfd3c931206680.wav",
+          "Text": "你很喜欢这里吧",
+          "Command": "stop_mtn 1; set_exp assets/expressions/a44e5eaee0ad2af45bb78bb54b32e126.exp3.json; lip_sync enforce",
+          "PostCommand": "clear_exp",
+          "TextDuration": 1771,
+          "MotionDuration": 1821,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_01": [
+        {
+          "Name": "l2d_voice_list_pick_01_play",
+          "Sound": "assets/voices/1601db35530cdeea5df810dec466ed14.wav",
+          "Text": "你这不是能弹好嘛！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1792,
+          "MotionDuration": 1842,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_02": [
+        {
+          "Name": "l2d_voice_list_pick_02_play",
+          "Sound": "assets/voices/0874b42b7ecb1131956cf3e2e3cc86b3.wav",
+          "Text": "这种程度很正常吧",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1771,
+          "MotionDuration": 1821,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_03": [
+        {
+          "Name": "l2d_voice_list_pick_03_play",
+          "Sound": "assets/voices/127d431d7c5e77529c003a2e1ae92a03.wav",
+          "Text": "……你们几个，到底想干什么？",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 2116,
+          "MotionDuration": 2166,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_04": [
+        {
+          "Name": "l2d_voice_list_pick_04_play",
+          "Sound": "assets/voices/f9edb23874cd746035c3e9f71258fc23.wav",
+          "Text": "……你是初中部的吧。几年级？",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 3833,
+          "MotionDuration": 3883,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_05": [
+        {
+          "Name": "l2d_voice_list_pick_05_play",
+          "Sound": "assets/voices/72ba721346352c794ba97aeec871c5cf.wav",
+          "Text": "哼——我可是3年级。懂了吧？",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 3963,
+          "MotionDuration": 4013,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_06": [
+        {
+          "Name": "l2d_voice_list_pick_06_play",
+          "Sound": "assets/voices/c5c701211afccd66fccaaa5278d57cd2.wav",
+          "Text": "此Cool非彼Cool啦！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 2409,
+          "MotionDuration": 2459,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_07": [
+        {
+          "Name": "l2d_voice_list_pick_07_play",
+          "Sound": "assets/voices/59f7bf7aba1b6bf148888670260449a3.wav",
+          "Text": "反正也就是个会弹跳蚤圆舞曲的水平吧",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 2245,
+          "MotionDuration": 2295,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_08": [
+        {
+          "Name": "l2d_voice_list_pick_08_play",
+          "Sound": "assets/voices/87b9ce4e88a9204efac0f31c2108aa03.wav",
+          "Text": "我怎么可能愿意！ 居然把人硬拽到这种地方来！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 3135,
+          "MotionDuration": 3185,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_09": [
+        {
+          "Name": "l2d_voice_list_pick_09_play",
+          "Sound": "assets/voices/2d8931700bbbc950508a45cf60e04038.wav",
+          "Text": "哼。我跟你们这些平庸之辈可不一样， 不爱扎堆",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 6067,
+          "MotionDuration": 6117,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_10": [
+        {
+          "Name": "l2d_voice_list_pick_10_play",
+          "Sound": "assets/voices/f30e48dee3c78a94b7d724dff0c7a442.wav",
+          "Text": "既然定了，那就马上开练。 还得把每首歌的唱段分一分呢",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 4651,
+          "MotionDuration": 4701,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_11": [
+        {
+          "Name": "l2d_voice_list_pick_11_play",
+          "Sound": "assets/voices/9cb42f09747e3679f59e42214fa30f6c.wav",
+          "Text": "你这家伙到底什么毛病！ 我说了多少遍放开我，你都完全不听！ 我要回去了",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 5972,
+          "MotionDuration": 6022,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_12": [
+        {
+          "Name": "l2d_voice_list_pick_12_play",
+          "Sound": "assets/voices/5a1f1f94d921793cbef724a1e3a45698.wav",
+          "Text": "……伊泽枣",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1399,
+          "MotionDuration": 1449,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_13": [
+        {
+          "Name": "l2d_voice_list_pick_13_play",
+          "Sound": "assets/voices/73161dfa7cf6ed530bbf8d71b4caa318.wav",
+          "Text": "——我还没输！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 2005,
+          "MotionDuration": 2055,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_14": [
+        {
+          "Name": "l2d_voice_list_pick_14_play",
+          "Sound": "assets/voices/07badb3c518f25d33935951fdbd87423.wav",
+          "Text": "……再来一次！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 2155,
+          "MotionDuration": 2205,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_15": [
+        {
+          "Name": "l2d_voice_list_pick_15_play",
+          "Sound": "assets/voices/77d563889224176899272b4470eb97cc.wav",
+          "Text": "喂，赶紧开始了！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1963,
+          "MotionDuration": 2013,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_16": [
+        {
+          "Name": "l2d_voice_list_pick_16_play",
+          "Sound": "assets/voices/3f8940e229bbf08d5016dafa942178f1.wav",
+          "Text": "倒是值得一试",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1877,
+          "MotionDuration": 1927,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_pick_17": [
+        {
+          "Name": "l2d_voice_list_pick_17_play",
+          "Sound": "assets/voices/05948abd8b80daac594cf09fefb12d33.wav",
+          "Text": "你在干什么啊……！",
+          "Command": "stop_mtn 1; lip_sync enforce",
+          "TextDuration": 1429,
+          "MotionDuration": 1479,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_p1": [
+        {
+          "Name": "menu_l2d_voice_list_p1",
+          "Text": "语音列表 1/4",
+          "Choices": [
+            {
+              "Text": "你很喜欢这里吧",
+              "NextMtn": "l2d_voice_list_pick_00"
+            },
+            {
+              "Text": "你这不是能弹好嘛！",
+              "NextMtn": "l2d_voice_list_pick_01"
+            },
+            {
+              "Text": "这种程度很正常吧",
+              "NextMtn": "l2d_voice_list_pick_02"
+            },
+            {
+              "Text": "……你们几个，到底想干什",
+              "NextMtn": "l2d_voice_list_pick_03"
+            },
+            {
+              "Text": "……你是初中部的吧。几年",
+              "NextMtn": "l2d_voice_list_pick_04"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_voice_list_p2"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_voice_menu"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_p2": [
+        {
+          "Name": "menu_l2d_voice_list_p2",
+          "Text": "语音列表 2/4",
+          "Choices": [
+            {
+              "Text": "哼——我可是3年级。懂了",
+              "NextMtn": "l2d_voice_list_pick_05"
+            },
+            {
+              "Text": "此Cool非彼Cool啦",
+              "NextMtn": "l2d_voice_list_pick_06"
+            },
+            {
+              "Text": "反正也就是个会弹跳蚤圆舞",
+              "NextMtn": "l2d_voice_list_pick_07"
+            },
+            {
+              "Text": "我怎么可能愿意！ 居然把",
+              "NextMtn": "l2d_voice_list_pick_08"
+            },
+            {
+              "Text": "哼。我跟你们这些平庸之辈",
+              "NextMtn": "l2d_voice_list_pick_09"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_voice_list_p1"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_voice_list_p3"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_voice_menu"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_p3": [
+        {
+          "Name": "menu_l2d_voice_list_p3",
+          "Text": "语音列表 3/4",
+          "Choices": [
+            {
+              "Text": "既然定了，那就马上开练。",
+              "NextMtn": "l2d_voice_list_pick_10"
+            },
+            {
+              "Text": "你这家伙到底什么毛病！ ",
+              "NextMtn": "l2d_voice_list_pick_11"
+            },
+            {
+              "Text": "……伊泽枣",
+              "NextMtn": "l2d_voice_list_pick_12"
+            },
+            {
+              "Text": "——我还没输！",
+              "NextMtn": "l2d_voice_list_pick_13"
+            },
+            {
+              "Text": "……再来一次！",
+              "NextMtn": "l2d_voice_list_pick_14"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_voice_list_p2"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "l2d_voice_list_p4"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_voice_menu"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_voice_list_p4": [
+        {
+          "Name": "menu_l2d_voice_list_p4",
+          "Text": "语音列表 4/4",
+          "Choices": [
+            {
+              "Text": "喂，赶紧开始了！",
+              "NextMtn": "l2d_voice_list_pick_15"
+            },
+            {
+              "Text": "倒是值得一试",
+              "NextMtn": "l2d_voice_list_pick_16"
+            },
+            {
+              "Text": "你在干什么啊……！",
+              "NextMtn": "l2d_voice_list_pick_17"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "l2d_voice_list_p3"
+            },
+            {
+              "Text": "返回",
+              "NextMtn": "l2d_voice_menu"
+            }
+          ],
+          "TextDuration": 8000,
+          "Priority": 2,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "l2d_menu_state",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "l2d_expression_clear#3": [
+        {
+          "Name": "l2d_clear_expression",
+          "Command": "clear_exp",
+          "MotionDuration": 200,
+          "Priority": 2,
+          "Interruptable": true
+        }
+      ]
+    },
+    "Expressions": [
+      {
+        "Name": "exp_angry01",
+        "File": "assets/expressions/559614d996fd91174a68776459d61771.exp3.json"
+      },
+      {
+        "Name": "exp_angry02",
+        "File": "assets/expressions/3975f2f4e555fc4574a027c57e70d5d7.exp3.json"
+      },
+      {
+        "Name": "exp_angry03",
+        "File": "assets/expressions/bf07a33ab930413730a2c1e1990f055b.exp3.json"
+      },
+      {
+        "Name": "exp_angry04",
+        "File": "assets/expressions/0bbe074273383bfe12b349d75803a4bb.exp3.json"
+      },
+      {
+        "Name": "exp_angry05",
+        "File": "assets/expressions/460b691c8541f2f38d4f2ceb647c2185.exp3.json"
+      },
+      {
+        "Name": "exp_angry06",
+        "File": "assets/expressions/0acda87529e2d813bc62a4ab3f69ed90.exp3.json"
+      },
+      {
+        "Name": "exp_bsmile01",
+        "File": "assets/expressions/b4ef59abbcb899212899e44e7b79039e.exp3.json"
+      },
+      {
+        "Name": "exp_bsmile02",
+        "File": "assets/expressions/8ac24c9f1f9278a7bdfb88dab7fba355.exp3.json"
+      },
+      {
+        "Name": "exp_cry01",
+        "File": "assets/expressions/687c1e2f33748984ed32bfb9904508f5.exp3.json"
+      },
+      {
+        "Name": "exp_cry02",
+        "File": "assets/expressions/745dc415e788b5bfe217a15012a58e95.exp3.json"
+      },
+      {
+        "Name": "exp_envy01",
+        "File": "assets/expressions/c40883191607596970b44d6db17a1cb4.exp3.json"
+      },
+      {
+        "Name": "exp_heart01",
+        "File": "assets/expressions/9c71b709fd3d9f58c21ad85e5c2448a6.exp3.json"
+      },
+      {
+        "Name": "exp_idle01",
+        "File": "assets/expressions/8c11001b3eb9aa0fa31f5b93abec7605.exp3.json"
+      },
+      {
+        "Name": "exp_idle02",
+        "File": "assets/expressions/25477e774674b2a9f403106c7a79913c.exp3.json"
+      },
+      {
+        "Name": "exp_idle03",
+        "File": "assets/expressions/61e21f3165d18e1cad1c44d33a93adcf.exp3.json"
+      },
+      {
+        "Name": "exp_kime01",
+        "File": "assets/expressions/4160e71c3c426d88b7e4bb834be6164a.exp3.json"
+      },
+      {
+        "Name": "exp_kime02",
+        "File": "assets/expressions/24955d97658dbf0129f8b4fb88b6be43.exp3.json"
+      },
+      {
+        "Name": "exp_kirakira01",
+        "File": "assets/expressions/d3cffdf81d0ddfe0af426915fd587a35.exp3.json"
+      },
+      {
+        "Name": "exp_pale01",
+        "File": "assets/expressions/32f22dd58da948832c828dc0c66dfde8.exp3.json"
+      },
+      {
+        "Name": "exp_panic01",
+        "File": "assets/expressions/67ee2b2b291b4c847776063c367d1cad.exp3.json"
+      },
+      {
+        "Name": "exp_question01",
+        "File": "assets/expressions/4ae9013212ef7540e440b27c46e41d76.exp3.json"
+      },
+      {
+        "Name": "exp_sad01",
+        "File": "assets/expressions/4ca261c96c882e6c041de30cbb1655fb.exp3.json"
+      },
+      {
+        "Name": "exp_sad02",
+        "File": "assets/expressions/424260ac39315aaa9e955973c32853cf.exp3.json"
+      },
+      {
+        "Name": "exp_sad03",
+        "File": "assets/expressions/f52dc07651f1ee3e0b50d991ab758315.exp3.json"
+      },
+      {
+        "Name": "exp_serious01",
+        "File": "assets/expressions/6ecacf5c6aa952eb0e63696970042d68.exp3.json"
+      },
+      {
+        "Name": "exp_serious02",
+        "File": "assets/expressions/6735499be535930b518a50798bdc572e.exp3.json"
+      },
+      {
+        "Name": "exp_shy01",
+        "File": "assets/expressions/598185d508075a606cac718ce7af85cd.exp3.json"
+      },
+      {
+        "Name": "exp_shy02",
+        "File": "assets/expressions/e8efe6df09289d6dfa63a0154550f507.exp3.json"
+      },
+      {
+        "Name": "exp_smile01",
+        "File": "assets/expressions/b3ab6bc41380f02d4a066a1f95a95099.exp3.json"
+      },
+      {
+        "Name": "exp_smile02",
+        "File": "assets/expressions/ca3b569e21d4144db04ff4d6c3863d47.exp3.json"
+      },
+      {
+        "Name": "exp_smile03",
+        "File": "assets/expressions/831dcdb49b3ef8ec58ad3de738d8f589.exp3.json"
+      },
+      {
+        "Name": "exp_spin01",
+        "File": "assets/expressions/2de0df2f0aac42d1984eb84ee04449e7.exp3.json"
+      },
+      {
+        "Name": "exp_surprised01",
+        "File": "assets/expressions/2f49c906ae90437b548f66b1539e8684.exp3.json"
+      },
+      {
+        "Name": "exp_surprised02",
+        "File": "assets/expressions/b410fcb234d129da5ba4bebb78661717.exp3.json"
+      },
+      {
+        "Name": "exp_surprised03",
+        "File": "assets/expressions/d6b13716b0dcd8dba3ab0c490fee223d.exp3.json"
+      },
+      {
+        "Name": "exp_thinking01",
+        "File": "assets/expressions/83bc17576c62fe71b8f976c7e31f6f13.exp3.json"
+      },
+      {
+        "Name": "exp_smile01.exp3",
+        "File": "assets/expressions/a44e5eaee0ad2af45bb78bb54b32e126.exp3.json"
+      },
+      {
+        "Name": "exp_angry01.exp3",
+        "File": "assets/expressions/268375e3b09fe8d8a42fee8659cb12ba.exp3.json"
+      },
+      {
+        "Name": "exp_angry02.exp3",
+        "File": "assets/expressions/5f41c43c02c31da48a90cbb92c453715.exp3.json"
+      },
+      {
+        "Name": "exp_angry03.exp3",
+        "File": "assets/expressions/df7eb59d7a1d5edd07d3c0569e15b75b.exp3.json"
+      },
+      {
+        "Name": "exp_angry04.exp3",
+        "File": "assets/expressions/378076b815430e3b81e103598785ec76.exp3.json"
+      },
+      {
+        "Name": "exp_angry05.exp3",
+        "File": "assets/expressions/ba35fd850e3365d935bd4abd0a7984a7.exp3.json"
+      },
+      {
+        "Name": "exp_angry06.exp3",
+        "File": "assets/expressions/0b071648951af25c0d6729fe83575e79.exp3.json"
+      },
+      {
+        "Name": "exp_bsmile01.exp3",
+        "File": "assets/expressions/42914eca4ba848ad6b5c60d6d5fc3853.exp3.json"
+      },
+      {
+        "Name": "exp_bsmile02.exp3",
+        "File": "assets/expressions/67b1210816c80c6bad3cca23e0312978.exp3.json"
+      },
+      {
+        "Name": "exp_cry01.exp3",
+        "File": "assets/expressions/230f432ad8178be6e915eeb126879851.exp3.json"
+      },
+      {
+        "Name": "exp_cry02.exp3",
+        "File": "assets/expressions/7b30bb3a0da516a4ca0bdfff8678616b.exp3.json"
+      },
+      {
+        "Name": "exp_envy01.exp3",
+        "File": "assets/expressions/0d4c4b8a3c124cbb422ddac45fb2962f.exp3.json"
+      },
+      {
+        "Name": "exp_heart01.exp3",
+        "File": "assets/expressions/523f6988cfc176f8985cb91c8ab3add7.exp3.json"
+      },
+      {
+        "Name": "exp_idle01.exp3",
+        "File": "assets/expressions/e0d131f988f038fe387f2021afe0c31c.exp3.json"
+      },
+      {
+        "Name": "exp_idle02.exp3",
+        "File": "assets/expressions/c1d133a661b7174e36916c6b3629d6be.exp3.json"
+      },
+      {
+        "Name": "exp_idle03.exp3",
+        "File": "assets/expressions/74a7a270055b183678d0b42c3a8c8daa.exp3.json"
+      },
+      {
+        "Name": "exp_kime01.exp3",
+        "File": "assets/expressions/4a3f5877dcb08de3c6d5e69df53b527d.exp3.json"
+      },
+      {
+        "Name": "exp_kime02.exp3",
+        "File": "assets/expressions/f0f9e49b96dbe90bd10af9176ebeb5cc.exp3.json"
+      },
+      {
+        "Name": "exp_kirakira01.exp3",
+        "File": "assets/expressions/d6957972ad6197b55717dbda60b422d1.exp3.json"
+      },
+      {
+        "Name": "exp_pale01.exp3",
+        "File": "assets/expressions/49836e25c26c5869be1acbf482cefa6a.exp3.json"
+      },
+      {
+        "Name": "exp_panic01.exp3",
+        "File": "assets/expressions/598fbb6f069858e18a67c723a0f427ef.exp3.json"
+      },
+      {
+        "Name": "exp_question01.exp3",
+        "File": "assets/expressions/e86cea011afff2c817f0eccfaf8a157e.exp3.json"
+      },
+      {
+        "Name": "exp_sad01.exp3",
+        "File": "assets/expressions/cbed0b6ef02099a30f120b055781df0e.exp3.json"
+      },
+      {
+        "Name": "exp_sad02.exp3",
+        "File": "assets/expressions/71b0fe8809c4dd28caed796f390ec909.exp3.json"
+      },
+      {
+        "Name": "exp_sad03.exp3",
+        "File": "assets/expressions/8eaf3599d55da2e10d3fbe4469be4be4.exp3.json"
+      },
+      {
+        "Name": "exp_serious01.exp3",
+        "File": "assets/expressions/9eb86b3d798e97d5d97cd0de19516b0a.exp3.json"
+      },
+      {
+        "Name": "exp_serious02.exp3",
+        "File": "assets/expressions/df889f70830e6a6bc6fe38857e5aa26e.exp3.json"
+      },
+      {
+        "Name": "exp_shy01.exp3",
+        "File": "assets/expressions/93491866d4beef0b75c14129919715a1.exp3.json"
+      },
+      {
+        "Name": "exp_shy02.exp3",
+        "File": "assets/expressions/6cbfe44850aafe0cfa68898d2dcd823d.exp3.json"
+      },
+      {
+        "Name": "exp_smile02.exp3",
+        "File": "assets/expressions/f196cc6f69c63f269090f7d81debcc2e.exp3.json"
+      },
+      {
+        "Name": "exp_smile03.exp3",
+        "File": "assets/expressions/4ef9081bc4804aa4a9b90fb30a0df751.exp3.json"
+      },
+      {
+        "Name": "exp_spin01.exp3",
+        "File": "assets/expressions/b33fbaa82c91350386511656e9a4af8d.exp3.json"
+      },
+      {
+        "Name": "exp_surprised01.exp3",
+        "File": "assets/expressions/3f74a2500f6e50a568635417e3a57c17.exp3.json"
+      },
+      {
+        "Name": "exp_surprised02.exp3",
+        "File": "assets/expressions/8b519aff96911b857ac8548822376f06.exp3.json"
+      },
+      {
+        "Name": "exp_surprised03.exp3",
+        "File": "assets/expressions/34f45b07e5a2551e4fc91eee13e7af15.exp3.json"
+      },
+      {
+        "Name": "exp_thinking01.exp3",
+        "File": "assets/expressions/1f63617ed00599bf9fb44b61b94a26ec.exp3.json"
+      }
+    ]
+  },
+  "Controllers": {
+    "ParamHit": {},
+    "ParamLoop": {},
+    "KeyTrigger": {
+      "Items": [
+        {
+          "Input": 1,
+          "DownMtn": "l2d_menu_down#5",
+          "UpMtn": "l2d_menu_up#5"
+        }
+      ],
+      "Enabled": true
+    },
+    "ParamTrigger": {},
+    "AreaTrigger": {},
+    "HandTrigger": {},
+    "EyeBlink": {
+      "MinInterval": 500,
+      "MaxInterval": 6000,
+      "Items": [
+        {
+          "Id": "ParamEyeLOpen",
+          "Min": 0.0,
+          "Max": 1.0,
+          "BlendMode": 2,
+          "Input": 0
+        },
+        {
+          "Id": "ParamEyeROpen",
+          "Min": 0.0,
+          "Max": 1.0,
+          "BlendMode": 2,
+          "Input": 0
+        }
+      ],
+      "Enabled": true
+    },
+    "LipSync": {
+      "Gain": 10.0,
+      "SmoothTime": 0.1,
+      "Items": [
+        {
+          "Id": "ParamMouthOpenY",
+          "Min": 0.0,
+          "Max": 1.0,
+          "Input": 0
+        }
+      ],
+      "Enabled": true
+    },
+    "MouseTracking": {
+      "SmoothTime": 0.15,
+      "Enabled": true
+    },
+    "AutoBreath": {
+      "Enabled": true
+    },
+    "ExtraMotion": {},
+    "Accelerometer": {},
+    "Microphone": {},
+    "Transform": {},
+    "FaceTracking": {},
+    "HandTracking": {},
+    "ParamValue": {},
+    "PartOpacity": {},
+    "ArtmeshOpacity": {},
+    "ArtmeshColor": {},
+    "ArtmeshCulling": {
+      "DefaultMode": 0
+    },
+    "IntimacySystem": {},
+    "Battery": {}
+  },
+  "HitAreas": [
+    {
+      "Name": "换装",
+      "Id": "ArtMesh314",
+      "Order": 100,
+      "Motion": "l2d_tap_switch"
+    },
+    {
+      "Name": "语音",
+      "Id": "ArtMesh311",
+      "Order": 10,
+      "Motion": "l2d_voice_short#2"
+    },
+    {
+      "Name": "动作（正面）",
+      "Id": "ArtMesh162",
+      "Order": 8,
+      "Motion": "l2d_tap_body"
+    },
+    {
+      "Name": "动作（左手）",
+      "Id": "ArtMesh3",
+      "Order": 5,
+      "Motion": "l2d_tap_left"
+    },
+    {
+      "Name": "动作（左手）2",
+      "Id": "ArtMesh11",
+      "Order": 5,
+      "Motion": "l2d_tap_left"
+    },
+    {
+      "Name": "动作（左手）3",
+      "Id": "ArtMesh385",
+      "Order": 5,
+      "Motion": "l2d_tap_left"
+    },
+    {
+      "Name": "动作（左手）4",
+      "Id": "ArtMesh319",
+      "Order": 5,
+      "Motion": "l2d_tap_left"
+    },
+    {
+      "Name": "动作（右手）",
+      "Id": "ArtMesh7",
+      "Order": 5,
+      "Motion": "l2d_tap_right"
+    },
+    {
+      "Name": "动作（右手）2",
+      "Id": "ArtMesh358",
+      "Order": 5,
+      "Motion": "l2d_tap_right"
+    },
+    {
+      "Name": "动作（右手）3",
+      "Id": "ArtMesh17",
+      "Order": 5,
+      "Motion": "l2d_tap_right"
+    },
+    {
+      "Name": "动作（右手）4",
+      "Id": "ArtMesh",
+      "Order": 5,
+      "Motion": "l2d_tap_right"
+    },
+    {
+      "Name": "动作（右手）5",
+      "Id": "ArtMesh379",
+      "Order": 5,
+      "Motion": "l2d_tap_right"
+    },
+    {
+      "Name": "动作（右手）6",
+      "Id": "ArtMesh231",
+      "Order": 5,
+      "Motion": "l2d_tap_right"
+    },
+    {
+      "Name": "菜单",
+      "Id": "ArtMesh221",
+      "Order": 3,
+      "Motion": "l2d_menu#4"
+    },
+    {
+      "Name": "菜单2",
+      "Id": "ArtMesh269",
+      "Order": 3,
+      "Motion": "l2d_menu#4"
+    }
+  ],
+  "Options": {
+    "Id": "ournotes_l2d_carrier_natsume_costume_007",
+    "Name": "伊泽枣 · 演出服01（舞台·高精度）",
+    "TexFixed": true,
+    "TexType": 0
+  }
+}
