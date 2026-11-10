@@ -18,19 +18,23 @@
     "Motions": {
       "carrier_switch_000": [
         {
-          "Name": "switch",
-          "Command": "remove_submodel assets/hitareas/001.model.json; hide_text; remove_submodel 001_costume.model3.json;add_submodel 001_costume.model3.json 1; add_submodel assets/hitareas/001.model.json 2",
-          "MotionDuration": 1,
+          "Name": "run",
           "Priority": 9,
           "Interruptable": true,
+          "MotionDuration": 1,
           "VarFloats": [
             {
               "Name": "selected_costume",
-              "Type": 0,
-              "Code": "not_equal 1"
+              "Type": 1,
+              "Code": "lower 0"
             },
             {
-              "Name": "selected_costume",
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "costume_loading",
               "Type": 2,
               "Code": "assign 1"
             }
@@ -39,36 +43,41 @@
       ],
       "carrier_random": [
         {
-          "Name": "random_000",
-          "Command": "remove_submodel assets/hitareas/001.model.json; hide_text; remove_submodel 001_costume.model3.json;add_submodel 001_costume.model3.json 1; add_submodel assets/hitareas/001.model.json 2",
-          "MotionDuration": 1,
+          "Name": "random_001",
           "Priority": 9,
           "Interruptable": true,
+          "MotionDuration": 1,
           "VarFloats": [
             {
               "Name": "selected_costume",
-              "Type": 0,
+              "Type": 1,
               "Code": "not_equal 1"
             },
             {
-              "Name": "selected_costume",
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "quiet_costume_switch",
               "Type": 2,
               "Code": "assign 1"
             }
-          ]
+          ],
+          "NextMtn": "carrier_switch_000"
         }
       ],
       "restore_costume": [
         {
           "Name": "restore_001",
-          "Command": "remove_submodel assets/hitareas/001.model.json; add_submodel 001_costume.model3.json 1; add_submodel assets/hitareas/001.model.json 2",
+          "Command": "add_submodel 001_costume.model3.json 1; add_submodel assets/hitareas/001.model.json 2",
           "MotionDuration": 1,
           "Priority": 9,
           "Interruptable": true,
           "VarFloats": [
             {
               "Name": "selected_costume",
-              "Type": 0,
+              "Type": 1,
               "Code": "equal 1"
             }
           ]
@@ -85,9 +94,24 @@
               "Name": "selected_costume",
               "Type": 2,
               "Code": "init 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 2,
+              "Code": "init 1"
+            },
+            {
+              "Name": "quiet_costume_switch",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 2,
+              "Code": "assign 1"
             }
           ],
-          "NextMtn": "restore_costume"
+          "NextMtn": "carrier_restore_safe"
         }
       ],
       "carrier_wardrobe": [
@@ -100,7 +124,7 @@
           "VarFloats": [
             {
               "Name": "selected_costume",
-              "Type": 0,
+              "Type": 1,
               "Code": "equal 1"
             }
           ]
@@ -116,7 +140,7 @@
           "VarFloats": [
             {
               "Name": "selected_costume",
-              "Type": 0,
+              "Type": 1,
               "Code": "equal 1"
             }
           ]
@@ -132,8 +156,308 @@
           "VarFloats": [
             {
               "Name": "selected_costume",
-              "Type": 0,
+              "Type": 1,
               "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "carrier_captions_on": [
+        {
+          "Name": "set_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_captions_on_menu#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "carrier_captions_off": [
+        {
+          "Name": "set_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_captions_off_menu#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "carrier_hide_text#5": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "hide_text"
+        }
+      ],
+      "carrier_tap_voice": [
+        {
+          "Name": "voice_1_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "hide_text; start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_prepare_voice_caption#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_1_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "hide_text; start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_prepare_voice_plain#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "carrier_restore_safe": [
+        {
+          "Name": "valid",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "greater_equal 1"
+            },
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "lower_equal 1"
+            }
+          ],
+          "NextMtn": "restore_costume"
+        },
+        {
+          "Name": "low",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "lower 1"
+            },
+            {
+              "Name": "selected_costume",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "restore_costume"
+        },
+        {
+          "Name": "high",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "greater 1"
+            },
+            {
+              "Name": "selected_costume",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "restore_costume"
+        }
+      ],
+      "carrier_replay_voice": [
+        {
+          "Name": "replay_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_play_selected_voice#6"
+        }
+      ],
+      "carrier_manual_wardrobe#5": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "hide_text",
+          "VarFloats": [
+            {
+              "Name": "quiet_costume_switch",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "carrier_finish_costume": [
+        {
+          "Name": "finish_1_1_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_startup_on_menu#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "quiet_costume_switch",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "finish_1_1_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_captions_on#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "quiet_costume_switch",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "finish_1_0_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_startup_off_menu#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "quiet_costume_switch",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "finish_1_0_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_captions_off#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "quiet_costume_switch",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 2,
+              "Code": "assign 0"
             }
           ]
         }
