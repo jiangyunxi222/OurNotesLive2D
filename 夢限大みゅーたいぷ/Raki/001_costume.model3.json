@@ -19,1026 +19,485 @@
       "File": "assets/physics/1eebc14d445a2a9d7d21bb359c0c59c5.physics3.json"
     },
     "Motions": {
-      "mtn_idle01_C": [
-        {
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
-          "Interruptable": true
-        }
-      ],
       "Idle": [
         {
           "Name": "idle",
           "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
+          "Priority": 2,
           "Interruptable": true
         }
       ],
-      "Start": [
+      "ui_motion_body": [
         {
-          "Name": "l2d_reset",
-          "MotionDuration": 150,
-          "Priority": 9,
-          "Interruptable": false,
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ],
-          "PostCommand": "replace_tex 0 assets/textures/edb4850136ac34ae841976f10a7ef02a.png; replace_tex 1 assets/textures/fffe3f644d2148bfcf8a325a1f272402.png",
+          "Name": "motion_000",
           "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "WrapMode": 1,
-          "FadeIn": 0,
-          "FadeOut": 0
-        }
-      ],
-      "body": [
-        {
-          "Name": "mtn_idle01_C",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
+          "Priority": 3,
           "Interruptable": true,
           "NextMtn": "Idle"
         }
       ],
-      "left": [
+      "ui_motion_left": [
         {
-          "Name": "mtn_idle01_C",
+          "Name": "motion_000",
           "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
+          "Priority": 3,
           "Interruptable": true,
           "NextMtn": "Idle"
         }
       ],
-      "right": [
+      "ui_motion_right": [
         {
-          "Name": "mtn_idle01_C",
+          "Name": "motion_000",
           "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
+          "Priority": 3,
           "Interruptable": true,
           "NextMtn": "Idle"
+        }
+      ],
+      "ui_hold#1": [
+        {
+          "Name": "hold_000",
+          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
+          "Priority": 3,
+          "Interruptable": true
+        }
+      ],
+      "ui_auto": [
+        {
+          "Name": "auto_000",
+          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "ui_auto_wait"
+        }
+      ],
+      "ui_auto_wait": [
+        {
+          "Name": "wait",
+          "MotionDuration": 12000,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "ui_auto",
+          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
+          "FileLoop": true
         }
       ],
       "Tap": [
         {
-          "Name": "menu",
-          "Text": "Raki",
-          "Choices": [
-            {
-              "Text": "动作",
-              "NextMtn": "l2d_action_menu"
-            },
-            {
-              "Text": "选择衣装／源变体",
-              "NextMtn": "l2d_menu_sel_002#5"
-            }
-          ],
-          "Command": "stop_mtn 1",
-          "TextDuration": 8000,
-          "Priority": 2,
+          "Name": "run",
+          "Priority": 9,
           "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "lower 2"
-            },
-            {
-              "Name": "l2d_mode",
-              "Type": 2,
-              "Code": "assign 0"
-            },
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ]
-        },
+          "MotionDuration": 1,
+          "Command": "start_mtn ui_main#4",
+          "NextMtn": "Idle"
+        }
+      ],
+      "Start": [
         {
-          "Name": "l2d_release",
-          "Text": "保持中",
+          "Name": "initialize_visible_costume",
+          "MotionDuration": 150,
+          "Priority": 9,
+          "Interruptable": false,
+          "Command": "stop_all_sounds; parameters unlock; parts unlock; animations unlock; clear_exp",
+          "PostCommand": "replace_tex 0 assets/textures/edb4850136ac34ae841976f10a7ef02a.png; replace_tex 1 assets/textures/fffe3f644d2148bfcf8a325a1f272402.png; start_mtn ui_main#4",
+          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
+          "FileLoop": true,
+          "NextMtn": "Idle"
+        }
+      ],
+      "ui_close#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "hide_text"
+        }
+      ],
+      "ui_reset#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; stop_mtn 2; stop_mtn 3; stop_all_sounds; clear_exp; parts unlock; lip_sync enable; start_mtn Idle",
+          "NextMtn": "ui_main#4"
+        }
+      ],
+      "ui_stop_voice#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; lip_sync enable",
+          "NextMtn": "ui_control#4"
+        }
+      ],
+      "ui_idle#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn Idle",
+          "NextMtn": "ui_actions#4"
+        }
+      ],
+      "ui_select_0001#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_body:motion_000",
+          "NextMtn": "ui_list_body_001#4"
+        }
+      ],
+      "ui_list_body_001#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正面动作  1/1",
+          "TextDuration": 60000,
           "Choices": [
             {
-              "Text": "继续轮换",
-              "NextMtn": "l2d_menu_sel_003#5"
+              "Text": "平静01",
+              "NextMtn": "ui_select_0001#4"
             },
             {
-              "Text": "回到待机",
-              "NextMtn": "l2d_menu_sel_004#5"
-            },
-            {
-              "Text": "完整菜单（解除保持）",
-              "NextMtn": "l2d_menu_sel_005#5"
-            }
-          ],
-          "TextDuration": 8000,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "equal 2"
-            },
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
             }
           ]
         }
       ],
-      "l2d_menu#4": [
+      "ui_quick_body#4": [
         {
-          "Name": "menu",
-          "Text": "Raki",
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_body",
+          "NextMtn": "ui_actions#4"
+        }
+      ],
+      "ui_select_0002#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_left:motion_000",
+          "NextMtn": "ui_list_left_001#4"
+        }
+      ],
+      "ui_list_left_001#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "左侧动作  1/1",
+          "TextDuration": 60000,
           "Choices": [
             {
-              "Text": "动作",
-              "NextMtn": "l2d_action_menu"
+              "Text": "平静01",
+              "NextMtn": "ui_select_0002#4"
             },
             {
-              "Text": "选择衣装／源变体",
-              "NextMtn": "l2d_menu_sel_007#5"
-            }
-          ],
-          "TextDuration": 8000,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "lower 2"
-            },
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ]
-        },
-        {
-          "Name": "l2d_release",
-          "Text": "保持中",
-          "Choices": [
-            {
-              "Text": "继续轮换",
-              "NextMtn": "l2d_menu_sel_008#5"
-            },
-            {
-              "Text": "回到待机",
-              "NextMtn": "l2d_menu_sel_009#5"
-            },
-            {
-              "Text": "完整菜单（解除保持）",
-              "NextMtn": "l2d_menu_sel_010#5"
-            }
-          ],
-          "TextDuration": 8000,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "equal 2"
-            },
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
             }
           ]
         }
       ],
-      "l2d_release_menu#4": [
+      "ui_quick_left#4": [
         {
-          "Name": "l2d_release_menu",
-          "Command": "stop_mtn 1",
-          "MotionDuration": 200,
-          "Priority": 2,
+          "Name": "run",
+          "Priority": 9,
           "Interruptable": true,
-          "NextMtn": "l2d_menu#4",
-          "VarFloats": [
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_left",
+          "NextMtn": "ui_actions#4"
+        }
+      ],
+      "ui_select_0003#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_right:motion_000",
+          "NextMtn": "ui_list_right_001#4"
+        }
+      ],
+      "ui_list_right_001#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "右侧动作  1/1",
+          "TextDuration": 60000,
+          "Choices": [
             {
-              "Name": "l2d_mode",
-              "Type": 2,
-              "Code": "assign 0"
+              "Text": "平静01",
+              "NextMtn": "ui_select_0003#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
             }
           ]
         }
       ],
-      "l2d_motion_menu": [
+      "ui_quick_right#4": [
         {
-          "Name": "l2d_motion_menu_still",
-          "Text": "动作",
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_right",
+          "NextMtn": "ui_actions#4"
+        }
+      ],
+      "ui_hold_action#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_hold#1",
+          "NextMtn": "ui_playback#4"
+        }
+      ],
+      "ui_auto_action#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_auto",
+          "NextMtn": "ui_playback#4"
+        }
+      ],
+      "ui_playback#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "动作保持与轮换",
+          "TextDuration": 60000,
           "Choices": [
-            {
-              "Text": "随机动作",
-              "NextMtn": "l2d_menu_sel_011#5"
-            },
             {
               "Text": "随机动作并保持",
-              "NextMtn": "l2d_menu_sel_012#5"
+              "NextMtn": "ui_hold_action#4"
             },
             {
-              "Text": "开启自动轮换",
-              "NextMtn": "l2d_menu_sel_013#5"
-            }
-          ],
-          "TextDuration": 8000,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "equal 0"
+              "Text": "自动轮换",
+              "NextMtn": "ui_auto_action#4"
             },
             {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
+              "Text": "停止并回到待机",
+              "NextMtn": "ui_idle#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
             }
           ]
-        },
+        }
+      ],
+      "ui_actions#4": [
         {
-          "Name": "l2d_motion_menu_rotating",
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
           "Text": "动作",
+          "TextDuration": 60000,
           "Choices": [
             {
-              "Text": "随机动作",
-              "NextMtn": "l2d_menu_sel_014#5"
+              "Text": "正面动作",
+              "NextMtn": "ui_list_body_001#4"
             },
             {
-              "Text": "随机动作并保持",
-              "NextMtn": "l2d_menu_sel_015#5"
+              "Text": "左侧动作",
+              "NextMtn": "ui_list_left_001#4"
             },
             {
-              "Text": "关闭自动轮换",
-              "NextMtn": "l2d_menu_sel_016#5"
-            }
-          ],
-          "TextDuration": 8000,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "equal 1"
+              "Text": "右侧动作",
+              "NextMtn": "ui_list_right_001#4"
             },
             {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ]
-        }
-      ],
-      "l2d_hold_pose#1": [
-        {
-          "Name": "hold_00_mtn_idle01_C",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2
-        }
-      ],
-      "l2d_hold_motion": [
-        {
-          "Name": "start_hold_00_mtn_idle01_C",
-          "Command": "start_mtn ournotes_l2d_carrier_sub_raki_costume_001 l2d_hold_pose#1:hold_00_mtn_idle01_C",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 2,
-              "Code": "assign 2"
-            }
-          ]
-        }
-      ],
-      "l2d_rotate_on": [
-        {
-          "Name": "l2d_rotate_on",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "WrapMode": 1,
-          "Text": "自动轮换：开",
-          "TextDuration": 1500,
-          "MotionDuration": 1500,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_rotate_step",
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 2,
-              "Code": "assign 1"
+              "Text": "保持与轮换",
+              "NextMtn": "ui_playback#4"
             },
             {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
             }
           ]
         }
       ],
-      "l2d_rotate_off": [
+      "ui_exp_list_001#4": [
         {
-          "Name": "l2d_rotate_off",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "WrapMode": 1,
-          "Text": "自动轮换：关",
-          "Command": "stop_mtn 1; clear_exp",
-          "TextDuration": 1500,
-          "MotionDuration": 1500,
-          "Priority": 2,
+          "Name": "run",
+          "Priority": 9,
           "Interruptable": true,
-          "VarFloats": [
+          "MotionDuration": 60000,
+          "Text": "表情（保持至下次选择）  1/1",
+          "TextDuration": 60000,
+          "Choices": [
             {
-              "Name": "l2d_mode",
-              "Type": 2,
-              "Code": "assign 0"
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ]
+        }
+      ],
+      "ui_exp_clear#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 3; clear_exp",
+          "NextMtn": "ui_expressions#4"
+        }
+      ],
+      "ui_expressions#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "表情",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "表情列表",
+              "NextMtn": "ui_exp_list_001#4"
             },
             {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_release_rotate": [
-        {
-          "Name": "l2d_release_rotate",
-          "Command": "stop_mtn 1",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_rotate_step",
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ]
-        }
-      ],
-      "l2d_release_idle": [
-        {
-          "Name": "l2d_release_idle",
-          "Command": "stop_mtn 1; clear_exp",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "Idle",
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_rotate_step": [
-        {
-          "Name": "rotate_combo_body_mtn_idle01_C_motion3",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_rotate_wait",
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ]
-        }
-      ],
-      "l2d_rotate_wait": [
-        {
-          "Name": "wait_20000",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "WrapMode": 1,
-          "MotionDuration": 20000,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_rotate_step",
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ]
-        },
-        {
-          "Name": "wait_25000",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "WrapMode": 1,
-          "MotionDuration": 25000,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_rotate_step",
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ]
-        },
-        {
-          "Name": "wait_30000",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "WrapMode": 1,
-          "MotionDuration": 30000,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_rotate_step",
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ]
-        },
-        {
-          "Name": "wait_35000",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "WrapMode": 1,
-          "MotionDuration": 35000,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_rotate_step",
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ]
-        },
-        {
-          "Name": "wait_40000",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "WrapMode": 1,
-          "MotionDuration": 40000,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_rotate_step",
-          "VarFloats": [
-            {
-              "Name": "l2d_mode",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_001#5": [
-        {
-          "Name": "menu_select_001",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_motion_menu",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_002#5": [
-        {
-          "Name": "menu_select_002",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_carrier_wardrobe",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_003#5": [
-        {
-          "Name": "menu_select_003",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_release_rotate",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_004#5": [
-        {
-          "Name": "menu_select_004",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_release_idle",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_005#5": [
-        {
-          "Name": "menu_select_005",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_release_menu#4",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_006#5": [
-        {
-          "Name": "menu_select_006",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_motion_menu",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_007#5": [
-        {
-          "Name": "menu_select_007",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_carrier_wardrobe",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_008#5": [
-        {
-          "Name": "menu_select_008",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_release_rotate",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_009#5": [
-        {
-          "Name": "menu_select_009",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_release_idle",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_010#5": [
-        {
-          "Name": "menu_select_010",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_release_menu#4",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_011#5": [
-        {
-          "Name": "menu_select_011",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "body",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_012#5": [
-        {
-          "Name": "menu_select_012",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_hold_motion",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_013#5": [
-        {
-          "Name": "menu_select_013",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_rotate_on",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_014#5": [
-        {
-          "Name": "menu_select_014",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "body",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_015#5": [
-        {
-          "Name": "menu_select_015",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_hold_motion",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_016#5": [
-        {
-          "Name": "menu_select_016",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_rotate_off",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_down#5": [
-        {
-          "Name": "menu_down",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 1,
-              "Code": "equal 1"
+              "Text": "清除表情",
+              "NextMtn": "ui_exp_clear#4"
             },
             {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 2"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_up#5": [
-        {
-          "Name": "menu_up",
-          "MotionDuration": 260,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_menu_verify#5",
-          "VarFloats": [
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
             {
-              "Name": "l2d_menu_state",
-              "Type": 1,
-              "Code": "equal 2"
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
             }
           ]
         }
       ],
-      "l2d_menu_verify#5": [
+      "ui_select_0004#4": [
         {
-          "Name": "menu_verify",
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_raki carrier_switch_000",
+          "NextMtn": "ui_wardrobe_001#4"
+        }
+      ],
+      "ui_wardrobe_001#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "换装  1/1",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "001 · 常服（静态）",
+              "NextMtn": "ui_select_0004#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ]
+        }
+      ],
+      "ui_open_wardrobe#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
           "Command": "hide_text",
-          "MotionDuration": 200,
-          "Priority": 2,
+          "NextMtn": "ui_wardrobe_001#4"
+        }
+      ],
+      "ui_control#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
           "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 1,
-              "Code": "equal 2"
-            },
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_carrier_wardrobe": [
-        {
-          "Name": "carrier_wardrobe",
-          "Command": "start_mtn ournotes_l2d_carrier_sub_raki carrier_wardrobe",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true
-        }
-      ],
-      "l2d_tap_switch": [
-        {
-          "Name": "switch_notice",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "WrapMode": 1,
-          "Text": "换装中…",
-          "Command": "start_mtn ournotes_l2d_carrier_sub_raki carrier_random",
-          "TextDuration": 1000,
-          "MotionDuration": 1000,
-          "Priority": 2,
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_tap_body": [
-        {
-          "Name": "combo_body_mtn_idle01_C_motion3",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "Idle"
-        }
-      ],
-      "l2d_tap_left": [
-        {
-          "Name": "combo_left_mtn_idle01_C_motion3",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "Idle"
-        }
-      ],
-      "l2d_tap_right": [
-        {
-          "Name": "combo_right_mtn_idle01_C_motion3",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "Idle"
-        }
-      ],
-      "l2d_action_body_pick_00": [
-        {
-          "Name": "l2d_action_body_pick_00_play",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_hold_motion",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_action_body_list_p1": [
-        {
-          "Name": "menu_l2d_action_body_list_p1",
-          "Text": "动作列表·正面 1/1",
+          "MotionDuration": 60000,
+          "Text": "声音与控制",
+          "TextDuration": 60000,
           "Choices": [
             {
-              "Text": "1. 待机01",
-              "NextMtn": "l2d_action_body_pick_00"
+              "Text": "停止声音",
+              "NextMtn": "ui_stop_voice#4"
             },
             {
-              "Text": "返回",
-              "NextMtn": "l2d_action_menu"
-            }
-          ],
-          "TextDuration": 8000,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
+              "Text": "恢复默认 / 解除保持",
+              "NextMtn": "ui_reset#4"
+            },
             {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
             }
           ]
         }
       ],
-      "l2d_action_left_pick_00": [
+      "ui_main#4": [
         {
-          "Name": "l2d_action_left_pick_00_play",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
+          "Name": "run",
+          "Priority": 9,
           "Interruptable": true,
-          "NextMtn": "l2d_hold_motion",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_action_left_list_p1": [
-        {
-          "Name": "menu_l2d_action_left_list_p1",
-          "Text": "动作列表·左手 1/1",
+          "MotionDuration": 60000,
+          "Text": "主菜单",
+          "TextDuration": 60000,
           "Choices": [
             {
-              "Text": "1. 待机01",
-              "NextMtn": "l2d_action_left_pick_00"
+              "Text": "动作",
+              "NextMtn": "ui_actions#4"
             },
             {
-              "Text": "返回",
-              "NextMtn": "l2d_action_menu"
-            }
-          ],
-          "TextDuration": 8000,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ]
-        }
-      ],
-      "l2d_action_right_pick_00": [
-        {
-          "Name": "l2d_action_right_pick_00_play",
-          "File": "assets/motions/85f51d64297e0efc68f8e03cf7429114.motion3.json",
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_hold_motion",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_action_right_list_p1": [
-        {
-          "Name": "menu_l2d_action_right_list_p1",
-          "Text": "动作列表·右手 1/1",
-          "Choices": [
-            {
-              "Text": "1. 待机01",
-              "NextMtn": "l2d_action_right_pick_00"
+              "Text": "表情",
+              "NextMtn": "ui_expressions#4"
             },
             {
-              "Text": "返回",
-              "NextMtn": "l2d_action_menu"
-            }
-          ],
-          "TextDuration": 8000,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ]
-        }
-      ],
-      "l2d_action_menu": [
-        {
-          "Name": "menu_l2d_action_menu",
-          "Text": "动作",
-          "Choices": [
-            {
-              "Text": "随机正面",
-              "NextMtn": "body"
+              "Text": "换装",
+              "NextMtn": "ui_open_wardrobe#4"
             },
             {
-              "Text": "正面动作列表",
-              "NextMtn": "l2d_action_body_list_p1"
+              "Text": "声音与控制",
+              "NextMtn": "ui_control#4"
             },
             {
-              "Text": "左手动作列表",
-              "NextMtn": "l2d_action_left_list_p1"
-            },
-            {
-              "Text": "右手动作列表",
-              "NextMtn": "l2d_action_right_list_p1"
-            },
-            {
-              "Text": "保持／轮换",
-              "NextMtn": "l2d_motion_menu"
-            },
-            {
-              "Text": "回到待机",
-              "NextMtn": "l2d_release_idle"
-            },
-            {
-              "Text": "返回",
-              "NextMtn": "l2d_menu#4"
-            }
-          ],
-          "TextDuration": 8000,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
             }
           ]
         }
@@ -1049,13 +508,7 @@
     "ParamHit": {},
     "ParamLoop": {},
     "KeyTrigger": {
-      "Items": [
-        {
-          "Input": 1,
-          "DownMtn": "l2d_menu_down#5",
-          "UpMtn": "l2d_menu_up#5"
-        }
-      ],
+      "Items": [],
       "Enabled": true
     },
     "ParamTrigger": {},
@@ -1122,7 +575,7 @@
       "Name": "语音",
       "Id": "ArtMesh27",
       "Order": 10,
-      "Motion": "Tap"
+      "Motion": "ui_main#4"
     }
   ],
   "Options": {

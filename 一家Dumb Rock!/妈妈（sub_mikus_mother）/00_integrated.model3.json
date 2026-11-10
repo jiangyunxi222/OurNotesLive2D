@@ -17,47 +17,14 @@
     ],
     "PhysicsV2": {},
     "Motions": {
-      "Idle": [
-        {
-          "Name": "idle",
-          "File": "assets/motions/a6a1d678cb124e032875d461cbc27150.motion3.json",
-          "Interruptable": true
-        }
-      ],
-      "Start": [
-        {
-          "Name": "initialize_anchor",
-          "MotionDuration": 1,
-          "Priority": 9,
-          "NextMtn": "restore_costume",
-          "VarFloats": [
-            {
-              "Name": "selected_costume",
-              "Type": 2,
-              "Code": "init 1"
-            }
-          ]
-        }
-      ],
       "carrier_switch_000": [
         {
           "Name": "switch",
-          "Text": "换装中…",
-          "Command": "remove_submodel 001_costume.model3.json;add_submodel 001_costume.model3.json 1",
-          "TextDuration": 1000,
-          "MotionDuration": 200,
-          "Priority": 2,
+          "Command": "hide_text; remove_submodel 001_costume.model3.json;add_submodel 001_costume.model3.json 1",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true,
           "VarFloats": [
-            {
-              "Name": "l2d_carrier_active",
-              "Type": 2,
-              "Code": "assign 0"
-            },
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            },
             {
               "Name": "selected_costume",
               "Type": 0,
@@ -71,164 +38,30 @@
           ]
         }
       ],
-      "carrier_wardrobe_0_1": [
+      "carrier_random": [
         {
-          "Name": "choose",
-          "Text": "常服",
-          "Choices": [
-            {
-              "Text": "妈妈（sub_mikus_mother） · 常服（静态）",
-              "NextMtn": "l2d_menu_sel_000#5"
-            },
-            {
-              "Text": "返回分类",
-              "NextMtn": "l2d_menu_sel_001#5"
-            }
-          ],
-          "TextDuration": 8000,
-          "MotionDuration": 200,
-          "Priority": 2,
+          "Name": "random_000",
+          "Command": "hide_text; remove_submodel 001_costume.model3.json;add_submodel 001_costume.model3.json 1",
+          "MotionDuration": 1,
+          "Priority": 9,
           "Interruptable": true,
           "VarFloats": [
             {
-              "Name": "l2d_menu_state",
+              "Name": "selected_costume",
+              "Type": 0,
+              "Code": "not_equal 1"
+            },
+            {
+              "Name": "selected_costume",
               "Type": 2,
               "Code": "assign 1"
-            }
-          ]
-        }
-      ],
-      "carrier_wardrobe": [
-        {
-          "Name": "categories",
-          "Text": "衣装",
-          "Choices": [
-            {
-              "Text": "常服（1）",
-              "NextMtn": "l2d_menu_sel_002#5"
-            }
-          ],
-          "TextDuration": 8000,
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_000#5": [
-        {
-          "Name": "menu_select_000",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "carrier_switch_000",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_001#5": [
-        {
-          "Name": "menu_select_001",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "carrier_wardrobe",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_sel_002#5": [
-        {
-          "Name": "menu_select_002",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "carrier_wardrobe_0_1",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_down#5": [
-        {
-          "Name": "menu_down",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 2"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_up#5": [
-        {
-          "Name": "menu_up",
-          "MotionDuration": 260,
-          "Priority": 2,
-          "Interruptable": true,
-          "NextMtn": "l2d_menu_verify#5",
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 1,
-              "Code": "equal 2"
-            }
-          ]
-        }
-      ],
-      "l2d_menu_verify#5": [
-        {
-          "Name": "menu_verify",
-          "Command": "hide_text",
-          "MotionDuration": 200,
-          "Priority": 2,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "l2d_menu_state",
-              "Type": 1,
-              "Code": "equal 2"
-            },
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
             }
           ]
         }
       ],
       "restore_costume": [
         {
-          "Name": "restore_000",
+          "Name": "restore_001",
           "Command": "add_submodel 001_costume.model3.json 1",
           "MotionDuration": 1,
           "Priority": 9,
@@ -242,34 +75,66 @@
           ]
         }
       ],
-      "carrier_random": [
+      "Start": [
         {
-          "Name": "switch",
-          "Text": "换装中…",
-          "Command": "remove_submodel 001_costume.model3.json;add_submodel 001_costume.model3.json 1",
-          "TextDuration": 1000,
-          "MotionDuration": 200,
-          "Priority": 2,
+          "Name": "initialize_anchor",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true,
           "VarFloats": [
             {
-              "Name": "l2d_carrier_active",
+              "Name": "selected_costume",
               "Type": 2,
-              "Code": "assign 0"
-            },
-            {
-              "Name": "l2d_menu_state",
-              "Type": 2,
-              "Code": "assign 0"
-            },
+              "Code": "init 1"
+            }
+          ],
+          "NextMtn": "restore_costume"
+        }
+      ],
+      "carrier_wardrobe": [
+        {
+          "Name": "route_001",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ui_open_wardrobe#4",
+          "VarFloats": [
             {
               "Name": "selected_costume",
               "Type": 0,
-              "Code": "not_equal 1"
-            },
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "carrier_main": [
+        {
+          "Name": "route_001",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ui_main#4",
+          "VarFloats": [
             {
               "Name": "selected_costume",
-              "Type": 2,
-              "Code": "assign 1"
+              "Type": 0,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "carrier_close": [
+        {
+          "Name": "route_001",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ui_close#4",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 0,
+              "Code": "equal 1"
             }
           ]
         }
@@ -280,13 +145,7 @@
     "ParamHit": {},
     "ParamLoop": {},
     "KeyTrigger": {
-      "Items": [
-        {
-          "Input": 1,
-          "DownMtn": "l2d_menu_down#5",
-          "UpMtn": "l2d_menu_up#5"
-        }
-      ],
+      "Items": [],
       "Enabled": true
     },
     "ParamTrigger": {},
