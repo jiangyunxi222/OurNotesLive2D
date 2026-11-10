@@ -256,105 +256,105 @@
           "Name": "exp_000",
           "Command": "clear_exp; set_exp assets/expressions/52a19fd7af068ad5b201f5a12ab7c78d.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_001",
           "Command": "clear_exp; set_exp assets/expressions/fac92f74abfa253aa8aa24cac9942d4a.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_002",
           "Command": "clear_exp; set_exp assets/expressions/c43eea7209920d64bc80b19c3b25810f.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_003",
           "Command": "clear_exp; set_exp assets/expressions/2eb87d4decc89228615ecc161aba1e00.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_004",
           "Command": "clear_exp; set_exp assets/expressions/20e11c7669380eceb3845296521cfc74.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_005",
           "Command": "clear_exp; set_exp assets/expressions/2327e49c28907d6f6ad5bdc8f7dca3e0.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_006",
           "Command": "clear_exp; set_exp assets/expressions/9894c716f0526495061770a9a3efcc29.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_007",
           "Command": "clear_exp; set_exp assets/expressions/1a6eed5784deeae5ad751e6a27f281bf.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_008",
           "Command": "clear_exp; set_exp assets/expressions/bd8a9c51e87504fd1ef7ac92ccee4b35.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_009",
           "Command": "clear_exp; set_exp assets/expressions/3004593762fc2c413d4116852c1383a1.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_010",
           "Command": "clear_exp; set_exp assets/expressions/61f9f2e6cd8d16960db0d71b9975a321.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_011",
           "Command": "clear_exp; set_exp assets/expressions/8f590235ffe4d1d8994e245b5683df70.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_012",
           "Command": "clear_exp; set_exp assets/expressions/5904892b3baec6b7fe2b4c3a46295fbf.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_013",
           "Command": "clear_exp; set_exp assets/expressions/e326005f8a4011b3e9fc72038654fa51.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_014",
           "Command": "clear_exp; set_exp assets/expressions/7aeaa801cbbdbfc57afb5a1dba1ad80a.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         }
       ],
@@ -1387,6 +1387,33 @@
           "Priority": 9,
           "Interruptable": true
         }
+      ],
+      "ui_tap_body#6": [
+        {
+          "Name": "tap_body",
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock; start_mtn ui_motion_body",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true
+        }
+      ],
+      "ui_tap_left#6": [
+        {
+          "Name": "tap_left",
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock; start_mtn ui_motion_left",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true
+        }
+      ],
+      "ui_tap_right#6": [
+        {
+          "Name": "tap_right",
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock; start_mtn ui_motion_right",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true
+        }
       ]
     },
     "Expressions": [
@@ -1523,31 +1550,31 @@
     {
       "Name": "语音",
       "Id": "ArtMesh425",
-      "Order": 10,
+      "Order": 50,
       "Motion": "ui_voice_tap#2"
     },
     {
       "Name": "动作（左手）",
       "Id": "ArtMesh300",
-      "Order": 5,
-      "Motion": "ui_quick_left#4"
+      "Order": 40,
+      "Motion": "ui_tap_left#6"
     },
     {
       "Name": "动作（右手）",
       "Id": "ArtMesh332",
-      "Order": 5,
-      "Motion": "ui_quick_right#4"
+      "Order": 40,
+      "Motion": "ui_tap_right#6"
     },
     {
       "Name": "菜单",
       "Id": "ArtMesh464",
-      "Order": 3,
+      "Order": 10,
       "Motion": "ui_main#4"
     },
     {
       "Name": "菜单2",
       "Id": "ArtMesh465",
-      "Order": 3,
+      "Order": 10,
       "Motion": "ui_main#4"
     }
   ],

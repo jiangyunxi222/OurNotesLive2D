@@ -509,6 +509,42 @@
           "Priority": 9,
           "Interruptable": true
         }
+      ],
+      "ui_tap_body#6": [
+        {
+          "Name": "tap_body",
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock; start_mtn ui_motion_body",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true
+        }
+      ],
+      "ui_tap_left#6": [
+        {
+          "Name": "tap_left",
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock; start_mtn ui_motion_left",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true
+        }
+      ],
+      "ui_tap_right#6": [
+        {
+          "Name": "tap_right",
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock; start_mtn ui_motion_right",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true
+        }
+      ],
+      "ui_expression#3": [
+        {
+          "Name": "no_expression",
+          "Command": "clear_exp",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true
+        }
       ]
     }
   },
@@ -582,14 +618,14 @@
     {
       "Name": "语音",
       "Id": "ArtMesh50",
-      "Order": 10,
+      "Order": 50,
       "Motion": "ui_voice_tap#2"
     },
     {
       "Name": "动作（正面）",
       "Id": "ArtMesh54",
-      "Order": 8,
-      "Motion": "ui_quick_body#4"
+      "Order": 30,
+      "Motion": "ui_tap_body#6"
     }
   ],
   "Options": {

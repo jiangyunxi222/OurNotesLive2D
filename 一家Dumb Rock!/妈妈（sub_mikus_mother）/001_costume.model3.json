@@ -97,14 +97,14 @@
           "Name": "exp_000",
           "Command": "clear_exp; set_exp assets/expressions/b423a507b0c95e4d417793c1364bf8ca.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         },
         {
           "Name": "exp_001",
           "Command": "clear_exp; set_exp assets/expressions/5e25df7c92630a3bcdcdab5a0461e93b.exp3.json",
           "MotionDuration": 1,
-          "Priority": 3,
+          "Priority": 9,
           "Interruptable": true
         }
       ],
@@ -621,6 +621,33 @@
           "Priority": 9,
           "Interruptable": true
         }
+      ],
+      "ui_tap_body#6": [
+        {
+          "Name": "tap_body",
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock; start_mtn ui_motion_body",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true
+        }
+      ],
+      "ui_tap_left#6": [
+        {
+          "Name": "tap_left",
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock; start_mtn ui_motion_left",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true
+        }
+      ],
+      "ui_tap_right#6": [
+        {
+          "Name": "tap_right",
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock; start_mtn ui_motion_right",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true
+        }
       ]
     },
     "Expressions": [
@@ -704,25 +731,25 @@
     {
       "Name": "语音",
       "Id": "ArtMesh49",
-      "Order": 10,
+      "Order": 50,
       "Motion": "ui_voice_tap#2"
     },
     {
       "Name": "动作（正面）",
       "Id": "ArtMesh51",
-      "Order": 8,
-      "Motion": "ui_quick_body#4"
+      "Order": 30,
+      "Motion": "ui_tap_body#6"
     },
     {
       "Name": "菜单",
       "Id": "ArtMesh59",
-      "Order": 3,
+      "Order": 10,
       "Motion": "ui_main#4"
     },
     {
       "Name": "菜单2",
       "Id": "ArtMesh65",
-      "Order": 3,
+      "Order": 10,
       "Motion": "ui_main#4"
     }
   ],
