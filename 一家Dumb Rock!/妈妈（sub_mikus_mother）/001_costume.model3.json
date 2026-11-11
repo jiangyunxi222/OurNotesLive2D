@@ -74,11 +74,32 @@
       ],
       "ui_auto": [
         {
-          "Name": "auto_000",
+          "Name": "action_000",
           "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "ui_auto_wait"
+          "NextMtn": "heart_action_wait"
+        },
+        {
+          "Name": "action_001",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait"
+        },
+        {
+          "Name": "action_002",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait"
+        },
+        {
+          "Name": "action_003",
+          "File": "assets/motions/a6a1d678cb124e032875d461cbc27150.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait"
         }
       ],
       "ui_auto_wait": [
@@ -125,7 +146,7 @@
           "Priority": 9,
           "Interruptable": false,
           "Command": "stop_all_sounds; parameters unlock; parts unlock; animations unlock; clear_exp",
-          "PostCommand": "replace_tex 0 assets/textures/13ad370c294fadeb633eb7745ac3aa2d.png; replace_tex 1 assets/textures/d8cc5c5dfb29d923208d6b389475c670.png; replace_tex 2 assets/textures/6d351c2b78e67a048ea2497c05b899ce.png; start_mtn ournotes_l2d_carrier_sub_mikus_mother carrier_finish_costume",
+          "PostCommand": "replace_tex 0 assets/textures/13ad370c294fadeb633eb7745ac3aa2d.png; replace_tex 1 assets/textures/d8cc5c5dfb29d923208d6b389475c670.png; replace_tex 2 assets/textures/6d351c2b78e67a048ea2497c05b899ce.png; start_mtn ui_heart_boot#6",
           "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
           "FileLoop": true,
           "NextMtn": "Idle",
@@ -134,6 +155,36 @@
               "Name": "voice_captions_enabled",
               "Type": 2,
               "Code": "init 1"
+            },
+            {
+              "Name": "heart_body_only",
+              "Type": 2,
+              "Code": "init 0"
+            },
+            {
+              "Name": "heart_action_scope",
+              "Type": 2,
+              "Code": "init 0"
+            },
+            {
+              "Name": "heart_voice_scope",
+              "Type": 2,
+              "Code": "init 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
             }
           ]
         }
@@ -153,8 +204,25 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; stop_mtn 2; stop_mtn 3; stop_all_sounds; clear_exp; parts unlock; lip_sync enable; start_mtn Idle",
-          "NextMtn": "ui_main#4"
+          "Command": "stop_mtn 7; stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; stop_mtn 2; stop_mtn 3; stop_all_sounds; clear_exp; parts unlock; lip_sync enable; start_mtn Idle",
+          "NextMtn": "ui_main#4",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_stop_voice#4": [
@@ -163,8 +231,20 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 2; stop_all_sounds; lip_sync enable",
-          "NextMtn": "ui_control#4"
+          "Command": "stop_mtn 7; stop_mtn 2; stop_all_sounds; lip_sync enable",
+          "NextMtn": "ui_control#4",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_idle#4": [
@@ -174,7 +254,14 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn Idle",
-          "NextMtn": "ui_actions#4"
+          "NextMtn": "ui_actions#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_select_0001#4": [
@@ -184,7 +271,14 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_body:motion_000",
-          "NextMtn": "ui_list_body_001#4"
+          "NextMtn": "ui_heart_item_af7c46f1d07426fc#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_list_body_001#4": [
@@ -196,6 +290,10 @@
           "Text": "正面动作  1/1",
           "TextDuration": 60000,
           "Choices": [
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
             {
               "Text": "平静01",
               "NextMtn": "ui_select_0001#4"
@@ -214,7 +312,44 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_body",
-          "NextMtn": "ui_actions#4"
+          "NextMtn": "ui_actions#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorite_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn heart_random_body",
+          "NextMtn": "ui_actions#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_select_0002#4": [
@@ -224,7 +359,14 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_left:motion_000",
-          "NextMtn": "ui_list_left_001#4"
+          "NextMtn": "ui_heart_item_edfaabfb727f99f6#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_list_left_001#4": [
@@ -236,6 +378,10 @@
           "Text": "左侧动作  1/1",
           "TextDuration": 60000,
           "Choices": [
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
             {
               "Text": "平静01",
               "NextMtn": "ui_select_0002#4"
@@ -254,7 +400,44 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_left",
-          "NextMtn": "ui_actions#4"
+          "NextMtn": "ui_actions#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorite_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn heart_random_left",
+          "NextMtn": "ui_actions#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_select_0003#4": [
@@ -264,7 +447,14 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_right:motion_000",
-          "NextMtn": "ui_list_right_001#4"
+          "NextMtn": "ui_heart_item_e7c462e275ea8e07#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_list_right_001#4": [
@@ -276,6 +466,10 @@
           "Text": "右侧动作  1/1",
           "TextDuration": 60000,
           "Choices": [
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
             {
               "Text": "平静01",
               "NextMtn": "ui_select_0003#4"
@@ -294,7 +488,44 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_right",
-          "NextMtn": "ui_actions#4"
+          "NextMtn": "ui_actions#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorite_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn heart_random_right",
+          "NextMtn": "ui_actions#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_select_0004#4": [
@@ -304,7 +535,14 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_other:motion_000",
-          "NextMtn": "ui_list_other_001#4"
+          "NextMtn": "ui_heart_item_003909731b09bcef#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_list_other_001#4": [
@@ -316,6 +554,10 @@
           "Text": "其他动作  1/1",
           "TextDuration": 60000,
           "Choices": [
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
             {
               "Text": "switch_notice",
               "NextMtn": "ui_select_0004#4"
@@ -334,7 +576,44 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_motion_other",
-          "NextMtn": "ui_actions#4"
+          "NextMtn": "ui_actions#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorite_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn heart_random_other",
+          "NextMtn": "ui_actions#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_hold_action#4": [
@@ -344,7 +623,63 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_hold#1",
-          "NextMtn": "ui_playback#4"
+          "NextMtn": "ui_playback#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorite_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn heart_hold#1",
+          "NextMtn": "ui_playback#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "empty",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_hold_empty#4",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
         }
       ],
       "ui_auto_action#4": [
@@ -353,38 +688,89 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_auto",
-          "NextMtn": "ui_playback#4"
+          "NextMtn": "ui_heart_action_loop#4"
         }
       ],
       "ui_playback#4": [
         {
-          "Name": "run",
+          "Name": "scope_0",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 60000,
-          "Text": "动作保持与轮换",
+          "Text": "动作播放\n播放范围：全部",
           "TextDuration": 60000,
           "Choices": [
             {
-              "Text": "随机动作并保持",
+              "Text": "切换到❤收藏",
+              "NextMtn": "ui_heart_action_scope_1#4"
+            },
+            {
+              "Text": "随机播放一次",
+              "NextMtn": "ui_heart_action_once#4"
+            },
+            {
+              "Text": "随机身体动作并保持",
               "NextMtn": "ui_hold_action#4"
             },
             {
-              "Text": "自动轮换",
-              "NextMtn": "ui_auto_action#4"
+              "Text": "循环轮换",
+              "NextMtn": "ui_heart_action_loop#4"
             },
             {
-              "Text": "停止并回到待机",
+              "Text": "停止 / 回到待机",
               "NextMtn": "ui_idle#4"
             },
             {
               "Text": "返回主菜单",
               "NextMtn": "ui_main#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "动作播放\n播放范围：❤收藏",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "切换到全部",
+              "NextMtn": "ui_heart_action_scope_0#4"
             },
             {
-              "Text": "关闭菜单",
-              "NextMtn": "ui_close#4"
+              "Text": "随机播放一次",
+              "NextMtn": "ui_heart_action_once#4"
+            },
+            {
+              "Text": "随机身体动作并保持",
+              "NextMtn": "ui_hold_action#4"
+            },
+            {
+              "Text": "循环轮换",
+              "NextMtn": "ui_heart_action_loop#4"
+            },
+            {
+              "Text": "停止 / 回到待机",
+              "NextMtn": "ui_idle#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
             }
           ]
         }
@@ -398,6 +784,10 @@
           "Text": "动作",
           "TextDuration": 60000,
           "Choices": [
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
             {
               "Text": "正面动作",
               "NextMtn": "ui_list_body_001#4"
@@ -415,10 +805,6 @@
               "NextMtn": "ui_list_other_001#4"
             },
             {
-              "Text": "保持 / 轮换 / 停止",
-              "NextMtn": "ui_playback#4"
-            },
-            {
               "Text": "返回主菜单",
               "NextMtn": "ui_main#4"
             }
@@ -432,7 +818,7 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 3; start_mtn ui_expression#3:exp_000",
-          "NextMtn": "ui_exp_list_001#4"
+          "NextMtn": "ui_heart_item_c6e49366c081308a#4"
         }
       ],
       "ui_select_0006#4": [
@@ -442,7 +828,7 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "stop_mtn 3; start_mtn ui_expression#3:exp_001",
-          "NextMtn": "ui_exp_list_001#4"
+          "NextMtn": "ui_heart_item_971b29d2b1a029e7#4"
         }
       ],
       "ui_exp_list_001#4": [
@@ -454,6 +840,10 @@
           "Text": "表情（保持至下次选择）  1/1",
           "TextDuration": 60000,
           "Choices": [
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_expression_open#4"
+            },
             {
               "Text": "生气01",
               "NextMtn": "ui_select_0005#4"
@@ -499,6 +889,10 @@
           "TextDuration": 60000,
           "Choices": [
             {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_expression_open#4"
+            },
+            {
               "Text": "表情列表",
               "NextMtn": "ui_exp_list_001#4"
             },
@@ -528,7 +922,14 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother carrier_switch_000",
-          "NextMtn": "ui_wardrobe_001#4"
+          "NextMtn": "ui_wardrobe_001#4",
+          "VarFloats": [
+            {
+              "Name": "quiet_costume_switch",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_wardrobe_001#4": [
@@ -541,8 +942,12 @@
           "TextDuration": 60000,
           "Choices": [
             {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_costume_open#4"
+            },
+            {
               "Text": "001 · 常服（静态）",
-              "NextMtn": "ui_select_0007#4"
+              "NextMtn": "ui_heart_item_e911ef6f16d3ebc5#4"
             },
             {
               "Text": "返回主菜单",
@@ -570,6 +975,10 @@
           "Text": "声音与控制",
           "TextDuration": 60000,
           "Choices": [
+            {
+              "Text": "动作播放与保持",
+              "NextMtn": "ui_playback#4"
+            },
             {
               "Text": "语音",
               "NextMtn": "ui_voices#4"
@@ -602,6 +1011,10 @@
           "Text": "主菜单",
           "TextDuration": 60000,
           "Choices": [
+            {
+              "Text": "❤收藏与偏好",
+              "NextMtn": "ui_hearts#4"
+            },
             {
               "Text": "动作",
               "NextMtn": "ui_actions#4"
@@ -637,32 +1050,143 @@
       ],
       "ui_tap_body#6": [
         {
-          "Name": "tap_body",
+          "Name": "all",
           "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock",
           "MotionDuration": 1,
           "Priority": 9,
           "Interruptable": true,
-          "NextMtn": "ui_motion_body"
+          "NextMtn": "ui_motion_body",
+          "VarFloats": [
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorites_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock",
+          "NextMtn": "heart_random_body",
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_tap_left#6": [
         {
-          "Name": "tap_left",
+          "Name": "all",
           "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock",
           "MotionDuration": 1,
           "Priority": 9,
           "Interruptable": true,
-          "NextMtn": "ui_motion_left"
+          "NextMtn": "ui_motion_left",
+          "VarFloats": [
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorites_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock",
+          "NextMtn": "heart_random_left",
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_tap_right#6": [
         {
-          "Name": "tap_right",
+          "Name": "all",
           "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock",
           "MotionDuration": 1,
           "Priority": 9,
           "Interruptable": true,
-          "NextMtn": "ui_motion_right"
+          "NextMtn": "ui_motion_right",
+          "VarFloats": [
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorites_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 1; stop_mtn 0; animations unlock; parameters unlock",
+          "NextMtn": "heart_random_right",
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_voice_tap_plain#2": [
@@ -774,12 +1298,16 @@
           "TextDuration": 60000,
           "Choices": [
             {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_voice_open#4"
+            },
+            {
               "Text": "关闭字幕",
               "NextMtn": "ui_captions_off_action#4"
             },
             {
-              "Text": "随机播放",
-              "NextMtn": "ui_tap_voice#6"
+              "Text": "随机 / 循环播放",
+              "NextMtn": "ui_heart_voice_playback#4"
             },
             {
               "Text": "返回主菜单",
@@ -807,12 +1335,16 @@
           "TextDuration": 60000,
           "Choices": [
             {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_voice_open#4"
+            },
+            {
               "Text": "开启字幕",
               "NextMtn": "ui_captions_on_action#4"
             },
             {
-              "Text": "随机播放",
-              "NextMtn": "ui_tap_voice#6"
+              "Text": "随机 / 循环播放",
+              "NextMtn": "ui_heart_voice_playback#4"
             },
             {
               "Text": "返回主菜单",
@@ -834,22 +1366,116 @@
       ],
       "ui_prepare_voice_caption#6": [
         {
-          "Name": "run",
+          "Name": "all",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
-          "NextMtn": "ui_voice_tap#2"
+          "Command": "stop_mtn 7; stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap#2",
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorites",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 7; stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_voice_caption#2",
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_prepare_voice_plain#6": [
         {
-          "Name": "run",
+          "Name": "all",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
-          "NextMtn": "ui_voice_tap_plain#2"
+          "Command": "stop_mtn 7; stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap_plain#2",
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorites",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 7; stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_voice_plain#2",
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
         }
       ],
       "ui_play_selected_voice#6": [
@@ -857,7 +1483,20 @@
           "Name": "run",
           "Priority": 9,
           "Interruptable": true,
-          "MotionDuration": 1
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "Command": "stop_mtn 7; "
         }
       ],
       "ui_startup_on_menu#6": [
@@ -890,6 +1529,3069 @@
             }
           ],
           "NextMtn": "ui_main#4"
+        }
+      ],
+      "ui_heart_action_empty#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "❤收藏夹为空\n在普通列表中选择内容，再点❤收藏。",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "普通列表",
+              "NextMtn": "ui_actions#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ]
+        }
+      ],
+      "ui_heart_action_node_root0#4": [
+        {
+          "Name": "state_00",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_action_empty#4",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_01",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_item_edfaabfb727f99f6#4",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "greater 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_10",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_item_af7c46f1d07426fc#4",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_11",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "❤动作收藏夹",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "❤ 平静01",
+              "NextMtn": "ui_heart_item_af7c46f1d07426fc#4"
+            },
+            {
+              "Text": "❤ 平静01",
+              "NextMtn": "ui_heart_item_edfaabfb727f99f6#4"
+            },
+            {
+              "Text": "❤分类总览",
+              "NextMtn": "ui_hearts#4"
+            },
+            {
+              "Text": "普通列表",
+              "NextMtn": "ui_actions#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "greater 0"
+            }
+          ]
+        }
+      ],
+      "ui_heart_action_node_root1#4": [
+        {
+          "Name": "state_00",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_action_empty#4",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_01",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_item_003909731b09bcef#4",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "greater 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_10",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_item_e7c462e275ea8e07#4",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_11",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "❤动作收藏夹",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "❤ 平静01",
+              "NextMtn": "ui_heart_item_e7c462e275ea8e07#4"
+            },
+            {
+              "Text": "❤ switch_not",
+              "NextMtn": "ui_heart_item_003909731b09bcef#4"
+            },
+            {
+              "Text": "❤分类总览",
+              "NextMtn": "ui_hearts#4"
+            },
+            {
+              "Text": "普通列表",
+              "NextMtn": "ui_actions#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "greater 0"
+            }
+          ]
+        }
+      ],
+      "ui_heart_action_node_root#4": [
+        {
+          "Name": "state_00",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_action_empty#4",
+          "VarFloats": [
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_01",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_action_node_root1#4",
+          "VarFloats": [
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 1,
+              "Code": "greater 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_10",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_action_node_root0#4",
+          "VarFloats": [
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_11",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "❤动作收藏夹",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "❤ 平静01 … 平静01",
+              "NextMtn": "ui_heart_action_node_root0#4"
+            },
+            {
+              "Text": "❤ 平静01 … switch_not",
+              "NextMtn": "ui_heart_action_node_root1#4"
+            },
+            {
+              "Text": "❤分类总览",
+              "NextMtn": "ui_hearts#4"
+            },
+            {
+              "Text": "普通列表",
+              "NextMtn": "ui_actions#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 1,
+              "Code": "greater 0"
+            }
+          ]
+        }
+      ],
+      "ui_heart_action_open#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 2,
+              "Code": "add $heart_fav_18faa78cd0a570f8"
+            },
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 2,
+              "Code": "add $heart_fav_9cef281405772fc8"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 2,
+              "Code": "add $heart_fav_09ab615756803ebd"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 2,
+              "Code": "add $heart_fav_73e8a748763d3285"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "add $heart_count_0b3f86234c45cec4"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "add $heart_count_2496873ac7e28f82"
+            }
+          ],
+          "NextMtn": "ui_heart_action_node_root#4"
+        }
+      ],
+      "ui_heart_item_af7c46f1d07426fc#4": [
+        {
+          "Name": "state_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "平静01",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "播放动作",
+              "NextMtn": "ui_select_0001#4"
+            },
+            {
+              "Text": "❤收藏",
+              "NextMtn": "ui_heart_item_af7c46f1d07426fc_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_list_body_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "平静01\n❤已收藏",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "播放动作",
+              "NextMtn": "ui_select_0001#4"
+            },
+            {
+              "Text": "取消❤收藏",
+              "NextMtn": "ui_heart_item_af7c46f1d07426fc_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_list_body_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_item_af7c46f1d07426fc_toggle#4": [
+        {
+          "Name": "set_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 2,
+              "Code": "subtract 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "subtract 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_af7c46f1d07426fc#4"
+        },
+        {
+          "Name": "set_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 2,
+              "Code": "add 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "add 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_af7c46f1d07426fc#4"
+        }
+      ],
+      "ui_heart_item_edfaabfb727f99f6#4": [
+        {
+          "Name": "state_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "平静01",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "播放动作",
+              "NextMtn": "ui_select_0002#4"
+            },
+            {
+              "Text": "❤收藏",
+              "NextMtn": "ui_heart_item_edfaabfb727f99f6_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_list_left_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "平静01\n❤已收藏",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "播放动作",
+              "NextMtn": "ui_select_0002#4"
+            },
+            {
+              "Text": "取消❤收藏",
+              "NextMtn": "ui_heart_item_edfaabfb727f99f6_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_list_left_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_item_edfaabfb727f99f6_toggle#4": [
+        {
+          "Name": "set_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 2,
+              "Code": "subtract 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "subtract 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_edfaabfb727f99f6#4"
+        },
+        {
+          "Name": "set_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 2,
+              "Code": "add 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "add 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_edfaabfb727f99f6#4"
+        }
+      ],
+      "ui_heart_item_e7c462e275ea8e07#4": [
+        {
+          "Name": "state_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "平静01",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "播放动作",
+              "NextMtn": "ui_select_0003#4"
+            },
+            {
+              "Text": "❤收藏",
+              "NextMtn": "ui_heart_item_e7c462e275ea8e07_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_list_right_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "平静01\n❤已收藏",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "播放动作",
+              "NextMtn": "ui_select_0003#4"
+            },
+            {
+              "Text": "取消❤收藏",
+              "NextMtn": "ui_heart_item_e7c462e275ea8e07_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_list_right_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_item_e7c462e275ea8e07_toggle#4": [
+        {
+          "Name": "set_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 2,
+              "Code": "subtract 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "subtract 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_e7c462e275ea8e07#4"
+        },
+        {
+          "Name": "set_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 2,
+              "Code": "add 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "add 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_e7c462e275ea8e07#4"
+        }
+      ],
+      "ui_heart_item_003909731b09bcef#4": [
+        {
+          "Name": "state_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "switch_notice",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "播放动作",
+              "NextMtn": "ui_select_0004#4"
+            },
+            {
+              "Text": "❤收藏",
+              "NextMtn": "ui_heart_item_003909731b09bcef_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_list_other_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "switch_notice\n❤已收藏",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "播放动作",
+              "NextMtn": "ui_select_0004#4"
+            },
+            {
+              "Text": "取消❤收藏",
+              "NextMtn": "ui_heart_item_003909731b09bcef_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_list_other_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_item_003909731b09bcef_toggle#4": [
+        {
+          "Name": "set_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 2,
+              "Code": "subtract 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "subtract 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_003909731b09bcef#4"
+        },
+        {
+          "Name": "set_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 2,
+              "Code": "add 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "add 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_003909731b09bcef#4"
+        }
+      ],
+      "ui_heart_expression_empty#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "❤收藏夹为空\n在普通列表中选择内容，再点❤收藏。",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "普通列表",
+              "NextMtn": "ui_expressions#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ]
+        }
+      ],
+      "ui_heart_expression_node_root#4": [
+        {
+          "Name": "state_00",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_expression_empty#4",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_01",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_item_971b29d2b1a029e7#4",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 1,
+              "Code": "greater 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_10",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_heart_item_c6e49366c081308a#4",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_11",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "❤表情收藏夹",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "❤ 生气01",
+              "NextMtn": "ui_heart_item_c6e49366c081308a#4"
+            },
+            {
+              "Text": "❤ 平静01",
+              "NextMtn": "ui_heart_item_971b29d2b1a029e7#4"
+            },
+            {
+              "Text": "❤分类总览",
+              "NextMtn": "ui_hearts#4"
+            },
+            {
+              "Text": "普通列表",
+              "NextMtn": "ui_expressions#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 1,
+              "Code": "greater 0"
+            }
+          ]
+        }
+      ],
+      "ui_heart_expression_open#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_count_f379ed5e0709a05a",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_f379ed5e0709a05a",
+              "Type": 2,
+              "Code": "add $heart_fav_361b6471323d3d9c"
+            },
+            {
+              "Name": "heart_count_f379ed5e0709a05a",
+              "Type": 2,
+              "Code": "add $heart_fav_6b8dffd602e894f2"
+            }
+          ],
+          "NextMtn": "ui_heart_expression_node_root#4"
+        }
+      ],
+      "ui_heart_item_c6e49366c081308a#4": [
+        {
+          "Name": "state_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "生气01",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "应用表情",
+              "NextMtn": "ui_select_0005#4"
+            },
+            {
+              "Text": "❤收藏",
+              "NextMtn": "ui_heart_item_c6e49366c081308a_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_expression_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_exp_list_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "生气01\n❤已收藏",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "应用表情",
+              "NextMtn": "ui_select_0005#4"
+            },
+            {
+              "Text": "取消❤收藏",
+              "NextMtn": "ui_heart_item_c6e49366c081308a_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_expression_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_exp_list_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_item_c6e49366c081308a_toggle#4": [
+        {
+          "Name": "set_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_f379ed5e0709a05a",
+              "Type": 2,
+              "Code": "subtract 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_c6e49366c081308a#4"
+        },
+        {
+          "Name": "set_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "heart_count_f379ed5e0709a05a",
+              "Type": 2,
+              "Code": "add 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_c6e49366c081308a#4"
+        }
+      ],
+      "ui_heart_item_971b29d2b1a029e7#4": [
+        {
+          "Name": "state_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "平静01",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "应用表情",
+              "NextMtn": "ui_select_0006#4"
+            },
+            {
+              "Text": "❤收藏",
+              "NextMtn": "ui_heart_item_971b29d2b1a029e7_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_expression_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_exp_list_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "平静01\n❤已收藏",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "应用表情",
+              "NextMtn": "ui_select_0006#4"
+            },
+            {
+              "Text": "取消❤收藏",
+              "NextMtn": "ui_heart_item_971b29d2b1a029e7_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_expression_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_exp_list_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_item_971b29d2b1a029e7_toggle#4": [
+        {
+          "Name": "set_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_f379ed5e0709a05a",
+              "Type": 2,
+              "Code": "subtract 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_971b29d2b1a029e7#4"
+        },
+        {
+          "Name": "set_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "heart_count_f379ed5e0709a05a",
+              "Type": 2,
+              "Code": "add 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_971b29d2b1a029e7#4"
+        }
+      ],
+      "ui_heart_costume_empty#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "❤收藏夹为空\n在普通列表中选择内容，再点❤收藏。",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "普通列表",
+              "NextMtn": "ui_wardrobe_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ]
+        }
+      ],
+      "ui_heart_costume_open#4": [
+        {
+          "Name": "empty",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_55c30a705fbed3e8",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "NextMtn": "ui_heart_costume_empty#4"
+        },
+        {
+          "Name": "favorite",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_55c30a705fbed3e8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_e911ef6f16d3ebc5#4"
+        }
+      ],
+      "ui_heart_item_e911ef6f16d3ebc5#4": [
+        {
+          "Name": "state_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "001 · 常服（静态）",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "穿上这套",
+              "NextMtn": "ui_select_0007#4"
+            },
+            {
+              "Text": "❤收藏",
+              "NextMtn": "ui_heart_item_e911ef6f16d3ebc5_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_costume_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_wardrobe_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_55c30a705fbed3e8",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "001 · 常服（静态）\n❤已收藏",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "穿上这套",
+              "NextMtn": "ui_select_0007#4"
+            },
+            {
+              "Text": "取消❤收藏",
+              "NextMtn": "ui_heart_item_e911ef6f16d3ebc5_toggle#4"
+            },
+            {
+              "Text": "❤收藏夹",
+              "NextMtn": "ui_heart_costume_open#4"
+            },
+            {
+              "Text": "返回列表",
+              "NextMtn": "ui_wardrobe_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_fav_55c30a705fbed3e8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_item_e911ef6f16d3ebc5_toggle#4": [
+        {
+          "Name": "set_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_55c30a705fbed3e8",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_fav_55c30a705fbed3e8",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "ui_heart_item_e911ef6f16d3ebc5#4"
+        },
+        {
+          "Name": "set_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_55c30a705fbed3e8",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_55c30a705fbed3e8",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "ui_heart_item_e911ef6f16d3ebc5#4"
+        }
+      ],
+      "ui_heart_voice_empty#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "❤收藏夹为空\n在普通列表中选择内容，再点❤收藏。",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "普通列表",
+              "NextMtn": "ui_voices#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ]
+        }
+      ],
+      "ui_heart_voice_open#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [],
+          "NextMtn": "ui_heart_voice_empty#4"
+        }
+      ],
+      "ui_hearts#4": [
+        {
+          "Name": "state_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "❤收藏与偏好\n身体点击范围：全部\n先在各列表中收藏想要的内容。",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "❤动作",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "❤表情",
+              "NextMtn": "ui_heart_expression_open#4"
+            },
+            {
+              "Text": "❤衣装",
+              "NextMtn": "ui_heart_costume_open#4"
+            },
+            {
+              "Text": "❤语音",
+              "NextMtn": "ui_heart_voice_open#4"
+            },
+            {
+              "Text": "开启仅随机❤",
+              "NextMtn": "ui_heart_mode_1#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "state_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "❤收藏与偏好\n身体点击范围：仅❤收藏\n先在各列表中收藏想要的内容。",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "❤动作",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "❤表情",
+              "NextMtn": "ui_heart_expression_open#4"
+            },
+            {
+              "Text": "❤衣装",
+              "NextMtn": "ui_heart_costume_open#4"
+            },
+            {
+              "Text": "❤语音",
+              "NextMtn": "ui_heart_voice_open#4"
+            },
+            {
+              "Text": "关闭仅随机❤",
+              "NextMtn": "ui_heart_mode_0#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_mode_0#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "ui_hearts#4"
+        }
+      ],
+      "ui_heart_mode_1#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "ui_hearts#4"
+        }
+      ],
+      "heart_random_body": [
+        {
+          "Name": "motion_000",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_random_left": [
+        {
+          "Name": "motion_000",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_random_right": [
+        {
+          "Name": "motion_000",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_random_other": [
+        {
+          "Name": "motion_000",
+          "File": "assets/motions/a6a1d678cb124e032875d461cbc27150.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_random_expression#3": [
+        {
+          "Name": "exp_000",
+          "Command": "clear_exp; set_exp assets/expressions/b423a507b0c95e4d417793c1364bf8ca.exp3.json",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_361b6471323d3d9c",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "exp_001",
+          "Command": "clear_exp; set_exp assets/expressions/5e25df7c92630a3bcdcdab5a0461e93b.exp3.json",
+          "MotionDuration": 1,
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_6b8dffd602e894f2",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_expression#6": [
+        {
+          "Name": "all",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_expression#3",
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "favorites",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "heart_random_expression#3",
+          "VarFloats": [
+            {
+              "Name": "heart_body_only",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_voice_caption#2": [],
+      "heart_voice_plain#2": [],
+      "ui_heart_boot#6": [
+        {
+          "Name": "initialize",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_ready_7efedf938dbff9cd",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 2,
+              "Code": "add $heart_fav_18faa78cd0a570f8"
+            },
+            {
+              "Name": "heart_count_0b3f86234c45cec4",
+              "Type": 2,
+              "Code": "add $heart_fav_9cef281405772fc8"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 2,
+              "Code": "add $heart_fav_09ab615756803ebd"
+            },
+            {
+              "Name": "heart_count_2496873ac7e28f82",
+              "Type": 2,
+              "Code": "add $heart_fav_73e8a748763d3285"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "add $heart_count_0b3f86234c45cec4"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 2,
+              "Code": "add $heart_count_2496873ac7e28f82"
+            },
+            {
+              "Name": "heart_count_f379ed5e0709a05a",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_f379ed5e0709a05a",
+              "Type": 2,
+              "Code": "add $heart_fav_361b6471323d3d9c"
+            },
+            {
+              "Name": "heart_count_f379ed5e0709a05a",
+              "Type": 2,
+              "Code": "add $heart_fav_6b8dffd602e894f2"
+            },
+            {
+              "Name": "heart_ready_7efedf938dbff9cd",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother carrier_finish_costume"
+        },
+        {
+          "Name": "ready",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_ready_7efedf938dbff9cd",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother carrier_finish_costume"
+        }
+      ],
+      "heart_action_all": [
+        {
+          "Name": "action_000",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "action_001",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "action_002",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        },
+        {
+          "Name": "action_003",
+          "File": "assets/motions/a6a1d678cb124e032875d461cbc27150.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle"
+        }
+      ],
+      "heart_action_favorites": [
+        {
+          "Name": "action_000",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "action_001",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "action_002",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "action_003",
+          "File": "assets/motions/a6a1d678cb124e032875d461cbc27150.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "Idle",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_action_all_loop": [
+        {
+          "Name": "action_000",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait"
+        },
+        {
+          "Name": "action_001",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait"
+        },
+        {
+          "Name": "action_002",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait"
+        },
+        {
+          "Name": "action_003",
+          "File": "assets/motions/a6a1d678cb124e032875d461cbc27150.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait"
+        }
+      ],
+      "heart_action_favorites_loop": [
+        {
+          "Name": "action_000",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "action_001",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "action_002",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "action_003",
+          "File": "assets/motions/a6a1d678cb124e032875d461cbc27150.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "NextMtn": "heart_action_wait",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_73e8a748763d3285",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_action_wait": [
+        {
+          "Name": "wait",
+          "MotionDuration": 12000,
+          "Priority": 2,
+          "Interruptable": true,
+          "NextMtn": "heart_action_loop_route",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "FileLoop": true
+        }
+      ],
+      "heart_action_loop_route": [
+        {
+          "Name": "scope_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "ui_auto",
+          "VarFloats": [
+            {
+              "Name": "heart_action_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "heart_action_favorites_loop",
+          "VarFloats": [
+            {
+              "Name": "heart_action_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_action_once#4": [
+        {
+          "Name": "scope_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock",
+          "NextMtn": "heart_action_all",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock",
+          "NextMtn": "heart_action_favorites",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "empty",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "NextMtn": "ui_heart_action_empty#4"
+        }
+      ],
+      "ui_heart_action_loop#4": [
+        {
+          "Name": "scope_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock",
+          "NextMtn": "heart_action_loop_route",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock",
+          "NextMtn": "heart_action_loop_route",
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_action_loop",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        },
+        {
+          "Name": "empty",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_count_6c84dd2a53476bc1",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "NextMtn": "ui_heart_action_empty#4"
+        }
+      ],
+      "ui_heart_action_scope_0#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "ui_playback#4"
+        }
+      ],
+      "ui_heart_action_scope_1#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_action_scope",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "ui_playback#4"
+        }
+      ],
+      "heart_hold#1": [
+        {
+          "Name": "hold_000",
+          "File": "assets/motions/518509d50e3e775c6f1a669d395970cc.motion3.json",
+          "Priority": 3,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_speech_0_0_0#2": [],
+      "heart_speech_0_0_1#2": [],
+      "heart_speech_0_1_0#2": [],
+      "heart_speech_0_1_1#2": [],
+      "heart_speech_1_0_0#2": [],
+      "heart_speech_1_0_1#2": [],
+      "heart_speech_1_1_0#2": [],
+      "heart_speech_1_1_1#2": [],
+      "heart_voice_wait#7": [
+        {
+          "Name": "run",
+          "Priority": 2,
+          "Interruptable": true,
+          "MotionDuration": 2500,
+          "NextMtn": "heart_voice_continue#7",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_voice_continue#7": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "NextMtn": "heart_voice_loop_route#6",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_voice_route#6": [
+        {
+          "Name": "scope_0_0_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_0_0_0#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_0_0_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_0_0_1#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_0_1_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_0_1_0#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_0_1_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_0_1_1#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1_0_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_1_0_0#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1_0_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_1_0_1#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1_1_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_1_1_0#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1_1_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_1_1_1#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_voice_start_0#4": [
+        {
+          "Name": "scope_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 7",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "heart_voice_route#6"
+        },
+        {
+          "Name": "scope_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 7",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "heart_voice_route#6"
+        },
+        {
+          "Name": "empty",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "NextMtn": "ui_heart_voice_empty#4"
+        }
+      ],
+      "ui_heart_voice_start_1#4": [
+        {
+          "Name": "scope_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 7",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "heart_voice_loop_route#6"
+        },
+        {
+          "Name": "scope_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 7",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "heart_voice_loop_route#6"
+        },
+        {
+          "Name": "empty",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "NextMtn": "ui_heart_voice_empty#4"
+        }
+      ],
+      "ui_heart_voice_scope_0#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "ui_heart_voice_playback#4"
+        }
+      ],
+      "ui_heart_voice_scope_1#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "ui_heart_voice_playback#4"
+        }
+      ],
+      "ui_heart_voice_playback#4": [
+        {
+          "Name": "scope_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "语音播放\n播放范围：全部\n循环时每句之间短暂停顿。",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "切换到❤收藏",
+              "NextMtn": "ui_heart_voice_scope_1#4"
+            },
+            {
+              "Text": "随机播放一次",
+              "NextMtn": "ui_heart_voice_start_0#4"
+            },
+            {
+              "Text": "随机轮播（循环）",
+              "NextMtn": "ui_heart_voice_start_1#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回语音菜单",
+              "NextMtn": "ui_voices#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "语音播放\n播放范围：❤收藏\n循环时每句之间短暂停顿。",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "切换到全部",
+              "NextMtn": "ui_heart_voice_scope_0#4"
+            },
+            {
+              "Text": "随机播放一次",
+              "NextMtn": "ui_heart_voice_start_0#4"
+            },
+            {
+              "Text": "随机轮播（循环）",
+              "NextMtn": "ui_heart_voice_start_1#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回语音菜单",
+              "NextMtn": "ui_voices#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "ui_heart_hold_empty#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "当前收藏中没有可保持的身体动作\n先在动作列表收藏身体动作。",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "❤动作收藏夹",
+              "NextMtn": "ui_heart_action_open#4"
+            },
+            {
+              "Text": "返回动作播放",
+              "NextMtn": "ui_playback#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ]
+        }
+      ],
+      "heart_voice_loop_route#6": [
+        {
+          "Name": "scope_0_0_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_0_0_1#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_0_1_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_0_1_1#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1_0_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_1_0_1#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "scope_1_1_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "heart_speech_1_1_1#2",
+          "VarFloats": [
+            {
+              "Name": "heart_voice_scope",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "heart_empty_1",
+              "Type": 1,
+              "Code": "greater 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
         }
       ]
     },
