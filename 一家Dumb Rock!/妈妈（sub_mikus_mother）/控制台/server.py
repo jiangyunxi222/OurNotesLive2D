@@ -530,7 +530,7 @@ class Studio:
             self.native("carrier_hide_text#5")
         self.emit("stop", kind)
         if resume:
-            self.resume_playback_loops()
+            self.resume_playback_loops(only_paused=True)
 
     def select(self, role_id, costume_id=None, from_loop=False):
         catalog = self.catalog(role_id)
@@ -541,6 +541,8 @@ class Studio:
         if role_id == self.current and (
             costume_id is None or costume_id == self.settings()["costume"]
         ):
+            if from_loop:
+                self.resume_playback_loops(only_paused=True)
             return self.snapshot()
         if not from_loop:
             self.costume_due = False
@@ -720,9 +722,9 @@ class Studio:
         for kind in self.jobs:
             self.native(f"web_set_page_loop_{kind}_{int(self.looping[kind])}")
 
-    def resume_playback_loops(self):
+    def resume_playback_loops(self, only_paused=False):
         for kind in ("action", "voice"):
-            if self.looping[kind]:
+            if self.looping[kind] and (not only_paused or kind not in self.playing):
                 try:
                     self.operate(kind, loop=True, randomize=True)
                 except (ValueError, ConnectionError):
@@ -1069,6 +1071,24 @@ class Studio:
                 self.emit("ended", kind)
                 return
             if kind == "costume":
+                pool = [
+                    item
+                    for item in self.entries(kind)
+                    if not self.settings()["costumeScope"]
+                    or item["flag"] in self.settings()["favorites"]
+                ]
+                if pool and all(
+                    item["id"] == self.settings()["costume"] for item in pool
+                ):
+                    self.costume_due = False
+                    self.resume_playback_loops(only_paused=True)
+                    self.schedule(
+                        kind,
+                        self.settings()["costumeInterval"],
+                        self.repeat,
+                        generation,
+                    )
+                    return
                 self.costume_due = True
                 remaining = 0
                 for playing_kind in ("action", "voice"):
@@ -1096,6 +1116,8 @@ class Studio:
                 self.operate(kind, loop=True, randomize=True)
             except (ValueError, ConnectionError):
                 self.stop(kind)
+                if kind == "costume":
+                    self.resume_playback_loops(only_paused=True)
 
     def preview(self, role_id, costume_id):
         role = self.catalog(role_id)
