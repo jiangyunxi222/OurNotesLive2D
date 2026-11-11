@@ -343,6 +343,8 @@ async function loadModel(key) {
       view.model.internalModel.focusController.focus((event.clientX - rectangle.left) / rectangle.width * 2 - 1, 1 - (event.clientY - rectangle.top) / rectangle.height * 2);
     };
     host.onclick = safely(async (event) => {
+      event.stopPropagation();
+      if (event.target !== view.app.view) return;
       if (!view.model) return;
       const rectangle = host.getBoundingClientRect();
       const point = view.model.toModelPosition(new PIXI.Point(event.clientX - rectangle.left, event.clientY - rectangle.top));
@@ -693,6 +695,11 @@ $("#quiet-stop").addEventListener("click", safely(async () => {
   resetExpression();
   renderState();
 }));
+document.querySelectorAll(".stage-tools, .control-panel, .bottom-bar").forEach((element) => {
+  element.addEventListener("pointerdown", (event) => event.stopPropagation());
+  element.addEventListener("pointerup", (event) => event.stopPropagation());
+  element.addEventListener("click", (event) => event.stopPropagation());
+});
 $("#clear-expression").addEventListener("click", safely(async () => {
   resetExpression();
   await api("operate", { kind: "expression", id: -1 });

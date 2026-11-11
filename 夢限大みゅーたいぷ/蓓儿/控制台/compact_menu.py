@@ -2,6 +2,7 @@
 
 import queue
 import threading
+import time
 import tkinter as tk
 import webbrowser
 import ctypes
@@ -38,6 +39,9 @@ class CompactMenu:
         self.rounded_applied = False
         self.position = None
         self.status = {"visible": False}
+        self.input_blocked = False
+        self.last_input_heartbeat = 0
+        self.input_release = None
         self.root.configure(
             background="#403b46", highlightbackground="#756976", highlightthickness=1
         )
@@ -50,7 +54,7 @@ class CompactMenu:
             ("voice", "循环语音", lambda: self.toggle("voice")),
             ("costume", "循环换装", lambda: self.toggle("costume")),
             ("idle", "恢复待机", self.reset),
-            ("close", "关闭菜单", self.root.withdraw),
+            ("close", "关闭菜单", self.hide),
         ]
         for key, label, callback in entries:
             button = tk.Button(
@@ -79,12 +83,43 @@ class CompactMenu:
             foreground="#ffd6e2",
             font=("Microsoft YaHei UI", 10),
         )
-        self.root.bind("<Escape>", lambda event: self.root.withdraw())
+        self.root.bind("<Escape>", lambda event: self.hide())
         self.root.bind("<Configure>", self.round_corners)
+        if sys.platform == "win32":
+            from desktop_input import DesktopInput
+
+            self.studio.input_router = DesktopInput(studio)
+            self.root.bind("<Destroy>", self.on_destroy)
         self.root.after(100, self.poll)
 
+    def on_destroy(self, event):
+        if event.widget is self.root and self.studio.input_router:
+            self.studio.input_router.close()
+
     def show(self):
+        with self.studio.lock:
+            self.input_blocked = True
+            self.studio.native("web_block_input#8")
         self.messages.put(("show", None))
+
+    def hide(self):
+        self.root.withdraw()
+        if self.input_release is not None:
+            self.root.after_cancel(self.input_release)
+        # Keep the release of this click from reaching the avatar underneath.
+        self.input_release = self.root.after(180, self.release_input)
+
+    def release_input(self):
+        self.input_release = None
+        self.input_blocked = False
+
+        def allow():
+            if not self.input_blocked and not (
+                self.studio.input_router and self.studio.input_router.active
+            ):
+                self.studio.native("web_allow_input#8")
+
+        self.run_action(allow)
 
     def window_handle(self):
         user32 = ctypes.windll.user32
@@ -109,6 +144,10 @@ class CompactMenu:
             gdi32.DeleteObject(ctypes.c_void_p(region))
 
     def display(self):
+        if self.input_release is not None:
+            self.root.after_cancel(self.input_release)
+            self.input_release = None
+        self.input_blocked = True
         self.error.pack_forget()
         self.refresh()
         self.root.update_idletasks()
@@ -142,7 +181,7 @@ class CompactMenu:
         self.run_action(self.studio.reset)
 
     def open_panel(self):
-        self.root.withdraw()
+        self.hide()
         with self.studio.lock:
             role = self.studio.current
             costume = self.studio.settings()["costume"]
@@ -156,7 +195,17 @@ class CompactMenu:
             return
         try:
             looping = self.studio.looping.copy()
-            anchor = self.studio.desktop_anchor()
+            anchor = self.studio.desktop_anchor() if self.studio.linked else None
+            if self.studio.input_router:
+                anchor = self.studio.input_router.update(anchor)
+            # The native lease expires on its own if this process exits.
+            now = time.monotonic()
+            owns_input = self.input_blocked or (
+                self.studio.input_router and self.studio.input_router.active
+            )
+            if owns_input and now - self.last_input_heartbeat >= 0.3:
+                self.studio.native("web_block_input#8")
+                self.last_input_heartbeat = now
         finally:
             self.studio.lock.release()
         for kind, label in (("action", "动作"), ("voice", "语音"), ("costume", "换装")):
@@ -228,8 +277,7 @@ class CompactMenu:
                     self.error.pack(fill="x", padx=8, pady=(5, 4))
         except queue.Empty:
             pass
-        if self.root.state() != "withdrawn":
-            self.refresh()
+        self.refresh()
         self.status = {
             "visible": bool(self.root.winfo_viewable()),
             "x": self.root.winfo_x(),
@@ -239,6 +287,7 @@ class CompactMenu:
             "font": self.menu_font,
             "opacity": float(self.root.attributes("-alpha")),
             "rounded": self.rounded_applied,
+            "blocksBodyInput": self.input_blocked,
             "labels": [button.cget("text") for button in self.buttons.values()],
         }
         self.root.after(100, self.poll)

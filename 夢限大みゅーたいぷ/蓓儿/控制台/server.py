@@ -252,6 +252,9 @@ class Studio:
         self.timers = {}
         self.costume_due = False
         self.popup = None
+        self.input_router = None
+        self.input_epoch = 0
+        self.native_executable = NATIVE / "lw/lw.exe"
         self.last_menu_request = None
         self.last_native_toggles = {}
         self.next_reconnect_at = 0
@@ -346,6 +349,7 @@ class Studio:
             "sequence": self.sequence,
             "waitingForCostume": self.costume_due,
             "menu": self.popup.status.copy() if self.popup else None,
+            "input": self.input_router.status.copy() if self.input_router else None,
         }
 
     def emit(self, kind, data=None):
@@ -460,7 +464,11 @@ class Studio:
                     self.player.connect()
                     self.linked = True
                     self.adopt_native_costume()
-                    if self.native_variables().get("page_menu_version") != 7:
+                    variables = self.native_variables()
+                    if (
+                        variables.get("page_menu_version") != 7
+                        or variables.get("page_input_revision") != 2
+                    ):
                         self.load_native()
                     self.sync_preferences()
                     self.sync_favorites()
@@ -547,6 +555,7 @@ class Studio:
         if not from_loop:
             self.costume_due = False
             self.stop("costume")
+        self.input_epoch += 1
         for kind in ("action", "voice"):
             self.jobs[kind] += 1
             timer = self.timers.pop(kind, None)
@@ -615,7 +624,10 @@ class Studio:
             if self.slot is not None:
                 variables = self.native_variables()
                 self.adopt_native_costume()
-                attached = variables.get("page_menu_version") == 7
+                attached = (
+                    variables.get("page_menu_version") == 7
+                    and variables.get("page_input_revision") == 2
+                )
             if self.slot is None:
                 self.slot = next(
                     (
@@ -694,9 +706,26 @@ class Studio:
         transform = (profile.get("transforms") or {}).get(slot.get("lastTransKey"))
         if not transform:
             return None
+        world_height = 18.0
+        if abs(transform.get("viewportY", 0)) > 0.00001:
+            world_height = abs(transform.get("y", 0) / transform["viewportY"])
+        elif abs(transform.get("viewportX", 0)) > 0.00001:
+            import ctypes
+
+            width = ctypes.windll.user32.GetSystemMetrics(78)
+            height = ctypes.windll.user32.GetSystemMetrics(79)
+            world_height = (
+                abs(transform.get("x", 0) / transform["viewportX"]) * height / width
+            )
+        if not math.isfinite(world_height) or world_height <= 0:
+            return None
         return {
             "x": transform.get("viewportX", 0),
             "y": transform.get("viewportY", 0),
+            "scale": transform.get("scale", 1),
+            "mirror": transform.get("mirror", False),
+            "rotate": transform.get("rotate", 0),
+            "worldHeight": world_height,
         }
 
     def adopt_native_costume(self):
@@ -791,7 +820,13 @@ class Studio:
             self.native(f"web_set_{variable}_{int(self.settings()[key])}")
 
     def on_native_tap(self, data):
+        if self.input_router and self.input_router.active:
+            return
+        if self.popup and self.popup.input_blocked:
+            return
         with self.lock:
+            if self.popup and self.popup.input_blocked:
+                return
             if not self.linked or data.get("id") != self.slot:
                 return
             if not str(data.get("modelId") or "").startswith(
@@ -1045,6 +1080,7 @@ class Studio:
         timer.start()
 
     def reset(self):
+        self.input_epoch += 1
         self.costume_due = False
         for kind in self.jobs:
             self.stop(kind)
