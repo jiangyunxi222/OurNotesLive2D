@@ -38,7 +38,8 @@
               "Type": 2,
               "Code": "assign 1"
             }
-          ]
+          ],
+          "Command": ""
         }
       ],
       "carrier_random": [
@@ -69,7 +70,8 @@
               "Code": "equal 0"
             }
           ],
-          "NextMtn": "carrier_switch_000"
+          "NextMtn": "carrier_switch_000",
+          "Command": ""
         },
         {
           "Name": "heart_random_001",
@@ -103,7 +105,8 @@
               "Code": "equal 1"
             }
           ],
-          "NextMtn": "carrier_switch_000"
+          "NextMtn": "carrier_switch_000",
+          "Command": ""
         }
       ],
       "restore_costume": [
@@ -153,9 +156,20 @@
               "Name": "heart_body_only",
               "Type": 2,
               "Code": "init 0"
+            },
+            {
+              "Name": "page_menu_version",
+              "Type": 2,
+              "Code": "assign 4"
+            },
+            {
+              "Name": "page_load_count",
+              "Type": 2,
+              "Code": "add 1"
             }
           ],
-          "NextMtn": "carrier_restore_safe"
+          "NextMtn": "carrier_restore_safe",
+          "Command": ""
         }
       ],
       "carrier_wardrobe": [
@@ -212,7 +226,7 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_captions_on_menu#6",
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_captions_on#6",
           "VarFloats": [
             {
               "Name": "selected_costume",
@@ -233,7 +247,7 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_captions_off_menu#6",
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_captions_off#6",
           "VarFloats": [
             {
               "Name": "selected_costume",
@@ -315,7 +329,8 @@
               "Code": "lower_equal 1"
             }
           ],
-          "NextMtn": "restore_costume"
+          "NextMtn": "restore_costume",
+          "Command": ""
         },
         {
           "Name": "low",
@@ -334,7 +349,8 @@
               "Code": "assign 1"
             }
           ],
-          "NextMtn": "restore_costume"
+          "NextMtn": "restore_costume",
+          "Command": ""
         },
         {
           "Name": "high",
@@ -353,7 +369,8 @@
               "Code": "assign 1"
             }
           ],
-          "NextMtn": "restore_costume"
+          "NextMtn": "restore_costume",
+          "Command": ""
         }
       ],
       "carrier_replay_voice": [
@@ -394,7 +411,7 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_startup_on_menu#6",
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_captions_on#6",
           "VarFloats": [
             {
               "Name": "selected_costume",
@@ -452,7 +469,7 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_startup_off_menu#6",
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 ui_captions_off#6",
           "VarFloats": [
             {
               "Name": "selected_costume",
@@ -504,6 +521,585 @@
               "Code": "assign 0"
             }
           ]
+        }
+      ],
+      "web_action_001_000": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_action_000#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "web_action_001_001": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_action_001#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "web_action_001_002": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_action_002#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_18faa78cd0a570f8_0": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_fav_18faa78cd0a570f8_0#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_18faa78cd0a570f8_1": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_fav_18faa78cd0a570f8_1#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_18faa78cd0a570f8",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_fav_9cef281405772fc8_0": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_fav_9cef281405772fc8_0#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_9cef281405772fc8_1": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_fav_9cef281405772fc8_1#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_9cef281405772fc8",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_fav_09ab615756803ebd_0": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_fav_09ab615756803ebd_0#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_09ab615756803ebd_1": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_fav_09ab615756803ebd_1#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_09ab615756803ebd",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_fav_55c30a705fbed3e8_0": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_fav_55c30a705fbed3e8_0#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_55c30a705fbed3e8",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_55c30a705fbed3e8_1": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_fav_55c30a705fbed3e8_1#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_fav_55c30a705fbed3e8",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_set_heart_body_only_0": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_set_heart_body_only_0#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_body_only",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_set_heart_body_only_1": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_set_heart_body_only_1#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_body_only",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_set_heart_action_scope_0": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_set_heart_action_scope_0#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_action_scope",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_set_heart_action_scope_1": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_set_heart_action_scope_1#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_action_scope",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_set_heart_voice_scope_0": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_set_heart_voice_scope_0#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_scope",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_set_heart_voice_scope_1": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_set_heart_voice_scope_1#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "heart_voice_scope",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_set_voice_captions_enabled_0": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_set_voice_captions_enabled_0#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_set_voice_captions_enabled_1": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_set_voice_captions_enabled_1#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_idle": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_idle#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "web_stop_voice": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_stop_voice#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "web_reset": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_reset#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "web_clear_expression": [
+        {
+          "Name": "costume_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko_costume_001 web_clear_expression#6",
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "costume_loading",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "web_costume_001": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "quiet_costume_switch",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "carrier_switch_000"
         }
       ]
     }
