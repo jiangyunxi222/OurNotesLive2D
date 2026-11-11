@@ -33,7 +33,8 @@ class HitProjection:
         self.model_scale = factor * (10 / max(canvas) if canvas else world_height / 2)
         self.origin = (canvas[0] / 2, canvas[1] / 2) if canvas else (0, 0)
         self.mirror = -1 if transform.get("mirror") else 1
-        angle = math.radians(transform.get("rotate", 0))
+        # ViewerEX rotates the model plane around Unity's Y axis.
+        angle = -math.radians(transform.get("rotate", 0))
         self.cosine, self.sine = math.cos(angle), math.sin(angle)
 
     def screen_point(self, x, y):
