@@ -1792,12 +1792,49 @@
       ],
       "ui_voice_tap#2": [
         {
-          "Name": "no_voice",
-          "Text": "当前角色未提供语音素材",
-          "MotionDuration": 3000,
-          "TextDuration": 3000,
+          "Name": "voice_000",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10444_001.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
           "Priority": 9,
-          "Interruptable": true
+          "Interruptable": true,
+          "Text": "好，乐队的例行会议要开始啦～\n之前也说过，之后要开始忙全国巡演了！"
+        },
+        {
+          "Name": "voice_001",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_010.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "哎呀～明知道是强人所难还是拜托你了，\n真的太感谢了"
+        },
+        {
+          "Name": "voice_002",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_006.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "诶，已经画好了！？\n而且还做了几种方案！？"
+        },
+        {
+          "Name": "voice_003",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_001.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "——那，确认一下进度吧。\n首先是千石同学，新歌的情况怎么样？"
+        },
+        {
+          "Name": "voice_004",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_004.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "藤同学，巡演宣传用的插画怎么样了？\n昨天又追加了委托，真不好意思"
         }
       ],
       "ui_tap_body#6": [
@@ -1832,10 +1869,42 @@
       ],
       "ui_voice_tap_plain#2": [
         {
-          "Name": "no_voice",
-          "Text": "当前角色未提供语音素材",
-          "MotionDuration": 3000,
-          "TextDuration": 3000,
+          "Name": "voice_000",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10444_001.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_001",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_010.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_002",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_006.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_003",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_001.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_004",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_004.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
           "Priority": 9,
           "Interruptable": true
         }
@@ -1937,6 +2006,13 @@
           "MotionDuration": 60000,
           "Text": "语音（字幕开启）",
           "TextDuration": 60000,
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
           "Choices": [
             {
               "Text": "关闭字幕",
@@ -1944,7 +2020,15 @@
             },
             {
               "Text": "随机播放",
-              "NextMtn": "ui_tap_voice#6"
+              "NextMtn": "ui_voice_random#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
             },
             {
               "Text": "返回主菜单",
@@ -1953,13 +2037,6 @@
             {
               "Text": "关闭菜单",
               "NextMtn": "ui_close#4"
-            }
-          ],
-          "VarFloats": [
-            {
-              "Name": "voice_captions_enabled",
-              "Type": 1,
-              "Code": "equal 1"
             }
           ]
         },
@@ -1970,6 +2047,13 @@
           "MotionDuration": 60000,
           "Text": "语音（字幕关闭）",
           "TextDuration": 60000,
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
           "Choices": [
             {
               "Text": "开启字幕",
@@ -1977,7 +2061,15 @@
             },
             {
               "Text": "随机播放",
-              "NextMtn": "ui_tap_voice#6"
+              "NextMtn": "ui_voice_random#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
             },
             {
               "Text": "返回主菜单",
@@ -1986,13 +2078,6 @@
             {
               "Text": "关闭菜单",
               "NextMtn": "ui_close#4"
-            }
-          ],
-          "VarFloats": [
-            {
-              "Name": "voice_captions_enabled",
-              "Type": 1,
-              "Code": "equal 0"
             }
           ]
         }
@@ -2019,10 +2104,74 @@
       ],
       "ui_play_selected_voice#6": [
         {
-          "Name": "run",
+          "Name": "voice_000",
           "Priority": 9,
           "Interruptable": true,
-          "MotionDuration": 1
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "NextMtn": "ui_voice#2:voice_000"
+        },
+        {
+          "Name": "voice_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "NextMtn": "ui_voice#2:voice_001"
+        },
+        {
+          "Name": "voice_002",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 1,
+              "Code": "equal 2"
+            }
+          ],
+          "NextMtn": "ui_voice#2:voice_002"
+        },
+        {
+          "Name": "voice_003",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 1,
+              "Code": "equal 3"
+            }
+          ],
+          "NextMtn": "ui_voice#2:voice_003"
+        },
+        {
+          "Name": "voice_004",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 1,
+              "Code": "equal 4"
+            }
+          ],
+          "NextMtn": "ui_voice#2:voice_004"
         }
       ],
       "ui_startup_on_menu#6": [
@@ -2055,6 +2204,735 @@
             }
           ],
           "NextMtn": "ui_main#4"
+        }
+      ],
+      "ui_select_0046#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_000#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "ui_select_0047#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_001#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "ui_select_0048#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_002#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 2"
+            }
+          ]
+        }
+      ],
+      "ui_voice_list_001#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "语音  1/2",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "好，乐队的例行会议要开始啦～ 之前也说过，之后要开始忙全",
+              "NextMtn": "ui_select_0046#4"
+            },
+            {
+              "Text": "哎呀～明知道是强人所难还是拜托你了， 真的太感谢了",
+              "NextMtn": "ui_select_0047#4"
+            },
+            {
+              "Text": "诶，已经画好了！？ 而且还做了几种方案！？",
+              "NextMtn": "ui_select_0048#4"
+            },
+            {
+              "Text": "下一页",
+              "NextMtn": "ui_voice_list_002#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ]
+        }
+      ],
+      "ui_select_0049#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_003#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 3"
+            }
+          ]
+        }
+      ],
+      "ui_select_0050#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_004#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 4"
+            }
+          ]
+        }
+      ],
+      "ui_voice_list_002#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "语音  2/2",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "——那，确认一下进度吧。 首先是千石同学，新歌的情况怎么",
+              "NextMtn": "ui_select_0049#4"
+            },
+            {
+              "Text": "藤同学，巡演宣传用的插画怎么样了？ 昨天又追加了委托，真",
+              "NextMtn": "ui_select_0050#4"
+            },
+            {
+              "Text": "上一页",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            }
+          ]
+        }
+      ],
+      "ui_voice_play_000#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_000#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "ui_voice_status_000#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正在播放：\n好，乐队的例行会议要开始啦～\n之前也说过，之后要开始忙全国巡演了！",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "重播",
+              "NextMtn": "ui_voice_play_000#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正在播放（字幕已关闭）",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "重播",
+              "NextMtn": "ui_voice_play_000#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "ui_voice_play_001#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_001#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "ui_voice_status_001#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正在播放：\n哎呀～明知道是强人所难还是拜托你了，\n真的太感谢了",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "重播",
+              "NextMtn": "ui_voice_play_001#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正在播放（字幕已关闭）",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "重播",
+              "NextMtn": "ui_voice_play_001#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "ui_voice_play_002#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_002#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 2"
+            }
+          ]
+        }
+      ],
+      "ui_voice_status_002#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正在播放：\n诶，已经画好了！？\n而且还做了几种方案！？",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "重播",
+              "NextMtn": "ui_voice_play_002#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正在播放（字幕已关闭）",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "重播",
+              "NextMtn": "ui_voice_play_002#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "ui_voice_play_003#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_003#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 3"
+            }
+          ]
+        }
+      ],
+      "ui_voice_status_003#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正在播放：\n——那，确认一下进度吧。\n首先是千石同学，新歌的情况怎么样？",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "重播",
+              "NextMtn": "ui_voice_play_003#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正在播放（字幕已关闭）",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "重播",
+              "NextMtn": "ui_voice_play_003#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "ui_voice_play_004#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_004#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 4"
+            }
+          ]
+        }
+      ],
+      "ui_voice_status_004#4": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正在播放：\n藤同学，巡演宣传用的插画怎么样了？\n昨天又追加了委托，真不好意思",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "重播",
+              "NextMtn": "ui_voice_play_004#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "正在播放（字幕已关闭）",
+          "TextDuration": 60000,
+          "Choices": [
+            {
+              "Text": "重播",
+              "NextMtn": "ui_voice_play_004#4"
+            },
+            {
+              "Text": "语音列表",
+              "NextMtn": "ui_voice_list_001#4"
+            },
+            {
+              "Text": "停止播放",
+              "NextMtn": "ui_stop_voice#4"
+            },
+            {
+              "Text": "返回主菜单",
+              "NextMtn": "ui_main#4"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ],
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        }
+      ],
+      "ui_voice_random#4": [
+        {
+          "Name": "voice_000",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_000#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "voice_001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_001#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_002",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_002#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 2"
+            }
+          ]
+        },
+        {
+          "Name": "voice_003",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_003#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 3"
+            }
+          ]
+        },
+        {
+          "Name": "voice_004",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_sub_yumemita_manager carrier_replay_voice",
+          "NextMtn": "ui_voice_status_004#4",
+          "VarFloats": [
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 4"
+            }
+          ]
+        }
+      ],
+      "ui_voice#2": [
+        {
+          "Name": "voice_000",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10444_001.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_001",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_010.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_002",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_006.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_003",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_001.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_004",
+          "Sound": "assets/voices/source_adv_voice_anotherstory_10448_004.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
         }
       ]
     },
