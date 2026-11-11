@@ -304,18 +304,36 @@ function resetModelView() {
   model.position.set(width / 2, height * .98);
 }
 
-function synchronizeMotionFades(model) {
+function synchronizeMotionFades(model, metadata = {}) {
   const manager = model.internalModel.motionManager;
-  const apply = (motion) => {
+  if (metadata.pageMotionFadePolicy === "source" && !metadata.FileReferences && manager.queueManager) {
+    // Keep the outgoing SDK2 motion until its source fade finishes, matching
+    // Bestdori's MotionQueueManager instead of discarding it at each switch.
+    manager._startMotion = (motion, onFinish) => {
+      motion.onFinishHandler = onFinish;
+      return manager.queueManager.startMotion(motion);
+    };
+  }
+  const apply = (group, index, motion) => {
     if (!motion) return;
+    if (metadata.pageMotionFadePolicy === "source") {
+      const definitions = metadata.FileReferences?.Motions || metadata.motions;
+      const definition = definitions?.[group]?.[index];
+      if (!definition) return;
+      motion.setFadeIn?.(definition.fade_in);
+      motion.setFadeOut?.(definition.fade_out);
+      motion.setFadeInTime?.(definition.FadeInTime);
+      motion.setFadeOutTime?.(definition.FadeOutTime);
+      return;
+    }
     motion.setFadeIn?.(0);
     motion.setFadeOut?.(0);
     motion.setFadeInTime?.(0);
     motion.setFadeOutTime?.(0);
   };
-  manager.on("motionLoaded", (group, index, motion) => apply(motion));
-  for (const motions of Object.values(manager.motionGroups)) {
-    for (const motion of motions) apply(motion);
+  manager.on("motionLoaded", apply);
+  for (const [group, motions] of Object.entries(manager.motionGroups)) {
+    motions.forEach((motion, index) => apply(group, index, motion));
   }
 }
 
@@ -345,7 +363,7 @@ async function loadModel(key) {
     const metadata = await fetch(url).then((response) => response.json());
     metadata.url = location.origin + url;
     const model = await PIXI.live2d.Live2DModel.from(metadata, { autoInteract: false, motionPreload: "NONE" });
-    synchronizeMotionFades(model);
+    synchronizeMotionFades(model, metadata);
     if (token !== view.request) { model.destroy({ children: true }); return; }
     view.model = model;
     view.mouthIds = metadata.pageMouthIds || [];
@@ -435,7 +453,7 @@ async function queueVisibleThumbnails() {
     const metadata = await fetch(url).then((response) => response.json());
     metadata.url = location.origin + url;
     model = await PIXI.live2d.Live2DModel.from(metadata, { autoUpdate: false, autoInteract: false, motionPreload: "NONE" });
-    synchronizeMotionFades(model);
+    synchronizeMotionFades(model, metadata);
     const bounds = model.getLocalBounds();
     model.anchor.set(.5, 1);
     model.scale.set(Math.min(208 / bounds.width, 315 / bounds.height));

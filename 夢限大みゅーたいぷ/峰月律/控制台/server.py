@@ -468,7 +468,7 @@ class Studio:
                     if (
                         variables.get("page_menu_version") != 7
                         or variables.get("page_input_revision") != 2
-                        or variables.get("motion_rig_revision") != 1
+                        or variables.get("motion_rig_revision") != self.catalog().get("motionRigRevision", 1)
                     ):
                         self.load_native()
                     self.sync_preferences()
@@ -628,7 +628,7 @@ class Studio:
                 attached = (
                     variables.get("page_menu_version") == 7
                     and variables.get("page_input_revision") == 2
-                    and variables.get("motion_rig_revision") == 1
+                    and variables.get("motion_rig_revision") == self.catalog().get("motionRigRevision", 1)
                 )
             if self.slot is None:
                 self.slot = next(
@@ -1175,10 +1175,15 @@ class Studio:
             textures[int(index)] = path
         base = "/assets/" + role_id + "/"
         motions = {}
+        source_fades = role.get("motionFadePolicy") == "source"
+        fade_in_key, fade_out_key = ("FadeInTime", "FadeOutTime") if c3 else ("fade_in", "fade_out")
+        fade_unit = 1000 if c3 else 1
         for item in costume["actions"]:
-            motions["page_" + str(item["id"])] = [
-                {"File" if c3 else "file": base + item["file"]}
-            ]
+            definition = {"File" if c3 else "file": base + item["file"]}
+            if source_fades:
+                definition.update({fade_in_key: item["fadeIn"] / fade_unit,
+                                   fade_out_key: item["fadeOut"] / fade_unit})
+            motions["page_" + str(item["id"])] = [definition]
         idle = groups.get("Idle" if c3 else "idle", [])
         if idle:
             motions["Idle" if c3 else "idle"] = [
@@ -1187,6 +1192,11 @@ class Studio:
                     + idle[0]["File" if c3 else "file"]
                 }
             ]
+            if source_fades:
+                motions["Idle" if c3 else "idle"][0].update({
+                    fade_in_key: idle[0]["FadeIn" if c3 else "fade_in"] / fade_unit,
+                    fade_out_key: idle[0]["FadeOut" if c3 else "fade_out"] / fade_unit,
+                })
         expressions = [
             {
                 "Name" if c3 else "name": str(item["id"]),
@@ -1226,6 +1236,8 @@ class Studio:
             item.get("Id", item.get("id"))
             for item in controller.get("Items", controller.get("items", []))
         ]
+        if source_fades:
+            result["pageMotionFadePolicy"] = "source"
         return result
 
 
