@@ -26,6 +26,27 @@ let toastTimer;
 let actionTimer;
 let audioGeneration = 0;
 let thumbnailBusy = false;
+let preferenceQueue = Promise.resolve();
+const pendingPreferences = new Map();
+
+function preferenceValue(key) {
+  return pendingPreferences.has(key) ? pendingPreferences.get(key).value : view.state.settings[key];
+}
+
+async function savePreference(key, value) {
+  const change = { value };
+  pendingPreferences.set(key, change);
+  renderState();
+  const request = preferenceQueue.then(() => api("preference", { key, value }));
+  preferenceQueue = request.catch(() => {});
+  try {
+    const state = await request;
+    if (state.sequence >= view.state.sequence) view.state = state;
+  } finally {
+    if (pendingPreferences.get(key) === change) pendingPreferences.delete(key);
+    renderState();
+  }
+}
 
 function toast(message) {
   clearTimeout(toastTimer);
@@ -161,6 +182,8 @@ function makeItem(item, kind) {
 
 function renderItems() {
   if (!view.catalog || !view.state) return;
+  const hasLoop = ["action", "voice", "costume"].includes(view.tab);
+  if (hasLoop) view.onlyFavorites = Boolean(preferenceValue(view.tab + "Scope"));
   const favorites = favoriteSet();
   let entries;
   if (view.tab === "favorites") {
@@ -193,16 +216,19 @@ function renderItems() {
   $("#favorites-filter").classList.toggle("selected", view.onlyFavorites);
   $("#favorites-filter").setAttribute("aria-pressed", String(view.onlyFavorites));
   $("#favorites-filter span").textContent = view.onlyFavorites ? "♥" : "♡";
-  $("#playback-bar").hidden = !["action", "voice", "costume"].includes(view.tab);
-  const scope = view.state.settings[view.tab + "Scope"] || 0;
-  $("#scope-all").classList.toggle("selected", !scope);
-  $("#scope-hearts").classList.toggle("selected", Boolean(scope));
+  $("#favorites-filter").title = hasLoop ? "同时设置列表和循环范围；搜索只筛选列表" : "只显示收藏的表情";
+  $("#playback-bar").hidden = !hasLoop;
+  const scope = hasLoop && view.onlyFavorites;
   const looping = Boolean(view.state.looping[view.tab]);
   $("#loop").classList.toggle("active", looping);
   $("#loop").setAttribute("aria-pressed", String(looping));
   $("#loop-label").textContent = looping ? "停止循环" : view.tab === "costume" ? "循环换装" : "循环播放";
-  if (document.activeElement !== $("#loop-order")) $("#loop-order").value = view.state.settings[view.tab + "Order"] || "random";
-  if (document.activeElement !== $("#loop-interval")) $("#loop-interval").value = view.state.settings[view.tab + "Interval"] ?? 0;
+  const order = preferenceValue(view.tab + "Order") || "random";
+  document.querySelectorAll("[data-order]").forEach((button) => {
+    button.classList.toggle("selected", button.dataset.order === order);
+    button.setAttribute("aria-pressed", String(button.dataset.order === order));
+  });
+  if (document.activeElement !== $("#loop-interval")) $("#loop-interval").value = preferenceValue(view.tab + "Interval") ?? 0;
   $("#loop-interval").min = view.tab === "costume" ? "1" : "0";
   $("#interval-label").textContent = view.tab === "costume" ? "每套停留" : "结束后等待";
   $("#loop-concurrency-hint").hidden = view.tab !== "costume" || !(view.state.looping.action || view.state.looping.voice);
@@ -621,31 +647,30 @@ document.querySelectorAll("[data-filter]").forEach((button) => button.addEventLi
 }));
 $("#item-search").addEventListener("input", renderItems);
 $("#items").addEventListener("scroll", queueVisibleThumbnails, { passive: true });
-$("#favorites-filter").addEventListener("click", () => { view.onlyFavorites = !view.onlyFavorites; renderItems(); });
+$("#favorites-filter").addEventListener("click", safely(async () => {
+  if (["action", "voice", "costume"].includes(view.tab)) {
+    await savePreference(view.tab + "Scope", view.onlyFavorites ? 0 : 1);
+  } else { view.onlyFavorites = !view.onlyFavorites; renderItems(); }
+}));
 $("#empty-reset").addEventListener("click", () => { $("#item-search").value = ""; renderItems(); });
 $("#loop").addEventListener("click", safely(async () => {
-  if (view.state.looping[view.tab]) {
-    view.state = await api("stop", { kind: view.tab });
-    stopLocal(view.tab);
+  const kind = view.tab;
+  await preferenceQueue;
+  if (view.state.looping[kind]) {
+    view.state = await api("stop", { kind });
+    stopLocal(kind);
   } else {
-    if (view.tab === "voice") await enableAudio();
-    view.state = await api("operate", { kind: view.tab, random: true, loop: true });
+    if (kind === "voice") await enableAudio();
+    view.state = await api("operate", { kind, random: true, loop: true });
   }
   renderState();
 }));
-for (const [id, suffix] of [["#loop-order", "Order"], ["#loop-interval", "Interval"]]) {
-  $(id).addEventListener("change", safely(async (event) => {
-    const value = suffix === "Interval" ? Number(event.target.value) : event.target.value;
-    try { view.state = await api("preference", { key: view.tab + suffix, value }); }
-    finally { renderState(); }
-  }));
-}
-for (const [id, scope] of [["#scope-all", 0], ["#scope-hearts", 1]]) {
-  $(id).addEventListener("click", safely(async () => {
-    view.state = await api("preference", { key: view.tab + "Scope", value: scope });
-    renderState();
-  }));
-}
+document.querySelectorAll("[data-order]").forEach((button) => button.addEventListener("click", safely(() =>
+  savePreference(view.tab + "Order", button.dataset.order)
+)));
+$("#loop-interval").addEventListener("change", safely((event) =>
+  savePreference(view.tab + "Interval", Number(event.target.value))
+));
 for (const [id, key] of [["#captions-toggle", "captions"], ["#body-toggle", "bodyOnly"]]) {
   $(id).addEventListener("change", safely(async (event) => {
     try { view.state = await api("preference", { key, value: event.target.checked }); }

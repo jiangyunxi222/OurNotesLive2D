@@ -40,8 +40,8 @@
           <div id="favorite-categories" class="filter-chips" hidden><button class="selected" data-filter="all">全部</button><button data-filter="action">动作</button><button data-filter="expression">表情</button><button data-filter="costume">衣装</button><button data-filter="voice">语音</button></div>
           <div id="items" class="items action-grid" role="tabpanel" aria-labelledby="tab-action"></div>
           <div id="empty" class="empty-state" hidden><span id="empty-icon">♡</span><h3 id="empty-title">还没有心动收藏</h3><p id="empty-description">点亮条目旁的爱心，就能在这里找到它。</p><button id="empty-reset" class="subtle-button" hidden>清除筛选</button></div>
-          <div class="playback-bar" id="playback-bar"><div class="play-range"><span>播放范围</span><div class="segmented" role="group" aria-label="随机和循环播放范围"><button id="scope-all" class="selected">全部</button><button id="scope-hearts">♥ 收藏</button></div></div><p id="range-hint" class="range-hint" hidden>当前收藏为空，先点亮条目旁的爱心。</p><div class="loop-options">
-            <label>播放顺序<select id="loop-order"><option value="random">随机播放</option><option value="sequence">按列表顺序</option></select></label>
+          <div class="playback-bar" id="playback-bar"><p id="range-hint" class="range-hint" hidden>当前收藏为空，先点亮条目旁的爱心。</p><div class="loop-options">
+            <div class="order-setting"><span>播放顺序</span><div class="order-buttons" id="loop-order" role="group" aria-label="播放顺序"><button data-order="random" aria-pressed="true" class="selected">随机播放</button><button data-order="sequence" aria-pressed="false">按列表顺序</button></div></div>
             <label><span id="interval-label">结束后等待</span><span class="interval-input"><input id="loop-interval" type="number" min="0" max="3600" step="0.5" value="12" aria-label="循环间隔秒数"><span>秒</span></span></label>
           </div><p id="loop-concurrency-hint" class="range-hint" hidden>换装会等待当前动作和语音结束，再恢复循环。</p><div class="play-buttons"><button id="loop" class="primary-button"><span>↻</span><span id="loop-label">循环播放</span></button></div></div>
         </section>
