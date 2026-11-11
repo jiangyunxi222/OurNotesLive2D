@@ -304,6 +304,21 @@ function resetModelView() {
   model.position.set(width / 2, height * .98);
 }
 
+function synchronizeMotionFades(model) {
+  const manager = model.internalModel.motionManager;
+  const apply = (motion) => {
+    if (!motion) return;
+    motion.setFadeIn?.(0);
+    motion.setFadeOut?.(0);
+    motion.setFadeInTime?.(0);
+    motion.setFadeOutTime?.(0);
+  };
+  manager.on("motionLoaded", (group, index, motion) => apply(motion));
+  for (const motions of Object.values(manager.motionGroups)) {
+    for (const motion of motions) apply(motion);
+  }
+}
+
 async function loadModel(key) {
   const token = ++view.request;
   view.modelKey = key;
@@ -330,6 +345,7 @@ async function loadModel(key) {
     const metadata = await fetch(url).then((response) => response.json());
     metadata.url = location.origin + url;
     const model = await PIXI.live2d.Live2DModel.from(metadata, { autoInteract: false, motionPreload: "NONE" });
+    synchronizeMotionFades(model);
     if (token !== view.request) { model.destroy({ children: true }); return; }
     view.model = model;
     view.mouthIds = metadata.pageMouthIds || [];
@@ -419,6 +435,7 @@ async function queueVisibleThumbnails() {
     const metadata = await fetch(url).then((response) => response.json());
     metadata.url = location.origin + url;
     model = await PIXI.live2d.Live2DModel.from(metadata, { autoUpdate: false, autoInteract: false, motionPreload: "NONE" });
+    synchronizeMotionFades(model);
     const bounds = model.getLocalBounds();
     model.anchor.set(.5, 1);
     model.scale.set(Math.min(208 / bounds.width, 315 / bounds.height));

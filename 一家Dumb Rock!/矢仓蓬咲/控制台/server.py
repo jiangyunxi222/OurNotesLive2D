@@ -468,6 +468,7 @@ class Studio:
                     if (
                         variables.get("page_menu_version") != 7
                         or variables.get("page_input_revision") != 2
+                        or variables.get("motion_rig_revision") != 1
                     ):
                         self.load_native()
                     self.sync_preferences()
@@ -627,6 +628,7 @@ class Studio:
                 attached = (
                     variables.get("page_menu_version") == 7
                     and variables.get("page_input_revision") == 2
+                    and variables.get("motion_rig_revision") == 1
                 )
             if self.slot is None:
                 self.slot = next(
@@ -1180,7 +1182,10 @@ class Studio:
         idle = groups.get("Idle" if c3 else "idle", [])
         if idle:
             motions["Idle" if c3 else "idle"] = [
-                {"File" if c3 else "file": base + idle[0]["File" if c3 else "file"]}
+                {
+                    "File" if c3 else "file": base
+                    + idle[0]["File" if c3 else "file"]
+                }
             ]
         expressions = [
             {
