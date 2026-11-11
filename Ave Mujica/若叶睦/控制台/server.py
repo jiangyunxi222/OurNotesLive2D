@@ -6,6 +6,7 @@ import copy
 import hashlib
 import json
 import mimetypes
+import math
 import os
 import random
 import secrets
@@ -245,8 +246,15 @@ class Studio:
                 ),
                 next(iter(self.roles), None),
             )
-        self.jobs = {kind: 0 for kind in ("action", "voice")}
-        self.looping = {"action": False, "voice": False}
+        self.jobs = {kind: 0 for kind in ("action", "voice", "costume")}
+        self.looping = {kind: False for kind in self.jobs}
+        self.cursors = {}
+        self.timers = {}
+        self.costume_due = False
+        self.popup = None
+        self.last_menu_request = None
+        self.last_native_toggles = {}
+        self.next_reconnect_at = 0
         self.playing = {}
         if self.saved.get("desktop_requested"):
             self.reconnect_requested = True
@@ -305,6 +313,10 @@ class Studio:
                 "voiceScope": int(values.get("heart_voice_scope", 0)),
             }
         settings = self.saved["roles"][role_id]
+        settings.setdefault("costumeScope", 0)
+        for kind, interval in (("action", 12), ("voice", 2.5), ("costume", 15)):
+            settings.setdefault(kind + "Order", "random")
+            settings.setdefault(kind + "Interval", interval)
         valid = {costume["id"] for costume in self.catalog(role_id)["costumes"]}
         if settings["costume"] not in valid:
             settings["costume"] = min(valid)
@@ -332,6 +344,8 @@ class Studio:
             "looping": self.looping.copy(),
             "playing": self.playing.copy(),
             "sequence": self.sequence,
+            "waitingForCostume": self.costume_due,
+            "menu": self.popup.status.copy() if self.popup else None,
         }
 
     def emit(self, kind, data=None):
@@ -396,7 +410,7 @@ class Studio:
         """Reattach the same loaded character after a dropped socket."""
         last_ping = time.monotonic()
         while True:
-            time.sleep(2)
+            time.sleep(0.25)
             with self.lock:
                 if not self.reconnect_requested:
                     continue
@@ -407,12 +421,16 @@ class Studio:
                     ):
                         self.player.close()
                     if self.player.socket and self.linked:
-                        self.adopt_native_costume()
+                        if not self.adopt_native_costume():
+                            self.native_menu_events()
                         if time.monotonic() - last_ping >= 10:
                             self.player.send(10000, None)
                             last_ping = time.monotonic()
                         continue
                     self.linked = False
+                    if time.monotonic() < self.next_reconnect_at:
+                        continue
+                    self.next_reconnect_at = time.monotonic() + 2
                     if self.slot is None:
                         slots = native_data(NATIVE / "save/autosave.dat").get(
                             "charDatas", []
@@ -442,10 +460,11 @@ class Studio:
                     self.player.connect()
                     self.linked = True
                     self.adopt_native_costume()
-                    if self.native_variables().get("page_menu_version") != 4:
+                    if self.native_variables().get("page_menu_version") != 7:
                         self.load_native()
                     self.sync_preferences()
                     self.sync_favorites()
+                    self.sync_loop_flags()
                     self.emit("connection")
                     last_ping = time.monotonic()
                 except (OSError, ConnectionError):
@@ -496,34 +515,65 @@ class Studio:
         if kind not in self.jobs:
             raise ValueError("操作类型无效")
         self.jobs[kind] += 1
+        timer = self.timers.pop(kind, None)
+        if timer:
+            timer.cancel()
         self.looping[kind] = False
+        resume = kind == "costume" and self.costume_due
+        if kind == "costume":
+            self.costume_due = False
         self.playing.pop(kind, None)
-        self.native("web_stop_voice" if kind == "voice" else "web_idle")
+        self.native(f"web_set_page_loop_{kind}_0")
+        if kind != "costume":
+            self.native("web_stop_voice" if kind == "voice" else "web_idle")
+        if kind == "voice":
+            self.native("carrier_hide_text#5")
         self.emit("stop", kind)
+        if resume:
+            self.resume_playback_loops()
 
-    def select(self, role_id, costume_id=None):
+    def select(self, role_id, costume_id=None, from_loop=False):
         catalog = self.catalog(role_id)
         if costume_id is not None and costume_id not in {
             costume["id"] for costume in catalog["costumes"]
         }:
             raise ValueError("衣装不存在")
-        for kind in self.jobs:
-            self.stop(kind)
+        if role_id == self.current and (
+            costume_id is None or costume_id == self.settings()["costume"]
+        ):
+            return self.snapshot()
+        if not from_loop:
+            self.costume_due = False
+            self.stop("costume")
+        for kind in ("action", "voice"):
+            self.jobs[kind] += 1
+            timer = self.timers.pop(kind, None)
+            if timer:
+                timer.cancel()
+            self.playing.pop(kind, None)
+            self.emit("stop", kind)
         previous = self.current
         self.current = role_id
         if costume_id is not None:
             self.settings()["costume"] = costume_id
         if self.linked:
-            if previous != role_id:
-                self.load_native()
-            else:
-                self.native(f'web_costume_{self.settings()["costume"]:03d}')
-                if self.linked:
-                    self.wait_native()
-                    self.sync_preferences()
-                    self.sync_favorites()
+            try:
+                if previous != role_id:
+                    self.load_native()
+                else:
+                    self.native(f'web_costume_{self.settings()["costume"]:03d}')
+                    if self.linked:
+                        self.wait_native()
+                        self.sync_preferences()
+                        self.sync_favorites()
+            except (OSError, ConnectionError):
+                self.linked = False
+                self.player.close()
+                self.emit("notice", "桌面换装仍在恢复连接，页面循环继续运行")
         self.save()
         self.emit("selection")
+        self.sync_loop_flags()
+        self.resume_playback_loops()
         return self.snapshot()
 
     def connect(self, attach=False):
@@ -563,7 +613,7 @@ class Studio:
             if self.slot is not None:
                 variables = self.native_variables()
                 self.adopt_native_costume()
-                attached = variables.get("page_menu_version") == 4
+                attached = variables.get("page_menu_version") == 7
             if self.slot is None:
                 self.slot = next(
                     (
@@ -586,6 +636,7 @@ class Studio:
                 self.wait_native()
                 self.sync_preferences()
                 self.sync_favorites()
+                self.sync_loop_flags()
             else:
                 self.load_native()
         except (OSError, ConnectionError):
@@ -615,6 +666,7 @@ class Studio:
             self.wait_native()
             self.sync_preferences()
             self.sync_favorites()
+            self.sync_loop_flags()
         finally:
             self.loading = False
 
@@ -623,19 +675,94 @@ class Studio:
         profile = NATIVE / "save/cha" / hashlib.md5(path.encode()).hexdigest()
         return native_data(profile).get("varFloats") or {}
 
+    def desktop_anchor(self):
+        slots = native_data(NATIVE / "save/autosave.dat").get("charDatas", [])
+        if self.slot is None or self.slot >= len(slots):
+            return None
+        slot = slots[self.slot]
+        if (
+            str(slot.get("jsonFilePath") or "").replace("\\", "/").casefold()
+            != self.expected_path()
+        ):
+            return None
+        path = str(self.root() / self.catalog()["entry"]).replace("\\", "/")
+        profile = native_data(
+            NATIVE / "save/cha" / hashlib.md5(path.encode()).hexdigest()
+        )
+        transform = (profile.get("transforms") or {}).get(slot.get("lastTransKey"))
+        if not transform:
+            return None
+        return {
+            "x": transform.get("viewportX", 0),
+            "y": transform.get("viewportY", 0),
+        }
+
     def adopt_native_costume(self):
         variables = self.native_variables()
         costume_id = variables.get("selected_costume")
         if variables.get("costume_loading") != 0 or costume_id not in {
             item["id"] for item in self.catalog()["costumes"]
         }:
-            return
+            return False
         if costume_id != self.settings()["costume"]:
             self.settings()["costume"] = int(costume_id)
             self.save()
             self.emit("selection")
             self.sync_preferences()
             self.sync_favorites()
+            self.sync_loop_flags()
+            self.resume_playback_loops()
+            return True
+        return False
+
+    def sync_loop_flags(self):
+        self.native("web_set_page_backend_connected_1")
+        for kind in self.jobs:
+            self.native(f"web_set_page_loop_{kind}_{int(self.looping[kind])}")
+
+    def resume_playback_loops(self):
+        for kind in ("action", "voice"):
+            if self.looping[kind]:
+                try:
+                    self.operate(kind, loop=True, randomize=True)
+                except (ValueError, ConnectionError):
+                    self.stop(kind)
+                    self.emit(
+                        "notice",
+                        "当前衣装的循环范围为空，已停止"
+                        + ("动作" if kind == "action" else "语音")
+                        + "循环",
+                    )
+
+    def native_menu_events(self):
+        variables = self.native_variables()
+        request = variables.get("page_menu_request", 0)
+        if request != self.last_menu_request:
+            if (
+                self.last_menu_request is not None
+                and request > self.last_menu_request
+                and self.popup
+            ):
+                self.popup.show()
+            self.last_menu_request = request
+        for kind in self.jobs:
+            counter = variables.get("page_toggle_request_" + kind, 0)
+            previous = self.last_native_toggles.get(kind)
+            self.last_native_toggles[kind] = counter
+            if (
+                previous is None
+                or counter <= previous
+                or int(counter - previous) % 2 == 0
+            ):
+                continue
+            try:
+                if self.looping[kind]:
+                    self.stop(kind)
+                else:
+                    self.operate(kind, loop=True, randomize=True)
+            except (ValueError, ConnectionError) as error:
+                self.stop(kind)
+                self.emit("notice", str(error))
 
     def wait_native(self, any_costume=False, minimum_load_count=0):
         for attempt in range(120):
@@ -674,13 +801,14 @@ class Studio:
             if "语音" in name:
                 kinds = ["voice"]
             elif "换装" in name:
-                kinds = ["action", "voice"]
+                kinds = ["costume"]
             elif any(word in name for word in ("动作", "左臂", "右臂", "上身")):
                 kinds = ["action"]
             for kind in kinds:
                 self.jobs[kind] += 1
                 self.looping[kind] = False
                 self.playing.pop(kind, None)
+                self.native(f"web_set_page_loop_{kind}_0")
                 self.emit("stop", kind)
 
     def sync_favorites(self):
@@ -734,11 +862,51 @@ class Studio:
             "bodyOnly": "heart_body_only",
             "actionScope": "heart_action_scope",
             "voiceScope": "heart_voice_scope",
+            "costumeScope": None,
         }
-        if key not in variables or value not in (True, False, 0, 1):
+        orders = {kind + "Order" for kind in self.jobs}
+        intervals = {kind + "Interval" for kind in self.jobs}
+        if key in orders:
+            if value not in ("random", "sequence"):
+                raise ValueError("播放顺序无效")
+        elif key in intervals:
+            minimum = 1 if key == "costumeInterval" else 0
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not math.isfinite(value)
+                or not minimum <= value <= 3600
+            ):
+                raise ValueError("间隔需在" + str(minimum) + "至3600秒之间")
+        elif key not in variables or value not in (True, False, 0, 1):
             raise ValueError("设置无效")
         self.settings()[key] = value
-        self.native(f"web_set_{variables[key]}_{int(value)}")
+        if variables.get(key):
+            self.native(f"web_set_{variables[key]}_{int(value)}")
+        if key in intervals:
+            kind = key.removesuffix("Interval")
+            if self.looping[kind]:
+                if kind == "costume" and self.costume_due:
+                    self.costume_due = False
+                    self.resume_playback_loops()
+                self.jobs[kind] += 1
+                playing = self.playing.get(kind, {})
+                item = next(
+                    (
+                        entry
+                        for entry in self.entries(kind)
+                        if entry["id"] == playing.get("id")
+                    ),
+                    {},
+                )
+                elapsed = time.time() - playing.get("startedAt", time.time())
+                remaining = max(
+                    0,
+                    value
+                    + (0 if kind == "costume" else item.get("duration", 0))
+                    - elapsed,
+                )
+                self.schedule(kind, remaining, self.repeat, self.jobs[kind])
         self.save()
         self.emit("settings")
         return self.snapshot()
@@ -771,7 +939,7 @@ class Studio:
         if randomize:
             only = (
                 self.settings().get(kind + "Scope", 0)
-                if kind in ("action", "voice") and not body
+                if kind in self.jobs and not body
                 else self.settings()["bodyOnly"]
             )
             entries = [
@@ -779,7 +947,12 @@ class Studio:
                 for entry in entries
                 if not only or entry["flag"] in self.settings()["favorites"]
             ]
-            if kind == "costume":
+            if kind == "costume" and (
+                not loop
+                or (
+                    len(entries) > 1 and self.settings().get(kind + "Order") == "random"
+                )
+            ):
                 entries = [
                     entry
                     for entry in entries
@@ -791,42 +964,93 @@ class Studio:
                 raise ValueError(
                     "当前范围为空，请先添加❤收藏" if only else "当前没有可播放的内容"
                 )
-            item = random.choice(entries)
+            if loop and self.settings()[kind + "Order"] == "sequence":
+                cursor_key = (kind, self.costume()["id"] if kind == "action" else 0)
+                last_id = self.cursors.get(cursor_key, -1)
+                item = next(
+                    (entry for entry in entries if entry["id"] > last_id), entries[0]
+                )
+                self.cursors[cursor_key] = item["id"]
+            else:
+                item = random.choice(entries)
         else:
             item = next((entry for entry in entries if entry["id"] == item_id), None)
         if item is None:
             raise ValueError("条目不存在")
-        if kind == "costume":
-            return self.select(self.current, item["id"])
+        if kind == "costume" and loop and not self.looping[kind]:
+            self.jobs[kind] += 1
+            self.looping[kind] = True
+            self.cursors[(kind, 0)] = self.settings()["costume"]
+            self.playing[kind] = {
+                "id": self.costume()["id"],
+                "name": self.costume()["name"],
+                "startedAt": time.time(),
+            }
+            self.native("web_set_page_loop_costume_1")
+            self.schedule(
+                kind, self.settings()["costumeInterval"], self.repeat, self.jobs[kind]
+            )
+            self.emit("loop")
+            return self.snapshot()
         if kind in self.jobs:
             self.jobs[kind] += 1
             generation = self.jobs[kind]
             self.looping[kind] = bool(loop)
         else:
             generation = 0
-        group = (
-            f'web_{kind}_{item["id"]:03d}'
-            if kind == "voice"
-            else f'web_{kind}_{self.costume()["id"]:03d}_{item["id"]:03d}'
-        )
-        self.native(group)
+        if kind == "costume":
+            self.select(self.current, item["id"], from_loop=loop)
+        else:
+            group = (
+                f'web_{kind}_{item["id"]:03d}'
+                if kind == "voice"
+                else f'web_{kind}_{self.costume()["id"]:03d}_{item["id"]:03d}'
+            )
+            self.native(group)
+        if kind in self.jobs:
+            self.native(f"web_set_page_loop_{kind}_{int(loop)}")
         self.playing[kind] = {
             "id": item["id"],
             "startedAt": time.time(),
             "name": item["name"],
         }
-        self.emit("play", {"kind": kind, "item": item, "generation": generation})
-        if loop:
-            duration = item.get("duration", 4) + (12 if kind == "action" else 2.5)
-            timer = threading.Timer(duration, self.repeat, args=(kind, generation))
-            timer.daemon = True
-            timer.start()
-        elif kind in self.jobs:
-            timer = threading.Timer(
-                item.get("duration", 4), self.finish, args=(kind, generation)
+        if kind != "costume":
+            self.emit(
+                "play",
+                {
+                    "kind": kind,
+                    "item": item,
+                    "generation": generation,
+                    "costume": self.costume()["id"],
+                },
             )
-            timer.daemon = True
-            timer.start()
+        if loop:
+            duration = self.settings()[kind + "Interval"] + (
+                0 if kind == "costume" else item.get("duration", 4)
+            )
+            self.schedule(kind, duration, self.repeat, generation)
+        elif kind in self.jobs:
+            self.schedule(kind, item.get("duration", 4), self.finish, generation)
+        return self.snapshot()
+
+    def schedule(self, kind, delay, callback, generation):
+        previous = self.timers.pop(kind, None)
+        if previous:
+            previous.cancel()
+        timer = threading.Timer(delay, callback, args=(kind, generation))
+        timer.daemon = True
+        self.timers[kind] = timer
+        timer.start()
+
+    def reset(self):
+        self.costume_due = False
+        for kind in self.jobs:
+            self.stop(kind)
+        self.operate("expression", item_id=-1)
+        self.native("web_reset")
+        self.native("carrier_hide_text#5")
+        self.playing.clear()
+        self.emit("reset")
         return self.snapshot()
 
     def finish(self, kind, generation):
@@ -840,6 +1064,34 @@ class Studio:
         with self.lock:
             if self.jobs[kind] != generation or not self.looping[kind]:
                 return
+            if kind != "costume" and self.costume_due:
+                self.playing.pop(kind, None)
+                self.emit("ended", kind)
+                return
+            if kind == "costume":
+                self.costume_due = True
+                remaining = 0
+                for playing_kind in ("action", "voice"):
+                    playing = self.playing.get(playing_kind)
+                    if not playing:
+                        continue
+                    item = next(
+                        (
+                            entry
+                            for entry in self.entries(playing_kind)
+                            if entry["id"] == playing["id"]
+                        ),
+                        {},
+                    )
+                    remaining = max(
+                        remaining,
+                        item.get("duration", 0) - (time.time() - playing["startedAt"]),
+                    )
+                if remaining > 0:
+                    self.schedule(kind, remaining + 0.05, self.repeat, generation)
+                    self.emit("waiting")
+                    return
+                self.costume_due = False
             try:
                 self.operate(kind, loop=True, randomize=True)
             except (ValueError, ConnectionError):
@@ -1050,6 +1302,12 @@ class Handler(BaseHTTPRequestHandler):
                     result = STUDIO.save_thumbnail(
                         data["role"], int(data["costume"]), data["image"]
                     )
+                elif self.path == "/api/menu":
+                    if STUDIO.popup:
+                        STUDIO.popup.show()
+                    result = STUDIO.snapshot()
+                elif self.path == "/api/reset":
+                    result = STUDIO.reset()
                 else:
                     return self.respond(404, {"error": "操作不存在"})
             self.respond(200, result)
@@ -1072,4 +1330,8 @@ if __name__ == "__main__":
         raise SystemExit(0)
     if not args.no_browser:
         webbrowser.open(f"http://127.0.0.1:{PORT}")
-    server.serve_forever()
+    from compact_menu import CompactMenu
+
+    STUDIO.popup = CompactMenu(STUDIO, PORT)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    STUDIO.popup.run()

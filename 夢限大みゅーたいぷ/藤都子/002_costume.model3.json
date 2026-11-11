@@ -2033,6 +2033,31 @@
               "Name": "heart_voice_active",
               "Type": 2,
               "Code": "assign 0"
+            },
+            {
+              "Name": "page_backend_connected",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_control_version",
+              "Type": 2,
+              "Code": "assign 5"
             }
           ],
           "FadeOut": 0,
@@ -2059,27 +2084,37 @@
       ],
       "ui_main#4": [
         {
-          "Name": "loops_0_0",
+          "Name": "loops_0_0_0",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 60000,
-          "Text": "",
+          "Text": "角色菜单",
           "TextDuration": 60000,
           "VarFloats": [
             {
-              "Name": "heart_action_loop",
+              "Name": "page_backend_connected",
               "Type": 1,
               "Code": "equal 0"
             },
             {
-              "Name": "heart_voice_loop",
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_costume",
               "Type": 1,
               "Code": "equal 0"
             }
           ],
           "Choices": [
             {
-              "Text": "打开页面控制台",
+              "Text": "打开面板",
               "NextMtn": "web_open#6"
             },
             {
@@ -2091,8 +2126,8 @@
               "NextMtn": "web_cycle_voice#6"
             },
             {
-              "Text": "随机换装",
-              "NextMtn": "web_random_costume#6"
+              "Text": "循环换装",
+              "NextMtn": "web_cycle_costume#6"
             },
             {
               "Text": "恢复待机",
@@ -2105,27 +2140,93 @@
           ]
         },
         {
-          "Name": "loops_0_1",
+          "Name": "loops_0_0_1",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 60000,
-          "Text": "",
+          "Text": "角色菜单",
           "TextDuration": 60000,
           "VarFloats": [
             {
-              "Name": "heart_action_loop",
+              "Name": "page_backend_connected",
               "Type": 1,
               "Code": "equal 0"
             },
             {
-              "Name": "heart_voice_loop",
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_costume",
               "Type": 1,
               "Code": "equal 1"
             }
           ],
           "Choices": [
             {
-              "Text": "打开页面控制台",
+              "Text": "打开面板",
+              "NextMtn": "web_open#6"
+            },
+            {
+              "Text": "循环动作",
+              "NextMtn": "web_cycle_action#6"
+            },
+            {
+              "Text": "循环语音",
+              "NextMtn": "web_cycle_voice#6"
+            },
+            {
+              "Text": "停止换装循环",
+              "NextMtn": "web_cycle_costume#6"
+            },
+            {
+              "Text": "恢复待机",
+              "NextMtn": "web_reset#6"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ]
+        },
+        {
+          "Name": "loops_0_1_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "角色菜单",
+          "TextDuration": 60000,
+          "VarFloats": [
+            {
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "Choices": [
+            {
+              "Text": "打开面板",
               "NextMtn": "web_open#6"
             },
             {
@@ -2137,8 +2238,8 @@
               "NextMtn": "web_cycle_voice#6"
             },
             {
-              "Text": "随机换装",
-              "NextMtn": "web_random_costume#6"
+              "Text": "循环换装",
+              "NextMtn": "web_cycle_costume#6"
             },
             {
               "Text": "恢复待机",
@@ -2151,27 +2252,93 @@
           ]
         },
         {
-          "Name": "loops_1_0",
+          "Name": "loops_0_1_1",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 60000,
-          "Text": "",
+          "Text": "角色菜单",
           "TextDuration": 60000,
           "VarFloats": [
             {
-              "Name": "heart_action_loop",
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_voice",
               "Type": 1,
               "Code": "equal 1"
             },
             {
-              "Name": "heart_voice_loop",
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "Choices": [
+            {
+              "Text": "打开面板",
+              "NextMtn": "web_open#6"
+            },
+            {
+              "Text": "循环动作",
+              "NextMtn": "web_cycle_action#6"
+            },
+            {
+              "Text": "停止语音循环",
+              "NextMtn": "web_cycle_voice#6"
+            },
+            {
+              "Text": "停止换装循环",
+              "NextMtn": "web_cycle_costume#6"
+            },
+            {
+              "Text": "恢复待机",
+              "NextMtn": "web_reset#6"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ]
+        },
+        {
+          "Name": "loops_1_0_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "角色菜单",
+          "TextDuration": 60000,
+          "VarFloats": [
+            {
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_costume",
               "Type": 1,
               "Code": "equal 0"
             }
           ],
           "Choices": [
             {
-              "Text": "打开页面控制台",
+              "Text": "打开面板",
               "NextMtn": "web_open#6"
             },
             {
@@ -2183,8 +2350,8 @@
               "NextMtn": "web_cycle_voice#6"
             },
             {
-              "Text": "随机换装",
-              "NextMtn": "web_random_costume#6"
+              "Text": "循环换装",
+              "NextMtn": "web_cycle_costume#6"
             },
             {
               "Text": "恢复待机",
@@ -2197,27 +2364,93 @@
           ]
         },
         {
-          "Name": "loops_1_1",
+          "Name": "loops_1_0_1",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 60000,
-          "Text": "",
+          "Text": "角色菜单",
           "TextDuration": 60000,
           "VarFloats": [
             {
-              "Name": "heart_action_loop",
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_action",
               "Type": 1,
               "Code": "equal 1"
             },
             {
-              "Name": "heart_voice_loop",
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_costume",
               "Type": 1,
               "Code": "equal 1"
             }
           ],
           "Choices": [
             {
-              "Text": "打开页面控制台",
+              "Text": "打开面板",
+              "NextMtn": "web_open#6"
+            },
+            {
+              "Text": "停止动作循环",
+              "NextMtn": "web_cycle_action#6"
+            },
+            {
+              "Text": "循环语音",
+              "NextMtn": "web_cycle_voice#6"
+            },
+            {
+              "Text": "停止换装循环",
+              "NextMtn": "web_cycle_costume#6"
+            },
+            {
+              "Text": "恢复待机",
+              "NextMtn": "web_reset#6"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ]
+        },
+        {
+          "Name": "loops_1_1_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "角色菜单",
+          "TextDuration": 60000,
+          "VarFloats": [
+            {
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "Choices": [
+            {
+              "Text": "打开面板",
               "NextMtn": "web_open#6"
             },
             {
@@ -2229,8 +2462,8 @@
               "NextMtn": "web_cycle_voice#6"
             },
             {
-              "Text": "随机换装",
-              "NextMtn": "web_random_costume#6"
+              "Text": "循环换装",
+              "NextMtn": "web_cycle_costume#6"
             },
             {
               "Text": "恢复待机",
@@ -2239,6 +2472,76 @@
             {
               "Text": "关闭菜单",
               "NextMtn": "ui_close#4"
+            }
+          ]
+        },
+        {
+          "Name": "loops_1_1_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 60000,
+          "Text": "角色菜单",
+          "TextDuration": 60000,
+          "VarFloats": [
+            {
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "Choices": [
+            {
+              "Text": "打开面板",
+              "NextMtn": "web_open#6"
+            },
+            {
+              "Text": "停止动作循环",
+              "NextMtn": "web_cycle_action#6"
+            },
+            {
+              "Text": "停止语音循环",
+              "NextMtn": "web_cycle_voice#6"
+            },
+            {
+              "Text": "停止换装循环",
+              "NextMtn": "web_cycle_costume#6"
+            },
+            {
+              "Text": "恢复待机",
+              "NextMtn": "web_reset#6"
+            },
+            {
+              "Text": "关闭菜单",
+              "NextMtn": "ui_close#4"
+            }
+          ]
+        },
+        {
+          "Name": "compact_menu",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_miyako page_open_compact#9",
+          "VarFloats": [
+            {
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 1"
             }
           ]
         }
@@ -22327,6 +22630,66 @@
               "Name": "heart_voice_active",
               "Type": 2,
               "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 2,
+              "Code": "assign 0"
             }
           ]
         }
@@ -22360,94 +22723,39 @@
       ],
       "web_cycle_action#6": [
         {
-          "Name": "scope_0",
+          "Name": "start",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_main#4",
-          "NextMtn": "heart_action_loop_route",
+          "Command": "start_mtn ournotes_l2d_carrier_miyako page_toggle_action#9",
           "VarFloats": [
             {
-              "Name": "heart_action_loop",
+              "Name": "page_loop_action",
               "Type": 1,
               "Code": "equal 0"
             },
             {
-              "Name": "heart_action_scope",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "heart_action_loop",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ]
-        },
-        {
-          "Name": "scope_1",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn ui_main#4",
-          "NextMtn": "heart_action_loop_route",
-          "VarFloats": [
-            {
-              "Name": "heart_action_loop",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "heart_action_scope",
+              "Name": "page_backend_connected",
               "Type": 1,
               "Code": "equal 1"
             },
             {
-              "Name": "heart_count_2ab7ead107bae8f0",
-              "Type": 1,
-              "Code": "greater 0"
-            },
-            {
-              "Name": "heart_action_loop",
+              "Name": "page_loop_action",
               "Type": 2,
               "Code": "assign 1"
-            }
-          ]
-        },
-        {
-          "Name": "empty",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "VarFloats": [
-            {
-              "Name": "heart_action_loop",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "heart_action_scope",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "heart_count_2ab7ead107bae8f0",
-              "Type": 1,
-              "Code": "equal 0"
             }
           ],
-          "Text": "当前收藏为空，请先在页面中添加爱心。",
-          "TextDuration": 2000
+          "NextMtn": "ui_main#4"
         },
         {
           "Name": "stop",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn Idle",
+          "Command": "stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; start_mtn Idle; start_mtn ournotes_l2d_carrier_miyako page_toggle_action#9",
           "VarFloats": [
             {
-              "Name": "heart_action_loop",
+              "Name": "page_loop_action",
               "Type": 1,
               "Code": "equal 1"
             },
@@ -22455,6 +22763,32 @@
               "Name": "heart_action_loop",
               "Type": 2,
               "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_action",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "ui_main#4"
+        },
+        {
+          "Name": "start_panel",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 2500,
+          "Text": "请先双击本角色目录中的“打开角色菜单.cmd”。",
+          "TextDuration": 2500,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 0"
             }
           ],
           "NextMtn": "ui_main#4"
@@ -22462,104 +22796,39 @@
       ],
       "web_cycle_voice#6": [
         {
-          "Name": "scope_0",
+          "Name": "start",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 7",
+          "Command": "start_mtn ournotes_l2d_carrier_miyako page_toggle_voice#9",
           "VarFloats": [
             {
-              "Name": "heart_voice_loop",
+              "Name": "page_loop_voice",
               "Type": 1,
               "Code": "equal 0"
             },
             {
-              "Name": "heart_voice_scope",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "heart_voice_loop",
-              "Type": 2,
-              "Code": "assign 1"
-            },
-            {
-              "Name": "heart_voice_active",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ],
-          "NextMtn": "heart_voice_loop_route#6"
-        },
-        {
-          "Name": "scope_1",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "Command": "stop_mtn 7",
-          "VarFloats": [
-            {
-              "Name": "heart_voice_loop",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "heart_voice_scope",
+              "Name": "page_backend_connected",
               "Type": 1,
               "Code": "equal 1"
             },
             {
-              "Name": "heart_count_65319d7798259765",
-              "Type": 1,
-              "Code": "greater 0"
-            },
-            {
-              "Name": "heart_voice_loop",
-              "Type": 2,
-              "Code": "assign 1"
-            },
-            {
-              "Name": "heart_voice_active",
+              "Name": "page_loop_voice",
               "Type": 2,
               "Code": "assign 1"
             }
           ],
-          "NextMtn": "heart_voice_loop_route#6"
-        },
-        {
-          "Name": "empty",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "VarFloats": [
-            {
-              "Name": "heart_voice_loop",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "heart_voice_scope",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "heart_count_65319d7798259765",
-              "Type": 1,
-              "Code": "equal 0"
-            }
-          ],
-          "Text": "当前收藏为空，请先在页面中添加爱心。",
-          "TextDuration": 2000
+          "NextMtn": "ui_main#4"
         },
         {
           "Name": "stop",
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 7; stop_mtn 2; stop_all_sounds; lip_sync enable",
+          "Command": "stop_mtn 7; stop_mtn 2; stop_all_sounds; lip_sync enable; start_mtn ournotes_l2d_carrier_miyako page_toggle_voice#9",
           "VarFloats": [
             {
-              "Name": "heart_voice_loop",
+              "Name": "page_loop_voice",
               "Type": 1,
               "Code": "equal 1"
             },
@@ -22572,6 +22841,32 @@
               "Name": "heart_voice_active",
               "Type": 2,
               "Code": "assign 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "ui_main#4"
+        },
+        {
+          "Name": "start_panel",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 2500,
+          "Text": "请先双击本角色目录中的“打开角色菜单.cmd”。",
+          "TextDuration": 2500,
+          "VarFloats": [
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 0"
             }
           ],
           "NextMtn": "ui_main#4"
@@ -24151,6 +24446,194 @@
           "Priority": 9,
           "Interruptable": true,
           "NextMtn": "heart_voice_wait#7"
+        }
+      ],
+      "web_cycle_costume#6": [
+        {
+          "Name": "start",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_miyako page_toggle_costume#9",
+          "VarFloats": [
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "ui_main#4"
+        },
+        {
+          "Name": "stop",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "ui_main#4",
+          "Command": "start_mtn ournotes_l2d_carrier_miyako page_toggle_costume#9"
+        },
+        {
+          "Name": "start_panel",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 2500,
+          "Text": "请先双击本角色目录中的“打开角色菜单.cmd”。",
+          "TextDuration": 2500,
+          "VarFloats": [
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_backend_connected",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "NextMtn": "ui_main#4"
+        }
+      ],
+      "web_set_page_backend_connected_0#9": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_backend_connected",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_set_page_backend_connected_1#9": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_backend_connected",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_set_page_loop_action_0#9": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_set_page_loop_action_1#9": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_set_page_loop_voice_0#9": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_set_page_loop_voice_1#9": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_voice",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_set_page_loop_costume_0#9": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_costume",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_set_page_loop_costume_1#9": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_costume",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ]
         }
       ]
     },

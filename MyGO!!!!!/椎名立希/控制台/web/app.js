@@ -15,7 +15,7 @@ const view = {
   onlyFavorites: false, favoriteCategory: "all", request: 0, model: null,
   app: null, mouthIds: [], mouth: 0, thumbnails: new Map(), visibleVoice: null,
   currentAction: null, currentExpression: null, modelKey: null, volume: null,
-  switchingCostume: false, desiredCostume: null,
+  switchingCostume: false, desiredCostume: null, modelReady: Promise.resolve(),
 };
 const audio = new Audio();
 audio.preload = "metadata";
@@ -104,6 +104,12 @@ function makeItem(item, kind) {
       image.src = thumbnail;
       image.alt = item.name;
       image.loading = "lazy";
+      image.addEventListener("error", () => {
+        item.thumbnail = null;
+        view.thumbnails.delete(`${view.catalog.id}:${item.id}`);
+        picture.replaceChildren();
+        queueVisibleThumbnails();
+      }, { once: true });
       picture.append(image);
     } else {
       const symbol = document.createElement("span");
@@ -184,18 +190,22 @@ function renderItems() {
   $("#favorites-filter").hidden = view.tab === "favorites";
   $("#favorite-categories").hidden = view.tab !== "favorites";
   $("#clear-expression").hidden = view.tab !== "expression";
-  $("#random-costume").hidden = view.tab !== "costume";
   $("#favorites-filter").classList.toggle("selected", view.onlyFavorites);
   $("#favorites-filter").setAttribute("aria-pressed", String(view.onlyFavorites));
   $("#favorites-filter span").textContent = view.onlyFavorites ? "♥" : "♡";
-  $("#playback-bar").hidden = !["action", "voice"].includes(view.tab);
+  $("#playback-bar").hidden = !["action", "voice", "costume"].includes(view.tab);
   const scope = view.state.settings[view.tab + "Scope"] || 0;
   $("#scope-all").classList.toggle("selected", !scope);
   $("#scope-hearts").classList.toggle("selected", Boolean(scope));
   const looping = Boolean(view.state.looping[view.tab]);
   $("#loop").classList.toggle("active", looping);
   $("#loop").setAttribute("aria-pressed", String(looping));
-  $("#loop-label").textContent = looping ? "停止循环" : "循环播放";
+  $("#loop-label").textContent = looping ? "停止循环" : view.tab === "costume" ? "循环换装" : "循环播放";
+  if (document.activeElement !== $("#loop-order")) $("#loop-order").value = view.state.settings[view.tab + "Order"] || "random";
+  if (document.activeElement !== $("#loop-interval")) $("#loop-interval").value = view.state.settings[view.tab + "Interval"] ?? 0;
+  $("#loop-interval").min = view.tab === "costume" ? "1" : "0";
+  $("#interval-label").textContent = view.tab === "costume" ? "每套停留" : "结束后等待";
+  $("#loop-concurrency-hint").hidden = view.tab !== "costume" || !(view.state.looping.action || view.state.looping.voice);
   const playable = itemList(view.tab).some((item) => !scope || favorites.has(item.flag));
   $("#loop").disabled = !playable && !looping;
   $("#range-hint").hidden = !scope || playable || looping;
@@ -250,7 +260,8 @@ async function applySelection(state) {
   }
   renderState();
   const key = view.catalog.id + ":" + currentCostume().id;
-  if (view.modelKey !== key) await loadModel(key);
+  if (view.modelKey !== key) view.modelReady = loadModel(key);
+  await view.modelReady;
 }
 
 function resetModelView() {
@@ -319,7 +330,8 @@ async function loadModel(key) {
         const box = regions[name];
         return box && point.x >= box[0] && point.x <= box[2] && point.y >= box[1] && point.y <= box[3];
       });
-      if (!region || region === "menu") return;
+      if (!region) return;
+      if (region === "menu") { await api("menu", {}); return; }
       if (region === "voice") await enableAudio();
       const kind = region === "wardrobe" ? "costume" : ["body", "left", "right"].includes(region) ? "action" : region;
       view.state = await api("operate", { kind, random: true, body: true, direction: region });
@@ -481,6 +493,7 @@ async function chooseCostume(id) {
 
 async function applyPlay(data) {
   const { kind, item } = data;
+  if (data.costume !== undefined && data.costume !== currentCostume().id) return;
   if (kind === "voice") {
     const generation = ++audioGeneration;
     audio.pause();
@@ -547,14 +560,14 @@ function updateSubtitle() {
 }
 
 function updatePlaying() {
-  const item = view.visibleVoice || view.currentAction;
+  const item = view.visibleVoice || view.currentAction || (view.state?.looping.costume ? currentCostume() : null);
   $("#playing-title").textContent = item?.name || "此刻，与你一起";
-  $("#playing-detail").textContent = item ? (view.visibleVoice ? "语音播放中" : "动作播放中") : "选择一个动作或一段语音";
+  $("#playing-detail").textContent = item ? (view.visibleVoice ? "语音播放中" : view.currentAction ? "动作播放中" : view.state.waitingForCostume ? "等待当前动作和语音结束后换装" : "循环换装中") : "选择一个动作或一段语音";
   $("#equalizer").classList.toggle("playing", Boolean(item));
 }
 
 async function stopAll() {
-  for (const kind of ["action", "voice"]) {
+  for (const kind of ["action", "voice", "costume"]) {
     view.state = await api("stop", { kind });
     stopLocal(kind);
   }
@@ -574,9 +587,11 @@ async function boot() {
     renderState();
   }
   const events = new EventSource("/api/events");
-  events.onmessage = safely(async (message) => {
+  let eventQueue = Promise.resolve();
+  const handleEvent = async (message) => {
     const event = JSON.parse(message.data);
     if (event.state.role !== view.state?.role && event.type !== "selection") return;
+    if (event.state.sequence < view.state.sequence) return;
     view.state = event.state;
     if (event.type === "selection") {
       if (!view.switchingCostume || event.state.settings.costume === view.desiredCostume) await applySelection(event.state);
@@ -584,9 +599,13 @@ async function boot() {
     else if (event.type === "play") await applyPlay(event.data);
     else if (event.type === "stop" || (event.type === "ended" && event.data !== "voice")) stopLocal(event.data);
     else if (event.type === "clear-expression") resetExpression();
+    else if (event.type === "reset") { for (const kind of ["action", "voice", "costume"]) stopLocal(kind); resetExpression(); }
     else if (event.type === "notice") toast(event.data);
     renderState();
-  });
+  };
+  events.onmessage = (message) => {
+    eventQueue = eventQueue.then(() => handleEvent(message)).catch((error) => toast(error.message));
+  };
   events.onopen = safely(async () => {
     const state = await api("state");
     await applySelection(state);
@@ -614,6 +633,13 @@ $("#loop").addEventListener("click", safely(async () => {
   }
   renderState();
 }));
+for (const [id, suffix] of [["#loop-order", "Order"], ["#loop-interval", "Interval"]]) {
+  $(id).addEventListener("change", safely(async (event) => {
+    const value = suffix === "Interval" ? Number(event.target.value) : event.target.value;
+    try { view.state = await api("preference", { key: view.tab + suffix, value }); }
+    finally { renderState(); }
+  }));
+}
 for (const [id, scope] of [["#scope-all", 0], ["#scope-hearts", 1]]) {
   $(id).addEventListener("click", safely(async () => {
     view.state = await api("preference", { key: view.tab + "Scope", value: scope });
@@ -636,14 +662,15 @@ $("#connect").addEventListener("click", safely(async () => {
   } finally { button.disabled = false; renderState(); }
 }));
 $("#stop-all").addEventListener("click", safely(stopAll));
-$("#quiet-stop").addEventListener("click", safely(stopAll));
+$("#quiet-stop").addEventListener("click", safely(async () => {
+  view.state = await api("reset", {});
+  for (const kind of ["action", "voice", "costume"]) stopLocal(kind);
+  resetExpression();
+  renderState();
+}));
 $("#clear-expression").addEventListener("click", safely(async () => {
   resetExpression();
   await api("operate", { kind: "expression", id: -1 });
-}));
-$("#random-costume").addEventListener("click", safely(async () => {
-  view.state = await api("operate", { kind: "costume", random: true });
-  await applySelection(view.state);
 }));
 $("#reset-view").addEventListener("click", resetModelView);
 $("#reload-preview").addEventListener("click", safely(() => loadModel(view.modelKey)));
