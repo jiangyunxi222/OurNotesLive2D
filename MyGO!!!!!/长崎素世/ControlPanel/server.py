@@ -586,6 +586,8 @@ class Studio:
             self.resume_playback_loops(only_paused=True)
 
     def select(self, role_id, costume_id=None, from_loop=False):
+        if not isinstance(role_id, str) or role_id not in self.roles:
+            raise ValueError("角色不存在")
         catalog = self.catalog(role_id)
         if costume_id is not None and costume_id not in {
             costume["id"] for costume in catalog["costumes"]
@@ -1333,6 +1335,12 @@ STUDIO = None
 class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
 
+    def handle(self):
+        try:
+            super().handle()
+        except ConnectionError:
+            self.close_connection = True
+
     def log_message(self, *args):
         pass
 
@@ -1385,19 +1393,24 @@ class Handler(BaseHTTPRequestHandler):
             mime = mimetypes.guess_type(file.name)[0] or "application/octet-stream"
             data = file.read_bytes()
             self.respond(200, data, mime)
+        except ConnectionError:
+            raise
         except (ValueError, KeyError, StopIteration, OSError) as error:
             self.respond(404, {"error": str(error)})
 
     def events(self):
+        try:
+            sequence = min(
+                int(self.headers.get("Last-Event-ID", str(STUDIO.sequence))),
+                STUDIO.sequence,
+            )
+        except ValueError:
+            return self.respond(400, {"error": "事件编号无效"})
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream")
         self.send_header("Cache-Control", "no-cache")
         self.send_header("Connection", "keep-alive")
         self.end_headers()
-        sequence = min(
-            int(self.headers.get("Last-Event-ID", str(STUDIO.sequence))),
-            STUDIO.sequence,
-        )
         try:
             while True:
                 with STUDIO.changed:
@@ -1435,6 +1448,9 @@ class Handler(BaseHTTPRequestHandler):
             return self.respond(403, {"error": "请求来源无效"})
         try:
             length = int(self.headers.get("Content-Length", "0"))
+            if length < 0:
+                self.close_connection = True
+                raise ValueError("请求长度无效")
             if self.path == "/api/voices/upload":
                 if not 0 < length <= voice_library.MAX_AUDIO_BYTES:
                     self.close_connection = True
@@ -1451,8 +1467,11 @@ class Handler(BaseHTTPRequestHandler):
                                               subtitle=metadata.get("subtitle"), filename=metadata.get("filename"))
                 return self.respond(200, result)
             if length > (1500000 if self.path == "/api/thumbnail" else 65536):
+                self.close_connection = True
                 raise ValueError("请求过大")
             data = json.loads(self.rfile.read(length))
+            if not isinstance(data, dict):
+                raise ValueError("请求格式无效")
             with STUDIO.lock:
                 if self.path == "/api/select":
                     result = STUDIO.select(data["role"], data.get("costume"))
@@ -1489,7 +1508,7 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     return self.respond(404, {"error": "操作不存在"})
             self.respond(200, result)
-        except (ValueError, KeyError, ConnectionError, OSError) as error:
+        except (ValueError, TypeError, KeyError, ConnectionError, OSError) as error:
             self.respond(400, {"error": str(error)})
 
 
