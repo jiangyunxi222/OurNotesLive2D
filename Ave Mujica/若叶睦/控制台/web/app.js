@@ -236,7 +236,7 @@ function renderState() {
   $("#game-name").textContent = view.catalog.game;
   $("#band-name").textContent = view.catalog.group.replace(/（Garupa）/g, "");
   $("#character-name").textContent = view.catalog.name.replace(/（Garupa）/g, "");
-  document.title = view.catalog.name.replace(/（Garupa）/g, "") + " · Bandori";
+  document.title = view.catalog.name.replace(/（Garupa）/g, "") + " · BandoriLove";
   $("#costume-caption").textContent = currentCostume().name;
   renderItems();
   updatePlaying();
