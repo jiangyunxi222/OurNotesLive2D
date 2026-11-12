@@ -633,14 +633,13 @@ async function boot() {
   view.library = await api("library");
   view.state = await api("state");
   const query = new URLSearchParams(location.search);
-  if (view.library.some((role) => role.id === query.get("role"))) {
+  if (query.get("role") !== view.state.role && view.library.some((role) => role.id === query.get("role"))) {
     view.state = await api("select", { role: query.get("role"), costume: Number(query.get("costume")) || undefined });
   }
-  await applySelection(view.state);
   if (query.get("desktop") === "1") {
     view.state = await api("connect", { attach: true });
-    renderState();
   }
+  await applySelection(view.state);
   const events = new EventSource("/api/events");
   let eventQueue = Promise.resolve();
   const handleEvent = async (message) => {
@@ -715,7 +714,7 @@ $("#connect").addEventListener("click", safely(async () => {
   } finally { button.disabled = false; renderState(); }
 }));
 $("#stop-all").addEventListener("click", safely(stopAll));
-document.querySelectorAll(".stage-tools, .control-panel, .bottom-bar").forEach((element) => {
+document.querySelectorAll(".control-panel, .bottom-bar").forEach((element) => {
   element.addEventListener("pointerdown", (event) => event.stopPropagation());
   element.addEventListener("pointerup", (event) => event.stopPropagation());
   element.addEventListener("click", (event) => event.stopPropagation());
@@ -724,7 +723,6 @@ $("#clear-expression").addEventListener("click", safely(async () => {
   resetExpression();
   await api("operate", { kind: "expression", id: -1 });
 }));
-$("#reset-view").addEventListener("click", resetModelView);
 $("#reload-preview").addEventListener("click", safely(() => loadModel(view.modelKey)));
 document.addEventListener("keydown", (event) => {
   if (event.key === "/" && !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) { event.preventDefault(); $("#item-search").focus(); }
