@@ -261,8 +261,6 @@ class Studio:
         self.playing = {}
         if self.saved.get("desktop_requested"):
             self.reconnect_requested = True
-            self.monitor_started = True
-            threading.Thread(target=self.maintain_connection, daemon=True).start()
 
     def catalog(self, role_id=None):
         role_id = role_id or self.current
@@ -396,6 +394,16 @@ class Studio:
     def expected_path(self):
         return str(self.root() / self.catalog()["entry"]).replace("\\", "/").casefold()
 
+    def loaded_model(self, slots):
+        paths = {str(self.root() / item["file"]).replace("\\", "/").casefold(): item["id"]
+                 for item in self.catalog()["costumes"]}
+        paths[self.expected_path()] = None
+        for index, slot in enumerate(slots):
+            path = str(slot.get("jsonFilePath") or "").replace("\\", "/").casefold()
+            if path in paths:
+                return index, paths[path]
+        return None, None
+
     def slot_path(self):
         slots = native_data(NATIVE / "save/autosave.dat").get("charDatas", [])
         if self.slot is None or self.slot >= len(slots):
@@ -417,7 +425,11 @@ class Studio:
             time.sleep(0.25)
             with self.lock:
                 if not self.reconnect_requested:
-                    continue
+                    slots = native_data(NATIVE / "save/autosave.dat").get("charDatas", [])
+                    if self.loaded_model(slots)[0] is None:
+                        continue
+                    self.reconnect_requested = True
+                    self.slot = None
                 try:
                     if (
                         self.player.socket
@@ -425,6 +437,15 @@ class Studio:
                     ):
                         self.player.close()
                     if self.player.socket and self.linked:
+                        if self.slot_path() != self.expected_path():
+                            self.linked = False
+                            self.slot = None
+                            self.input_epoch += 1
+                            self.player.close()
+                            for kind in self.jobs:
+                                self.stop(kind)
+                            self.emit("connection")
+                            continue
                         if not self.adopt_native_costume():
                             self.native_menu_events()
                         if time.monotonic() - last_ping >= 10:
@@ -439,19 +460,19 @@ class Studio:
                         slots = native_data(NATIVE / "save/autosave.dat").get(
                             "charDatas", []
                         )
-                        self.slot = next(
-                            (
-                                index
-                                for index, slot in enumerate(slots)
-                                if str(slot.get("jsonFilePath") or "")
-                                .replace("\\", "/")
-                                .casefold()
-                                == self.expected_path()
-                            ),
-                            None,
-                        )
+                        self.slot, _ = self.loaded_model(slots)
                     actual = self.slot_path()
                     if actual and actual != self.expected_path():
+                        matched_slot, costume = self.loaded_model(
+                            native_data(NATIVE / "save/autosave.dat").get("charDatas", [])
+                        )
+                        if matched_slot == self.slot and costume is not None:
+                            self.settings()["costume"] = costume
+                            self.player.connect()
+                            self.linked = True
+                            self.load_native()
+                            self.emit("connection")
+                            continue
                         self.reconnect_requested = False
                         self.saved["desktop_requested"] = False
                         self.save()
@@ -463,6 +484,7 @@ class Studio:
                         continue
                     self.player.connect()
                     self.linked = True
+                    self.native("carrier_hide_text#5")
                     self.adopt_native_costume()
                     variables = self.native_variables()
                     if (
@@ -589,6 +611,8 @@ class Studio:
         return self.snapshot()
 
     def connect(self, attach=False):
+        if self.linked and self.player.socket is not None and self.slot_path() == self.expected_path():
+            return self.snapshot()
         try:
             self.player.connect()
         except OSError:
@@ -613,23 +637,9 @@ class Studio:
             expected = (
                 str(self.root() / self.catalog()["entry"]).replace("\\", "/").casefold()
             )
-            self.slot = next(
-                (
-                    index
-                    for index, slot in enumerate(slots)
-                    if str(slot.get("jsonFilePath") or "").replace("\\", "/").casefold()
-                    == expected
-                ),
-                None,
-            )
-            if self.slot is not None:
-                variables = self.native_variables()
-                self.adopt_native_costume()
-                attached = (
-                    variables.get("page_menu_version") == 7
-                    and variables.get("page_input_revision") == 2
-                    and variables.get("motion_rig_revision") == self.catalog().get("motionRigRevision", 1)
-                )
+            self.slot, loaded_costume = self.loaded_model(slots)
+            if loaded_costume is not None:
+                self.settings()["costume"] = loaded_costume
             if self.slot is None:
                 self.slot = next(
                     (
@@ -645,6 +655,14 @@ class Studio:
                 )
             if self.slot is None:
                 raise ValueError("桌面模型位已满，请先空出一个模型位后重试")
+        if self.slot_path() == expected:
+            variables = self.native_variables()
+            self.adopt_native_costume()
+            attached = (
+                variables.get("page_menu_version") == 7
+                and variables.get("page_input_revision") == 2
+                and variables.get("motion_rig_revision") == self.catalog().get("motionRigRevision", 1)
+            )
         self.linked = True
         try:
             if attached:
@@ -1393,7 +1411,19 @@ class Handler(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-browser", action="store_true")
+    parser.add_argument("--watch-models", action="store_true")
     args = parser.parse_args()
+    from model_watch import acquire_instance, enable, run
+
+    if args.watch_models:
+        run(HERE, NATIVE, native_data)
+        raise SystemExit(0)
+    if sys.platform == "win32":
+        controller_instance = acquire_instance(f"BandGDreamPanel{PORT}")
+        if controller_instance is None:
+            if not args.no_browser:
+                webbrowser.open(f"http://127.0.0.1:{PORT}")
+            raise SystemExit(0)
     STUDIO = Studio()
     if not STUDIO.roles:
         raise SystemExit("没有找到资源目录，请将控制台保留在项目目录内。")
@@ -1409,4 +1439,9 @@ if __name__ == "__main__":
 
     STUDIO.popup = CompactMenu(STUDIO, PORT)
     threading.Thread(target=server.serve_forever, daemon=True).start()
+    if sys.platform == "win32":
+        enable(HERE)
+    if not STUDIO.monitor_started:
+        STUDIO.monitor_started = True
+        threading.Thread(target=STUDIO.maintain_connection, daemon=True).start()
     STUDIO.popup.run()
