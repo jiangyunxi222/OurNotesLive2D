@@ -7,7 +7,6 @@ import tkinter as tk
 import webbrowser
 import ctypes
 import sys
-from pathlib import Path
 from tkinter import font as tkfont
 
 
