@@ -46,6 +46,12 @@ def read(path):
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
+def model_path(value):
+    if not value:
+        return ""
+    return str(Path(value).resolve()).replace("\\", "/").casefold()
+
+
 def panel_directory(root):
     current = root / "ControlPanel"
     return current if current.is_dir() else root / "控制台"
@@ -263,7 +269,6 @@ class Studio:
         self.popup = None
         self.input_router = None
         self.input_epoch = 0
-        self.native_executable = NATIVE / "lw/lw.exe"
         self.last_menu_request = None
         self.last_panel_request = None
         self.last_native_toggles = {}
@@ -404,14 +409,14 @@ class Studio:
         return False
 
     def expected_path(self):
-        return str(self.root() / self.catalog()["entry"]).replace("\\", "/").casefold()
+        return model_path(self.root() / self.catalog()["entry"])
 
     def loaded_model(self, slots):
-        paths = {str(self.root() / item["file"]).replace("\\", "/").casefold(): item["id"]
+        paths = {model_path(self.root() / item["file"]): item["id"]
                  for item in self.catalog()["costumes"]}
         paths[self.expected_path()] = None
         for index, slot in enumerate(slots):
-            path = str(slot.get("jsonFilePath") or "").replace("\\", "/").casefold()
+            path = model_path(slot.get("jsonFilePath"))
             if path in paths:
                 return index, paths[path]
         return None, None
@@ -424,11 +429,16 @@ class Studio:
             slots[self.slot].get(key) for key in ("zipFilePath", "workshopFileId")
         ):
             return "@other-model"
-        return (
-            str(slots[self.slot].get("jsonFilePath") or "")
-            .replace("\\", "/")
-            .casefold()
-        )
+        return model_path(slots[self.slot].get("jsonFilePath"))
+
+    def native_model_file(self, slots=None):
+        if slots is None:
+            slots = native_data(NATIVE / "save/autosave.dat").get("charDatas", [])
+        if self.slot is not None and self.slot < len(slots):
+            path = slots[self.slot].get("jsonFilePath")
+            if model_path(path) == self.expected_path():
+                return str(path).replace("\\", "/")
+        return str(self.root() / self.catalog()["entry"]).replace("\\", "/")
 
     def maintain_connection(self):
         """Reattach the same loaded character after a dropped socket."""
@@ -631,14 +641,10 @@ class Studio:
             raise ConnectionError("请先启动 Live2DViewerEX，再点击连接桌面") from None
         attached = False
         slots = native_data(NATIVE / "save/autosave.dat").get("charDatas", [])
-        expected = (
-            str(self.root() / self.catalog()["entry"]).replace("\\", "/").casefold()
-        )
+        expected = self.expected_path()
         if self.slot is not None:
             actual = (
-                str(slots[self.slot].get("jsonFilePath") or "")
-                .replace("\\", "/")
-                .casefold()
+                model_path(slots[self.slot].get("jsonFilePath"))
                 if self.slot < len(slots)
                 else ""
             )
@@ -646,9 +652,6 @@ class Studio:
                 self.slot = None
         if self.slot is None:
             slots = native_data(NATIVE / "save/autosave.dat").get("charDatas", [])
-            expected = (
-                str(self.root() / self.catalog()["entry"]).replace("\\", "/").casefold()
-            )
             self.slot, loaded_costume = self.loaded_model(slots)
             if loaded_costume is not None:
                 self.settings()["costume"] = loaded_costume
@@ -709,7 +712,7 @@ class Studio:
             previous_count = self.native_variables().get("page_load_count", 0)
             self.player.send(
                 13000,
-                {"id": self.slot, "file": str(self.root() / self.catalog()["entry"])},
+                {"id": self.slot, "file": self.native_model_file()},
             )
             self.wait_native(any_costume=True, minimum_load_count=previous_count + 1)
             self.native(f'web_costume_{self.settings()["costume"]:03d}')
@@ -721,7 +724,7 @@ class Studio:
             self.loading = False
 
     def native_variables(self):
-        path = str(self.root() / self.catalog()["entry"]).replace("\\", "/")
+        path = self.native_model_file()
         profile = NATIVE / "save/cha" / hashlib.md5(path.encode()).hexdigest()
         return native_data(profile).get("varFloats") or {}
 
@@ -731,11 +734,11 @@ class Studio:
             return None
         slot = slots[self.slot]
         if (
-            str(slot.get("jsonFilePath") or "").replace("\\", "/").casefold()
+            model_path(slot.get("jsonFilePath"))
             != self.expected_path()
         ):
             return None
-        path = str(self.root() / self.catalog()["entry"]).replace("\\", "/")
+        path = self.native_model_file(slots)
         profile = native_data(
             NATIVE / "save/cha" / hashlib.md5(path.encode()).hexdigest()
         )

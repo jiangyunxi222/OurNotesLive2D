@@ -220,7 +220,7 @@
             {
               "Name": "motion_rig_revision",
               "Type": 2,
-              "Code": "assign 4"
+              "Code": "assign 5"
             },
             {
               "Name": "page_panel_request",
@@ -230,96 +230,6 @@
           ],
           "NextMtn": "carrier_restore_safe",
           "Command": ""
-        }
-      ],
-      "carrier_wardrobe": [
-        {
-          "Name": "route_001",
-          "MotionDuration": 1,
-          "Priority": 9,
-          "Interruptable": true,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_shizukus_father_costume_001 ui_open_wardrobe#4",
-          "VarFloats": [
-            {
-              "Name": "selected_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ]
-        }
-      ],
-      "carrier_main": [
-        {
-          "Name": "route_001",
-          "MotionDuration": 1,
-          "Priority": 9,
-          "Interruptable": true,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_shizukus_father_costume_001 ui_main#4",
-          "VarFloats": [
-            {
-              "Name": "selected_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ]
-        }
-      ],
-      "carrier_close": [
-        {
-          "Name": "route_001",
-          "MotionDuration": 1,
-          "Priority": 9,
-          "Interruptable": true,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_shizukus_father_costume_001 ui_close#4",
-          "VarFloats": [
-            {
-              "Name": "selected_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ]
-        }
-      ],
-      "carrier_captions_on": [
-        {
-          "Name": "set_1",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_shizukus_father_costume_001 ui_captions_on#6",
-          "VarFloats": [
-            {
-              "Name": "selected_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "voice_captions_enabled",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ]
-        }
-      ],
-      "carrier_captions_off": [
-        {
-          "Name": "set_1",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_shizukus_father_costume_001 ui_captions_off#6",
-          "VarFloats": [
-            {
-              "Name": "selected_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "voice_captions_enabled",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
         }
       ],
       "carrier_hide_text#5": [
@@ -431,38 +341,6 @@
           ],
           "NextMtn": "restore_costume",
           "Command": ""
-        }
-      ],
-      "carrier_replay_voice": [
-        {
-          "Name": "replay_1",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "VarFloats": [
-            {
-              "Name": "selected_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ],
-          "Command": "start_mtn ournotes_l2d_carrier_sub_shizukus_father_costume_001 ui_play_selected_voice#6"
-        }
-      ],
-      "carrier_manual_wardrobe#5": [
-        {
-          "Name": "run",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "Command": "hide_text",
-          "VarFloats": [
-            {
-              "Name": "quiet_costume_switch",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
         }
       ],
       "carrier_finish_costume": [
@@ -1597,51 +1475,6 @@
           ]
         }
       ],
-      "page_toggle_action#9": [
-        {
-          "Name": "run",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "VarFloats": [
-            {
-              "Name": "page_toggle_request_action",
-              "Type": 2,
-              "Code": "add 1"
-            }
-          ]
-        }
-      ],
-      "page_toggle_voice#9": [
-        {
-          "Name": "run",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "VarFloats": [
-            {
-              "Name": "page_toggle_request_voice",
-              "Type": 2,
-              "Code": "add 1"
-            }
-          ]
-        }
-      ],
-      "page_toggle_costume#9": [
-        {
-          "Name": "run",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "VarFloats": [
-            {
-              "Name": "page_toggle_request_costume",
-              "Type": 2,
-              "Code": "add 1"
-            }
-          ]
-        }
-      ],
       "web_block_input#8": [
         {
           "Name": "costume_001",
@@ -1713,21 +1546,6 @@
             }
           ],
           "NextMtn": "web_allow_input#8"
-        }
-      ],
-      "page_open_panel#9": [
-        {
-          "Name": "open",
-          "MotionDuration": 1,
-          "Priority": 9,
-          "Interruptable": true,
-          "VarFloats": [
-            {
-              "Name": "page_panel_request",
-              "Type": 2,
-              "Code": "add 1"
-            }
-          ]
         }
       ]
     }
