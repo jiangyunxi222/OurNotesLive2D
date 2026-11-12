@@ -24,29 +24,29 @@
       <div class="studio-layout">
         <section class="stage" aria-label="Live2D 角色预览">
           <div class="stage-orbit orbit-one"></div><div class="stage-orbit orbit-two"></div><span class="stage-spark spark-one">✧</span><span class="stage-spark spark-two">✦</span>
-          <div class="stage-label"><span class="live-dot"></span>页面预览<span id="model-loading" role="status">正在加载模型</span></div>
+          <div class="stage-label"><span class="live-dot"></span>预览<span id="model-loading" role="status">加载中</span></div>
           <div id="canvas-host"></div>
-          <div class="stage-error" id="stage-error" hidden><span>◇</span><p>模型预览暂时未能加载</p><button id="reload-preview">重新加载</button></div>
+          <div class="stage-error" id="stage-error" hidden><span>◇</span><p>预览加载失败</p><button id="reload-preview">重新加载</button></div>
           <div class="subtitle" id="subtitle" hidden><span id="subtitle-speaker"></span><p id="subtitle-text"></p></div>
           <div class="stage-floor"></div>
-          <div class="stage-tools"><button id="reset-view" class="icon-button" title="重置预览视角" aria-label="重置预览视角">⤢</button><span>移动鼠标，与角色轻轻互动</span><button id="quiet-stop" class="icon-button" title="恢复待机" aria-label="恢复待机">↺</button></div>
+          <div class="stage-tools"><button id="reset-view" class="icon-button" title="重置预览视角" aria-label="重置预览视角">⤢</button></div>
         </section>
         <section class="control-panel" aria-label="角色操作">
           <div class="tabs" role="tablist" aria-label="内容类型">
             <button class="selected" id="tab-action" role="tab" aria-selected="true" data-tab="action">动作</button><button id="tab-expression" role="tab" aria-selected="false" data-tab="expression">表情</button><button id="tab-costume" role="tab" aria-selected="false" data-tab="costume">衣装</button><button id="tab-voice" role="tab" aria-selected="false" data-tab="voice">语音</button><button id="tab-favorites" role="tab" aria-selected="false" data-tab="favorites"><span>♥</span> 收藏</button>
           </div>
-          <div class="panel-heading"><div><h2 id="section-title">让她动起来</h2><p id="section-description">点击播放，心动的动作随手收藏。</p></div><span id="item-count" class="count-label"></span></div>
+          <div class="panel-heading"><span id="item-count" class="count-label"></span></div>
           <div class="list-toolbar"><label class="search item-search"><span aria-hidden="true">⌕</span><input id="item-search" placeholder="搜索动作" aria-label="搜索当前列表"></label><button id="favorites-filter" class="heart-filter" aria-pressed="false"><span>♡</span>只看收藏</button><button id="clear-expression" class="subtle-button" hidden>清除表情</button></div>
           <div id="favorite-categories" class="filter-chips" hidden><button class="selected" data-filter="all">全部</button><button data-filter="action">动作</button><button data-filter="expression">表情</button><button data-filter="costume">衣装</button><button data-filter="voice">语音</button></div>
           <div id="items" class="items action-grid" role="tabpanel" aria-labelledby="tab-action"></div>
-          <div id="empty" class="empty-state" hidden><span id="empty-icon">♡</span><h3 id="empty-title">还没有心动收藏</h3><p id="empty-description">点亮条目旁的爱心，就能在这里找到它。</p><button id="empty-reset" class="subtle-button" hidden>清除筛选</button></div>
-          <div class="playback-bar" id="playback-bar"><p id="range-hint" class="range-hint" hidden>当前收藏为空，先点亮条目旁的爱心。</p><div class="loop-options">
+          <div id="empty" class="empty-state" hidden><span id="empty-icon">♡</span><h3 id="empty-title">暂无收藏</h3><button id="empty-reset" class="subtle-button" hidden>清除筛选</button></div>
+          <div class="playback-bar" id="playback-bar"><div class="loop-options">
             <div class="order-setting"><span>播放顺序</span><div class="order-buttons" id="loop-order" role="group" aria-label="播放顺序"><button data-order="random" aria-pressed="true" class="selected">随机播放</button><button data-order="sequence" aria-pressed="false">按列表顺序</button></div></div>
             <label><span id="interval-label">结束后等待</span><span class="interval-input"><input id="loop-interval" type="number" min="0" max="3600" step="0.5" value="12" aria-label="循环间隔秒数"><span>秒</span></span></label>
-          </div><p id="loop-concurrency-hint" class="range-hint" hidden>换装会等待当前动作和语音结束，再恢复循环。</p><div class="play-buttons"><button id="loop" class="primary-button"><span>↻</span><span id="loop-label">循环播放</span></button></div></div>
+          </div><div class="play-buttons"><button id="loop" class="primary-button"><span>↻</span><span id="loop-label">循环播放</span></button></div></div>
         </section>
       </div>
-      <footer class="bottom-bar"><div class="now-playing"><span class="equalizer" id="equalizer"><i></i><i></i><i></i><i></i></span><div><strong id="playing-title">此刻，与你一起</strong><span id="playing-detail">选择一个动作或一段语音</span></div></div><div class="quick-settings"><label class="setting-switch"><input id="captions-toggle" type="checkbox" checked><span class="switch-track"></span><span>语音字幕</span></label><label class="setting-switch"><input id="body-toggle" type="checkbox"><span class="switch-track"></span><span>身体互动仅♥</span></label><button id="stop-all" class="stop-button"><span>■</span>停止播放</button></div></footer>
+      <footer class="bottom-bar"><div class="now-playing"><span class="equalizer" id="equalizer"><i></i><i></i><i></i><i></i></span><div><strong id="playing-title">待机</strong><span id="playing-detail"></span></div></div><div class="quick-settings"><label class="setting-switch"><input id="captions-toggle" type="checkbox" checked><span class="switch-track"></span><span>语音字幕</span></label><label class="setting-switch"><input id="body-toggle" type="checkbox"><span class="switch-track"></span><span>身体互动仅♥</span></label><button id="stop-all" class="stop-button"><span>↺</span>恢复待机</button></div></footer>
     </div>
   </main>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>

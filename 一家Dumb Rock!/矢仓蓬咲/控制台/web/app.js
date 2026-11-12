@@ -3,13 +3,6 @@
 const $ = (selector) => document.querySelector(selector);
 const labels = { action: "动作", expression: "表情", costume: "衣装", voice: "语音", favorites: "收藏" };
 const directions = { body: "正面动作", left: "左手动作", right: "右手动作", other: "其他动作" };
-const headings = {
-  action: ["让角色动起来", "点击播放，心动的动作随手收藏。"],
-  expression: ["每一种小情绪", "点击切换表情，再次选择即可覆盖。"],
-  costume: ["今天，穿哪一套", "挑选喜欢的衣装，收藏你的常用搭配。"],
-  voice: ["听一段熟悉的声音", "点击即播，字幕随语音一起出现。"],
-  favorites: ["心动，随时可见", "所有收藏都在这里，点击即可使用。"],
-};
 const view = {
   library: [], catalog: null, state: null, game: "OurNotes", tab: "action",
   onlyFavorites: false, favoriteCategory: "all", request: 0, model: null,
@@ -142,7 +135,7 @@ function makeItem(item, kind) {
     if (wearing) {
       const tag = document.createElement("span");
       tag.className = "wearing-tag";
-      tag.textContent = "正在穿着";
+      tag.textContent = "当前";
       card.append(tag);
     }
   } else {
@@ -203,12 +196,8 @@ function renderItems() {
   const searching = Boolean(query);
   const favoritesEmpty = view.tab === "favorites" || view.onlyFavorites;
   $("#empty-icon").textContent = searching ? "⌕" : favoritesEmpty ? "♡" : "◇";
-  $("#empty-title").textContent = searching ? "没有找到匹配内容" : favoritesEmpty ? "还没有心动收藏" : `当前${labels[view.tab]}暂未收录`;
-  $("#empty-description").textContent = searching ? "换个关键词试试看。" : favoritesEmpty ? "点亮条目旁的爱心，就能在这里找到它。" : "可以先体验其他内容。";
+  $("#empty-title").textContent = searching ? "无结果" : favoritesEmpty ? "暂无收藏" : `暂无${labels[view.tab]}`;
   $("#empty-reset").hidden = !searching;
-  const [heading, description] = headings[view.tab];
-  $("#section-title").textContent = heading;
-  $("#section-description").textContent = description;
   $("#item-search").placeholder = `搜索${labels[view.tab]}`;
   $("#favorites-filter").hidden = view.tab === "favorites";
   $("#favorite-categories").hidden = view.tab !== "favorites";
@@ -216,7 +205,7 @@ function renderItems() {
   $("#favorites-filter").classList.toggle("selected", view.onlyFavorites);
   $("#favorites-filter").setAttribute("aria-pressed", String(view.onlyFavorites));
   $("#favorites-filter span").textContent = view.onlyFavorites ? "♥" : "♡";
-  $("#favorites-filter").title = hasLoop ? "同时设置列表和循环范围；搜索只筛选列表" : "只显示收藏的表情";
+  $("#favorites-filter").title = hasLoop ? "收藏列表与循环范围" : "收藏表情";
   $("#playback-bar").hidden = !hasLoop;
   const scope = hasLoop && view.onlyFavorites;
   const looping = Boolean(view.state.looping[view.tab]);
@@ -231,10 +220,8 @@ function renderItems() {
   if (document.activeElement !== $("#loop-interval")) $("#loop-interval").value = preferenceValue(view.tab + "Interval") ?? 0;
   $("#loop-interval").min = view.tab === "costume" ? "1" : "0";
   $("#interval-label").textContent = view.tab === "costume" ? "每套停留" : "结束后等待";
-  $("#loop-concurrency-hint").hidden = view.tab !== "costume" || !(view.state.looping.action || view.state.looping.voice);
   const playable = itemList(view.tab).some((item) => !scope || favorites.has(item.flag));
   $("#loop").disabled = !playable && !looping;
-  $("#range-hint").hidden = !scope || playable || looping;
 }
 
 function renderState() {
@@ -568,7 +555,7 @@ async function applyPlay(data) {
       if (generation !== audioGeneration) return;
       await audio.play();
     } catch (error) {
-      if (generation === audioGeneration && !view.state.linked) toast("请点击一次播放按钮以启用声音");
+      if (generation === audioGeneration && !view.state.linked) toast("浏览器已阻止声音播放");
     }
   } else if (kind === "action") {
     clearTimeout(actionTimer);
@@ -624,16 +611,15 @@ function updateSubtitle() {
 
 function updatePlaying() {
   const item = view.visibleVoice || view.currentAction || (view.state?.looping.costume ? currentCostume() : null);
-  $("#playing-title").textContent = item?.name || "此刻，与你一起";
-  $("#playing-detail").textContent = item ? (view.visibleVoice ? "语音播放中" : view.currentAction ? "动作播放中" : view.state.waitingForCostume ? "等待当前动作和语音结束后换装" : "循环换装中") : "选择一个动作或一段语音";
+  $("#playing-title").textContent = item?.name || "待机";
+  $("#playing-detail").textContent = item ? (view.visibleVoice ? "语音播放中" : view.currentAction ? "动作播放中" : view.state.waitingForCostume ? "等待换装" : "循环换装中") : "";
   $("#equalizer").classList.toggle("playing", Boolean(item));
 }
 
 async function stopAll() {
-  for (const kind of ["action", "voice", "costume"]) {
-    view.state = await api("stop", { kind });
-    stopLocal(kind);
-  }
+  view.state = await api("reset", {});
+  for (const kind of ["action", "voice", "costume"]) stopLocal(kind);
+  resetExpression();
   renderState();
 }
 
@@ -720,16 +706,9 @@ $("#connect").addEventListener("click", safely(async () => {
   $("#connect-label").textContent = "正在连接桌面";
   try {
     view.state = await api("connect", {});
-    toast("已连接桌面，页面操作会同步到桌面角色");
   } finally { button.disabled = false; renderState(); }
 }));
 $("#stop-all").addEventListener("click", safely(stopAll));
-$("#quiet-stop").addEventListener("click", safely(async () => {
-  view.state = await api("reset", {});
-  for (const kind of ["action", "voice", "costume"]) stopLocal(kind);
-  resetExpression();
-  renderState();
-}));
 document.querySelectorAll(".stage-tools, .control-panel, .bottom-bar").forEach((element) => {
   element.addEventListener("pointerdown", (event) => event.stopPropagation());
   element.addEventListener("pointerup", (event) => event.stopPropagation());
