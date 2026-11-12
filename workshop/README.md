@@ -1,23 +1,21 @@
-# OurNotes 创意工坊资产
+# OurNotes Live2D 创意工坊版
 
-对应分支为 `workshop/live2dviewerex`，共 44 个角色，发布状态为草稿。
+分支为 `workshop/live2dviewerex`。角色目录包含模型、衣装、动作、表情、语音和区域触发配置。
 
-## 文件位置
+## 交互
 
-- 角色目录保存模型、贴图、动作、物理数据、语音和资源清单。
-- `catalog.json` 索引全部角色资料卡。
-- `characters/<角色编号>/entry.json` 关联角色资源、封面、发布信息和验证状态。
-- `characters/<角色编号>/metadata.json` 可通过 EX Studio 标题旁的导入按钮载入。
-- `characters/<角色编号>/cover.png` 是使用该角色第一套衣装渲染的 768 × 768 封面。
+点击头部切换表情，脸部播放语音，上身与左右手臂播放动作，腰部换装，下身打开菜单。
 
-在仓库根目录运行 `python workshop/validate.py` 检查资料与资源引用。
+菜单包含循环动作、循环语音、循环换装、恢复待机和关闭菜单。三个循环可同时运行，换装等待当前动作和语音结束。恢复待机保留当前衣装。
 
-## 更新
+## 打包资料
 
-资源随仓库版本管理。主分支更新后合并到本分支，同步资料卡中的数量、名称和封面，并运行检查。已发布条目的 `workshopId` 用于后续更新。
+`workshop/characters/` 保存每位角色的资料卡、EX Studio 元数据、封面和资源索引。模型入口与资源来源记录在资料卡中。
 
-EX Studio 生成的 WPK 和打包中间文件保存在 `workshop/build/`。该目录使用 Git 忽略规则。
+在仓库根目录运行 `python workshop/validate.py` 检查资料与文件引用。
 
-## 待办
+使用 EX Studio 加载资料卡指定的模型与元数据，并选择对应封面。导出的 WPK 放入 `workshop/build/`。WPK 导入实测与手动发布由条目维护者完成，状态记录在资料卡中。
 
-当前菜单依赖独立面板后台。创意工坊订阅版的原生菜单适配和 WPK 导入验证记录为 `pending`，待适配验证通过后发布。其他角色标签的核对状态记录在对应资料卡中。
+## 资源来源
+
+模型、贴图、动作和原始音频的权利归原权利人。各角色的 `source-lock.json` 记录对应来源。[OurNotes](https://bdon.moe/)
