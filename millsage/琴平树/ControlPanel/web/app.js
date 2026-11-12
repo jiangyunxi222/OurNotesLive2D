@@ -125,6 +125,104 @@ function asset(path) {
   return `/assets/${view.catalog.id}/${path.split("/").map(encodeURIComponent).join("/")}`;
 }
 
+function receiveVoiceCatalog(result) {
+  if (view.catalog.id !== result.catalog.id) return;
+  if ((result.catalog.voiceLibraryRevision || 0) < (view.catalog.voiceLibraryRevision || 0)) return;
+  view.catalog = result.catalog;
+  if (result.state.sequence >= view.state.sequence) view.state = result.state;
+  if (view.visibleVoice && !view.catalog.voices.some(item => item.id === view.visibleVoice.id)) stopLocal("voice");
+  view.itemsSignature = "";
+  renderState();
+}
+
+async function prepareVoiceAudio(file) {
+  if (file.size > 100 * 1024 * 1024) throw new Error("音频超过 100 MB");
+  await enableAudio();
+  const decoded = await audioContext.decodeAudioData(await file.arrayBuffer());
+  const rate = 44100;
+  const frames = Math.ceil(decoded.duration * rate);
+  if (!frames || frames * 2 + 44 > 100 * 1024 * 1024) throw new Error("音频为空或超过 100 MB");
+  const offline = new OfflineAudioContext(1, frames, rate);
+  const source = offline.createBufferSource();
+  source.buffer = decoded;
+  source.connect(offline.destination);
+  source.start();
+  const samples = (await offline.startRendering()).getChannelData(0);
+  const buffer = new ArrayBuffer(44 + samples.length * 2);
+  const data = new DataView(buffer);
+  const text = (offset, value) => [...value].forEach((character, index) => data.setUint8(offset + index, character.charCodeAt(0)));
+  text(0, "RIFF"); data.setUint32(4, buffer.byteLength - 8, true); text(8, "WAVE");
+  text(12, "fmt "); data.setUint32(16, 16, true); data.setUint16(20, 1, true); data.setUint16(22, 1, true);
+  data.setUint32(24, rate, true); data.setUint32(28, rate * 2, true); data.setUint16(32, 2, true); data.setUint16(34, 16, true);
+  text(36, "data"); data.setUint32(40, samples.length * 2, true);
+  samples.forEach((sample, index) => {
+    const value = Math.max(-1, Math.min(1, sample));
+    data.setInt16(44 + index * 2, value * (value < 0 ? 32768 : 32767), true);
+  });
+  return buffer;
+}
+
+async function uploadVoice(event) {
+  event.preventDefault();
+  const dialog = $("#voice-upload-dialog");
+  const submit = $("#voice-upload-submit");
+  const error = $("#voice-upload-error");
+  const file = $("#voice-file").files[0];
+  if (!file) return;
+  const role = dialog.dataset.role;
+  const subtitle = $("#voice-caption").value.trim();
+  if (!subtitle) { error.textContent = "请输入字幕"; error.hidden = false; return; }
+  error.hidden = true;
+  submit.disabled = true;
+  submit.textContent = "上传中";
+  dialog.dataset.busy = "true";
+  try {
+    const audio = await prepareVoiceAudio(file);
+    const response = await fetch("/api/voices/upload", {method: "POST", body: audio, headers: {
+      "Content-Type": "audio/wav", "X-Studio-Request": "1",
+      "X-Voice-Metadata": encodeURIComponent(JSON.stringify({role, subtitle, filename: file.name})),
+    }});
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "上传失败");
+    receiveVoiceCatalog(result);
+    dialog.close();
+    $("#voice-upload-form").reset();
+  } catch (failure) {
+    error.textContent = failure.name === "EncodingError" ? "无法读取音频，请选择其他文件" : failure.message;
+    error.hidden = false;
+  } finally {
+    submit.disabled = false;
+    submit.textContent = "上传";
+    delete dialog.dataset.busy;
+  }
+}
+
+function requestVoiceDeletion(item) {
+  const dialog = $("#voice-delete-dialog");
+  dialog.dataset.role = view.catalog.id;
+  dialog.dataset.voice = String(item.id);
+  $("#voice-delete-caption").textContent = item.caption || item.name;
+  $("#voice-delete-error").hidden = true;
+  dialog.showModal();
+}
+
+async function deleteVoice(event) {
+  event.preventDefault();
+  const dialog = $("#voice-delete-dialog");
+  const submit = $("#voice-delete-submit");
+  const error = $("#voice-delete-error");
+  submit.disabled = true;
+  dialog.dataset.busy = "true";
+  error.hidden = true;
+  try {
+    receiveVoiceCatalog(await api("voices/delete", {role: dialog.dataset.role, id: Number(dialog.dataset.voice)}));
+    dialog.close();
+  } catch (failure) {
+    error.textContent = failure.message;
+    error.hidden = false;
+  } finally { submit.disabled = false; delete dialog.dataset.busy; }
+}
+
 
 function makeItem(item, kind, favorites) {
   const card = document.createElement("article");
@@ -215,6 +313,15 @@ function makeItem(item, kind, favorites) {
     card.append(type);
   }
   card.append(main, heart);
+  if (kind === "voice") {
+    const remove = document.createElement("button");
+    remove.className = "voice-delete";
+    remove.title = "删除语音及字幕";
+    remove.setAttribute("aria-label", remove.title);
+    remove.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></svg>';
+    remove.addEventListener("click", () => requestVoiceDeletion(item));
+    card.append(remove);
+  }
   return card;
 }
 
@@ -285,6 +392,7 @@ function renderItems() {
   $("#favorites-filter").hidden = view.tab === "favorites";
   $("#favorite-categories").hidden = view.tab !== "favorites";
   $("#clear-expression").hidden = view.tab !== "expression";
+  $("#upload-voice").hidden = view.tab !== "voice";
   $("#favorites-filter").classList.toggle("selected", view.onlyFavorites);
   $("#favorites-filter").setAttribute("aria-pressed", String(view.onlyFavorites));
   $("#favorites-filter span").textContent = view.onlyFavorites ? "♥" : "♡";
@@ -355,12 +463,12 @@ async function selectRole(role, costume) {
 async function applySelection(state) {
   view.state = state;
   const roleChanged = view.catalog?.id !== state.role;
-  if (roleChanged) {
+  if (roleChanged || (view.catalog.voiceLibraryRevision || 0) !== (state.voiceLibraryRevision || 0)) {
     view.catalog = await api("catalog/" + state.role);
     view.game = view.catalog.game;
-    view.currentExpression = null;
+    if (roleChanged) view.currentExpression = null;
     view.itemsSignature = "";
-    $("#item-search").value = "";
+    if (roleChanged) $("#item-search").value = "";
   }
   renderState();
   const key = view.catalog.id + ":" + currentCostume().id;
@@ -769,6 +877,9 @@ async function boot() {
       if (!view.switchingCostume || event.state.settings.costume === view.desiredCostume) await applySelection(event.state);
     }
     else if (event.type === "play") await applyPlay(event.data);
+    else if (event.type === "catalog" && event.data.role === view.catalog.id) {
+      receiveVoiceCatalog({catalog: await api("catalog/" + view.catalog.id), state: event.state});
+    }
     else if (event.type === "stop" || (event.type === "ended" && event.data !== "voice")) stopLocal(event.data);
     else if (event.type === "clear-expression") resetExpression();
     else if (event.type === "reset") { for (const kind of ["action", "voice", "costume"]) stopLocal(kind); resetExpression(); }
@@ -792,6 +903,20 @@ document.querySelectorAll("[data-filter]").forEach((button) => button.addEventLi
   renderItems();
 }));
 $("#item-search").addEventListener("input", renderItems);
+$("#upload-voice").addEventListener("click", () => {
+  $("#voice-upload-dialog").dataset.role = view.catalog.id;
+  $("#voice-upload-error").hidden = true;
+  $("#voice-upload-dialog").showModal();
+});
+$("#voice-upload-form").addEventListener("submit", uploadVoice);
+$("#voice-delete-form").addEventListener("submit", deleteVoice);
+document.querySelectorAll("[data-close-dialog]").forEach(button => button.addEventListener("click", () => {
+  const dialog = button.closest("dialog");
+  if (!dialog.dataset.busy) dialog.close();
+}));
+document.querySelectorAll(".voice-dialog").forEach(dialog => dialog.addEventListener("cancel", event => {
+  if (dialog.dataset.busy) event.preventDefault();
+}));
 $("#items").addEventListener("scroll", queueVisibleThumbnails, { passive: true });
 $("#favorites-filter").addEventListener("click", safely(async () => {
   if (["action", "voice", "costume"].includes(view.tab)) {

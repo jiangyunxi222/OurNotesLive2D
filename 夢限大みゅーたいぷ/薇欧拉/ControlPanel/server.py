@@ -19,18 +19,22 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+import voice_library
+from model_watch import instance_id, endpoint_for, endpoint_record
 
 HERE = (
     Path(sys.executable).resolve().parent
     if getattr(sys, "frozen", False)
     else Path(__file__).resolve().parent
 )
+if __name__ == "__main__":
+    location_parser = argparse.ArgumentParser(add_help=False)
+    location_parser.add_argument("--panel-dir", type=Path)
+    location_args, _ = location_parser.parse_known_args()
+    if location_args.panel_dir:
+        HERE = location_args.panel_dir.resolve()
 REPO = HERE.parent
 PORT = 25000
-if (HERE / "library.json").exists():
-    PORT = json.loads((HERE / "library.json").read_text(encoding="utf-8-sig"))[0][
-        "port"
-    ]
 NATIVE = (
     Path(os.environ.get("ProgramFiles(x86)", "C:/Program Files (x86)"))
     / "Steam/steamapps/common/Live2DViewerEX/bin"
@@ -261,6 +265,7 @@ class Studio:
         self.input_epoch = 0
         self.native_executable = NATIVE / "lw/lw.exe"
         self.last_menu_request = None
+        self.last_panel_request = None
         self.last_native_toggles = {}
         self.next_reconnect_at = 0
         self.playing = {}
@@ -272,6 +277,7 @@ class Studio:
         if role_id not in self.roles:
             raise ValueError("角色不存在")
         if role_id not in self.catalogs:
+            voice_library.recover((self.roots[role_id] / self.roles[role_id]["directory"]).resolve())
             self.catalogs[role_id] = read(
                 panel_directory(self.roots[role_id]) / "data" / (role_id + ".json")
             )
@@ -341,6 +347,7 @@ class Studio:
 
     def snapshot(self):
         return {
+            "instance": instance_id(HERE),
             "role": self.current,
             "settings": copy.deepcopy(self.settings()),
             "linked": self.linked and self.player.socket is not None,
@@ -350,6 +357,7 @@ class Studio:
             "looping": self.looping.copy(),
             "playing": self.playing.copy(),
             "sequence": self.sequence,
+            "voiceLibraryRevision": self.catalog().get("voiceLibraryRevision", 0),
             "waitingForCostume": self.costume_due,
             "menu": self.popup.status.copy() if self.popup else None,
             "input": self.input_router.status.copy() if self.input_router else None,
@@ -646,6 +654,9 @@ class Studio:
             if loaded_costume is not None:
                 self.settings()["costume"] = loaded_costume
             if self.slot is None:
+                if attach:
+                    self.player.close()
+                    raise ValueError("请先在桌面加载这个目录中的角色")
                 self.slot = next(
                     (
                         index
@@ -676,6 +687,7 @@ class Studio:
                 self.sync_preferences()
                 self.sync_favorites()
                 self.sync_loop_flags()
+                self.native("carrier_hide_text#5")
             else:
                 self.load_native()
         except (OSError, ConnectionError):
@@ -792,6 +804,10 @@ class Studio:
 
     def native_menu_events(self):
         variables = self.native_variables()
+        panel_request = variables.get("page_panel_request", 0)
+        if self.last_panel_request is not None and panel_request > self.last_panel_request and self.popup:
+            self.popup.messages.put(("panel", None))
+        self.last_panel_request = panel_request
         request = variables.get("page_menu_request", 0)
         if request != self.last_menu_request:
             if (
@@ -889,6 +905,47 @@ class Studio:
         if kind == "costume":
             return self.catalog()["costumes"]
         return self.costume()["actions" if kind == "action" else "expressions"]
+
+    def edit_voice(self, role_id, *, audio=None, subtitle=None, filename=None, delete_id=None):
+        if not isinstance(role_id, str):
+            raise ValueError("角色不存在")
+        if audio is None and (not isinstance(delete_id, int) or isinstance(delete_id, bool)):
+            raise ValueError("语音编号无效")
+        catalog = self.catalog(role_id)
+        deleted = next((row for row in catalog["voices"] if row["id"] == delete_id), None)
+        if audio is None and deleted is None:
+            raise ValueError("语音已删除，请刷新列表")
+        if role_id == self.current and self.playing.get("voice", {}).get("id") == delete_id:
+            self.stop("voice")
+        updated, item = voice_library.edit(self.root(role_id), catalog, audio=audio,
+                                            subtitle=subtitle, filename=filename, delete_id=delete_id)
+        self.catalogs[role_id] = updated
+        if deleted:
+            if role_id == self.current:
+                self.native(f"web_fav_{deleted['flag'].removeprefix('heart_fav_')}_0")
+            settings = self.settings(role_id)
+            settings["favorites"] = [flag for flag in settings["favorites"] if flag != deleted["flag"]]
+            settings["dirty"] = [flag for flag in settings.get("dirty", []) if flag != deleted["flag"]]
+            self.cursors.pop(("voice", 0), None)
+            available = [voice for voice in updated["voices"] if not settings["voiceScope"] or voice["flag"] in settings["favorites"]]
+            if role_id == self.current and self.looping["voice"] and not available:
+                self.stop("voice")
+        self.save()
+        self.emit("catalog", {"role": role_id})
+        if role_id == self.current and self.linked:
+            playing = self.playing.copy()
+            try:
+                self.load_native()
+                for kind in ("action", "expression", "voice"):
+                    active = playing.get(kind)
+                    if active and any(row["id"] == active["id"] for row in self.entries(kind)):
+                        self.operate(kind, active["id"], loop=self.looping.get(kind, False))
+            except (ConnectionError, OSError):
+                self.linked = False
+                self.reconnect_requested = True
+                self.player.close()
+                self.emit("notice", "语音已保存，桌面连接恢复后生效")
+        return {"catalog": self.page_catalog(role_id), "state": self.snapshot()}
 
     def favorite(self, flag, enabled):
         catalog = self.catalog()
@@ -1068,6 +1125,8 @@ class Studio:
                 if kind == "voice"
                 else f'web_{kind}_{self.costume()["id"]:03d}_{item["id"]:03d}'
             )
+            if kind == "voice" and item.get("uploaded"):
+                self.native("web_stop_voice")
             self.native(group)
         if kind in self.jobs:
             self.native(f"web_set_page_loop_{kind}_{int(loop)}")
@@ -1372,12 +1431,29 @@ class Handler(BaseHTTPRequestHandler):
             return self.respond(403, {"error": "请求来源无效"})
         try:
             length = int(self.headers.get("Content-Length", "0"))
+            if self.path == "/api/voices/upload":
+                if not 0 < length <= voice_library.MAX_AUDIO_BYTES:
+                    self.close_connection = True
+                    raise ValueError("音频为空或超过 100 MB")
+                metadata = json.loads(unquote(self.headers.get("X-Voice-Metadata", "")))
+                if not isinstance(metadata, dict):
+                    self.close_connection = True
+                    raise ValueError("上传信息无效")
+                audio = self.rfile.read(length)
+                if len(audio) != length:
+                    raise ValueError("音频上传不完整")
+                with STUDIO.lock:
+                    result = STUDIO.edit_voice(metadata["role"], audio=audio,
+                                              subtitle=metadata.get("subtitle"), filename=metadata.get("filename"))
+                return self.respond(200, result)
             if length > (1500000 if self.path == "/api/thumbnail" else 65536):
                 raise ValueError("请求过大")
             data = json.loads(self.rfile.read(length))
             with STUDIO.lock:
                 if self.path == "/api/select":
                     result = STUDIO.select(data["role"], data.get("costume"))
+                elif self.path == "/api/voices/delete":
+                    result = STUDIO.edit_voice(data["role"], delete_id=data["id"])
                 elif self.path == "/api/favorite":
                     result = STUDIO.favorite(data["flag"], bool(data["enabled"]))
                 elif self.path == "/api/preference":
@@ -1417,6 +1493,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-browser", action="store_true")
     parser.add_argument("--watch-models", action="store_true")
+    parser.add_argument("--panel-dir", type=Path)
     args = parser.parse_args()
     from model_watch import acquire_instance, enable, run
 
@@ -1424,20 +1501,28 @@ if __name__ == "__main__":
         run(HERE, NATIVE, native_data)
         raise SystemExit(0)
     if sys.platform == "win32":
-        controller_instance = acquire_instance(f"BandGDreamPanel{PORT}")
+        controller_instance = acquire_instance("BandGDreamPanel" + instance_id(HERE))
         if controller_instance is None:
-            if not args.no_browser:
-                webbrowser.open(f"http://127.0.0.1:{PORT}")
+            for attempt in range(20):
+                existing_port = endpoint_for(HERE)
+                if existing_port:
+                    if not args.no_browser:
+                        webbrowser.open(f"http://127.0.0.1:{existing_port}")
+                    break
+                time.sleep(.1)
             raise SystemExit(0)
     STUDIO = Studio()
     if not STUDIO.roles:
         raise SystemExit("没有找到资源目录，请将控制台保留在项目目录内。")
+    previous_endpoint = endpoint_record(HERE)
     try:
-        server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
-    except OSError:
-        if not args.no_browser:
-            webbrowser.open(f"http://127.0.0.1:{PORT}")
-        raise SystemExit(0)
+        server = ThreadingHTTPServer(("127.0.0.1", previous_endpoint["port"] if previous_endpoint else 0), Handler)
+    except OSError as error:
+        if error.errno != 10048 and error.errno != 98 and getattr(error, "winerror", None) != 10048:
+            raise
+        server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+    PORT = server.server_port
+    atomic_write(HERE / ".local/endpoint.json", {"instance": instance_id(HERE), "port": PORT})
     if not args.no_browser:
         webbrowser.open(f"http://127.0.0.1:{PORT}")
     from compact_menu import CompactMenu

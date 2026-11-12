@@ -21256,11 +21256,11 @@
       ],
       "web_open#6": [
         {
-          "Name": "run",
+          "Name": "open",
+          "MotionDuration": 1,
           "Priority": 9,
           "Interruptable": true,
-          "MotionDuration": 1,
-          "Command": "open_url http://127.0.0.1:25051/?role=5a24e731d3563c56&costume=13&desktop=1"
+          "Command": "start_mtn ournotes_l2d_carrier_mutsumi page_open_panel#9"
         }
       ],
       "web_cycle_action#6": [
@@ -23332,6 +23332,39 @@
               "Code": "assign 1"
             }
           ]
+        }
+      ],
+      "web_uploaded_voice_1000000#2": [
+        {
+          "Name": "play",
+          "Sound": "assets/voices/user_82bae4d27de04b368f580b7b85295454.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ]
+        },
+        {
+          "Name": "play",
+          "Sound": "assets/voices/user_82bae4d27de04b368f580b7b85295454.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "Text": "Shape of My Heart"
         }
       ]
     },

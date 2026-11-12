@@ -44,12 +44,30 @@
           <div class="playback-bar" id="playback-bar"><div class="loop-options">
             <div class="order-setting"><span>播放顺序</span><div class="order-buttons" id="loop-order" role="group" aria-label="播放顺序"><button data-order="random" aria-pressed="true" class="selected">随机播放</button><button data-order="sequence" aria-pressed="false">按列表顺序</button></div></div>
             <label><span id="interval-label">结束后等待</span><span class="interval-input"><input id="loop-interval" type="number" min="0" max="3600" step="0.5" value="12" aria-label="循环间隔秒数"><span>秒</span></span></label>
+            <button id="upload-voice" class="voice-upload-button" aria-label="上传语音" hidden><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M11 20V8l9-2v11"/><ellipse cx="7.5" cy="20.5" rx="3.5" ry="2.5"/><ellipse cx="16.5" cy="17.5" rx="3.5" ry="2.5"/><path class="note-plus" d="M23 2v6m-3-3h6"/></svg></button>
           </div><div class="play-buttons"><button id="loop" class="primary-button"><span>↻</span><span id="loop-label">循环播放</span></button></div></div>
         </section>
       </div>
       <footer class="bottom-bar"><div class="now-playing"><span class="equalizer" id="equalizer"><i></i><i></i><i></i><i></i></span><div><strong id="playing-title">待机</strong><span id="playing-detail"></span></div></div><div class="quick-settings"><label class="setting-switch"><input id="captions-toggle" type="checkbox" checked><span class="switch-track"></span><span>语音字幕</span></label><label class="setting-switch"><input id="body-toggle" type="checkbox"><span class="switch-track"></span><span>互动仅♥</span></label><button id="stop-all" class="stop-button"><span>↺</span>恢复待机</button></div></footer>
     </div>
   </main>
+  <dialog id="voice-upload-dialog" class="voice-dialog" aria-labelledby="voice-upload-title">
+    <form id="voice-upload-form">
+      <div class="dialog-heading"><h2 id="voice-upload-title">上传语音</h2><button type="button" class="dialog-close" data-close-dialog aria-label="关闭">×</button></div>
+      <label>音频<input id="voice-file" type="file" accept="audio/*,.flac,.m4a" required></label>
+      <label>字幕<textarea id="voice-caption" rows="4" maxlength="2000" required></textarea></label>
+      <p id="voice-upload-error" class="dialog-error" role="alert" hidden></p>
+      <div class="dialog-actions"><button type="button" class="subtle-button" data-close-dialog>取消</button><button id="voice-upload-submit" type="submit" class="primary-button">上传</button></div>
+    </form>
+  </dialog>
+  <dialog id="voice-delete-dialog" class="voice-dialog" aria-labelledby="voice-delete-title">
+    <form id="voice-delete-form">
+      <div class="dialog-heading"><h2 id="voice-delete-title">删除语音及字幕？</h2><button type="button" class="dialog-close" data-close-dialog aria-label="关闭">×</button></div>
+      <p id="voice-delete-caption" class="delete-caption"></p>
+      <p id="voice-delete-error" class="dialog-error" role="alert" hidden></p>
+      <div class="dialog-actions"><button type="button" class="subtle-button" data-close-dialog>取消</button><button id="voice-delete-submit" type="submit" class="primary-button">删除</button></div>
+    </form>
+  </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

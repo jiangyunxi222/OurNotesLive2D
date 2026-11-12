@@ -21,7 +21,7 @@ class CompactMenu:
                 ctypes.windll.shcore.SetProcessDpiAwareness(2)
             except (OSError, AttributeError):
                 ctypes.windll.user32.SetProcessDPIAware()
-            panel = Path(sys.executable).parent if getattr(sys, "frozen", False) else Path(__file__).parent
+            panel = self.studio.state_path.parent.parent
             font = panel / "web/fonts/BandoriLove-Menu.otf"
             if font.is_file():
                 ctypes.windll.gdi32.AddFontResourceExW(str(font), 0x10, None)
@@ -103,9 +103,13 @@ class CompactMenu:
 
     def show(self):
         with self.studio.lock:
+            if not self.studio.linked:
+                return
             self.input_blocked = True
+            self.studio.native("carrier_hide_text#5")
             self.studio.native("web_block_input#8")
-        self.messages.put(("show", None))
+            request = (self.studio.current, self.studio.input_epoch)
+        self.messages.put(("show", request))
 
     def hide(self):
         self.root.withdraw()
@@ -148,7 +152,14 @@ class CompactMenu:
         if not self.rounded_applied:
             gdi32.DeleteObject(ctypes.c_void_p(region))
 
-    def display(self):
+    def display(self, request=None):
+        if request is not None and request != (self.studio.current, self.studio.input_epoch):
+            self.hide()
+            return
+        anchor = self.studio.desktop_anchor() if self.studio.linked else None
+        if anchor is None:
+            self.hide()
+            return
         if self.input_release is not None:
             self.root.after_cancel(self.input_release)
             self.input_release = None
@@ -159,7 +170,7 @@ class CompactMenu:
         self.root.deiconify()
         self.root.update_idletasks()
         self.round_corners()
-        self.align_window()
+        self.align_window(anchor)
         self.root.lift()
         self.root.focus_force()
 
@@ -202,7 +213,7 @@ class CompactMenu:
             looping = self.studio.looping.copy()
             anchor = self.studio.desktop_anchor() if self.studio.linked else None
             if self.studio.input_router:
-                anchor = self.studio.input_router.update(anchor)
+                self.studio.input_router.update(anchor)
             # The native lease expires on its own if this process exits.
             now = time.monotonic()
             owns_input = self.input_blocked or (
@@ -224,8 +235,14 @@ class CompactMenu:
     def align_window(self, anchor=None):
         if self.root.state() == "withdrawn":
             return
+        if not self.studio.linked:
+            self.hide()
+            return
         if anchor is None:
             anchor = self.studio.desktop_anchor()
+        if anchor is None:
+            self.hide()
+            return
         left, top = 0, 0
         width, height = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
         if sys.platform == "win32":
@@ -236,11 +253,8 @@ class CompactMenu:
             self.root.winfo_reqwidth(),
             self.root.winfo_reqheight(),
         )
-        if anchor:
-            center_x = left + (0.5 + anchor["x"]) * width
-            center_y = top + (0.5 - anchor["y"]) * height
-        else:
-            center_x, center_y = self.root.winfo_pointerxy()
+        center_x = left + (0.5 + anchor["x"]) * width
+        center_y = top + (0.5 - anchor["y"]) * height
         x = round(
             min(
                 max(left + 8, center_x - popup_width / 2),
@@ -276,7 +290,9 @@ class CompactMenu:
             while True:
                 kind, value = self.messages.get_nowait()
                 if kind == "show":
-                    self.display()
+                    self.display(value)
+                elif kind == "panel":
+                    self.open_panel()
                 elif kind == "error":
                     self.error.configure(text=value)
                     self.error.pack(fill="x", padx=8, pady=(5, 4))
