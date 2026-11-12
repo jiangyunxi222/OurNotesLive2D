@@ -7,6 +7,7 @@ import tkinter as tk
 import webbrowser
 import ctypes
 import sys
+from pathlib import Path
 from tkinter import font as tkfont
 
 
@@ -20,6 +21,10 @@ class CompactMenu:
                 ctypes.windll.shcore.SetProcessDpiAwareness(2)
             except (OSError, AttributeError):
                 ctypes.windll.user32.SetProcessDPIAware()
+            panel = Path(sys.executable).parent if getattr(sys, "frozen", False) else Path(__file__).parent
+            font = panel / "web/fonts/BandoriLove-Menu.otf"
+            if font.is_file():
+                ctypes.windll.gdi32.AddFontResourceExW(str(font), 0x10, None)
         self.root = tk.Tk()
         self.root.withdraw()
         self.root.title(studio.catalog()["name"] + " · 角色菜单")
@@ -30,7 +35,7 @@ class CompactMenu:
         self.menu_font = next(
             (
                 installed[name.casefold()]
-                for name in ("华文行楷", "STXingkai", "楷体", "KaiTi", "STKaiti")
+                for name in ("BandoriLove Rounded", "Microsoft YaHei UI", "Microsoft YaHei")
                 if name.casefold() in installed
             ),
             "Microsoft YaHei UI",
@@ -62,7 +67,7 @@ class CompactMenu:
                 text=label,
                 command=callback,
                 width=19,
-                font=(self.menu_font, 18),
+                font=(self.menu_font, 18, "bold"),
                 foreground="#f7f0f6",
                 background="#403b46",
                 activeforeground="#ffffff",

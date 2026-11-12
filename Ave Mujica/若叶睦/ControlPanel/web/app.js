@@ -68,6 +68,48 @@ function currentCostume() {
   return view.catalog?.costumes.find((costume) => costume.id === view.state?.settings.costume);
 }
 
+function itemSymbol(item, kind) {
+  const faces = {
+    neutral: '<path d="M8 10h.01M16 10h.01M8 16h8"/>',
+    smile: '<path d="M8 10h.01M16 10h.01M7 14q5 6 10 0"/>',
+    laugh: '<path d="m6 10 2-2 2 2m4 0 2-2 2 2M7 14h10q-5 9-10 0Z"/>',
+    angry: '<path d="m6 8 4 2m8-2-4 2M8 12h.01M16 12h.01M8 17q4-4 8 0"/>',
+    sad: '<path d="M8 10h.01M16 10h.01M8 17q4-4 8 0m-3-4 1 2-1 1-1-1Z"/>',
+    surprise: '<path d="M8 9h.01M16 9h.01"/><ellipse cx="12" cy="16" rx="2" ry="3"/>',
+    shy: '<path d="M8 10h.01M16 10h.01M10 16q2 2 4 0M6 13l1 1m10-1 1 1"/>',
+    think: '<path d="M7 9h3m4 1h3M8 16h7m2-10 1-2"/>',
+    tired: '<path d="M6 10h4m4 0h4M10 16h4"/>',
+    confident: '<path d="m6 9 4 1m4 0 4-1M8 15q5 4 9-1"/>',
+    wink: '<path d="m6 10 4 1M16 10h.01M8 15q4 4 8 0"/>',
+    dizzy: '<path d="M9 9c-4-3-5 4-1 3 2-1 0-3-1-2m9-1c-4-3-5 4-1 3 2-1 0-3-1-2M9 17h6"/>',
+    singing: '<path d="M7 9h.01M15 9h.01"/><ellipse cx="11" cy="16" rx="2" ry="3"/><path d="M18 3v5l3-1V2Zm0 5-1 1m4-2-1 1"/>',
+    sparkle: '<path d="m8 8 1 2 2 1-2 1-1 2-1-2-2-1 2-1Zm8 0 1 2 2 1-2 1-1 2-1-2-2-1 2-1ZM9 17h6"/>',
+    heart: '<path d="M8 10h.01M16 10h.01M8 15q4 4 8 0M19 5c-4-2-1-5 1-3 2-2 5 1 1 3l-1 1Z"/>',
+    special: '<path d="M8 10h.01M16 10h.01M9 16h6M20 2v4m-2-2h4"/>',
+  };
+  const categories = [
+    [/眩晕/, 'dizzy'], [/歌唱/, 'singing'], [/眨眼/, 'wink'], [/开怀大笑|大笑|咧嘴笑/, 'laugh'],
+    [/生气|气愤|愤怒|不满|厌恶/, 'angry'], [/哭|难过|悲|绝望|寂寞|痛苦/, 'sad'],
+    [/惊|震|慌/, 'surprise'], [/害羞|脸红|尴尬/, 'shy'],
+    [/自信|得意|冷笑|轻蔑|偷笑|窃笑/, 'confident'], [/微笑|浅笑|笑容|含笑|开心|安心/, 'smile'],
+    [/困倦|疲惫|叹气|无聊|泄气/, 'tired'], [/思|困惑|疑|不安|担心|出神|犹豫|忐忑/, 'think'],
+    [/心动/, 'heart'], [/爱心眼|闪亮眼/, 'sparkle'], [/特殊|专属|高光|隐藏|阴影|苍白|面具/, 'special'],
+  ];
+  let paths;
+  if (kind === 'expression') {
+    const category = categories.find(([pattern]) => pattern.test(item.name))?.[1] || 'neutral';
+    paths = '<circle cx="12" cy="12" r="9"/>' + faces[category];
+  } else {
+    paths = {
+      body: '<circle cx="12" cy="5" r="2"/><path d="M12 7v7m-6-4 6 2 6-2m-6 4-4 7m4-7 4 7"/>',
+      left: '<path d="m9 6-5 5 5 5M4 11h9q7 0 7 8"/>',
+      right: '<path d="m15 6 5 5-5 5m5-5h-9q-7 0-7 8"/>',
+      other: '<path d="m4 5 16-2 1 5-16 2ZM5 10v10h16V9M8 5l3 4m3-5 3 4M5 14h16"/>',
+    }[item.category || 'other'];
+  }
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+}
+
 function favoriteSet() {
   return new Set(view.state?.settings.favorites || []);
 }
@@ -144,7 +186,7 @@ function makeItem(item, kind, favorites) {
   } else {
     const symbol = document.createElement("span");
     symbol.className = "item-symbol";
-    symbol.textContent = kind === "expression" ? ["◡", "◠", "⌣", "◕"][item.id % 4] : ({ body: "⟡", left: "↶", right: "↷", other: "✧" }[item.category] || "⟡");
+    symbol.innerHTML = itemSymbol(item, kind);
     main.append(symbol, title);
     if (kind === "action") {
       const direction = document.createElement("small");
@@ -232,7 +274,6 @@ function renderItems() {
     view.listContext = context;
   } else refreshCards(entries, favorites);
   if (view.tab === "costume") requestAnimationFrame(queueVisibleThumbnails);
-  $("#item-count").textContent = `${entries.length} 个${view.tab === "favorites" ? "收藏" : labels[view.tab]}`;
   $("#empty").hidden = entries.length > 0;
   $("#items").hidden = entries.length === 0;
   const searching = Boolean(query);
@@ -277,9 +318,7 @@ function renderState() {
   if (view.volume) view.volume.gain.value = view.state.linked ? 0 : 1;
   $("#game-name").textContent = view.catalog.game;
   $("#band-name").textContent = view.catalog.group.replace(/（Garupa）/g, "");
-  $("#character-name").textContent = view.catalog.name.replace(/（Garupa）/g, "");
   document.title = view.catalog.name.replace(/（Garupa）/g, "") + " · BandoriLove";
-  $("#costume-caption").textContent = currentCostume().name;
   renderItems();
   updatePlaying();
   updateSubtitle();
@@ -563,6 +602,7 @@ function enableAudio() {
 function updateMouth() {
   const core = view.model?.internalModel.coreModel;
   if (!core || !view.mouthIds.length) return;
+  if (audio.paused || audio.ended || !analyser) { view.mouth = 0; return; }
   let target = 0;
   if (analyser && !audio.paused) {
     analyser.getByteTimeDomainData(audioData);
@@ -570,8 +610,8 @@ function updateMouth() {
   }
   view.mouth += (target - view.mouth) * .35;
   for (const id of view.mouthIds) {
-    if (core.setParameterValueById) core.setParameterValueById(id, view.mouth);
-    else if (core.setParamFloat) core.setParamFloat(id, view.mouth);
+    if (core.addParameterValueById) core.addParameterValueById(id, view.mouth);
+    else if (core.addToParamFloat) core.addToParamFloat(id, view.mouth);
   }
 }
 
@@ -640,9 +680,17 @@ async function applyPlay(data) {
       updatePlaying();
     }, item.duration * 1000);
   } else if (kind === "expression") {
-    view.currentExpression = item.id;
-    if (item.file) await view.model?.expression(String(item.id));
-    else resetExpression();
+    if (item.file) {
+      const model = view.model;
+      const manager = model?.internalModel.motionManager.expressionManager;
+      if (!manager) return;
+      const applied = await model.expression(String(item.id));
+      if (view.model !== model) return;
+      const index = manager.getExpressionIndex(String(item.id));
+      if (!applied && manager.currentExpression !== manager.expressions[index]) throw new Error("表情加载失败");
+      manager.restoreExpression();
+      view.currentExpression = item.id;
+    } else resetExpression();
   }
   renderItems();
   updatePlaying();
@@ -650,7 +698,12 @@ async function applyPlay(data) {
 
 function resetExpression() {
   view.currentExpression = null;
-  view.model?.internalModel.motionManager.expressionManager?.resetExpression();
+  const manager = view.model?.internalModel.motionManager.expressionManager;
+  if (manager) {
+    manager.reserveExpressionIndex = -1;
+    manager.currentExpression = manager.defaultExpression;
+    manager.resetExpression();
+  }
   renderItems();
 }
 
@@ -803,4 +856,5 @@ audio.addEventListener("ended", () => { view.visibleVoice = null; updateSubtitle
 audio.addEventListener("error", () => { if (audio.src) toast("语音载入失败，请重试"); });
 new ResizeObserver(resetModelView).observe($("#canvas-host"));
 new ResizeObserver(updateTabIndicator).observe($(".tabs"));
+document.fonts.ready.then(updateTabIndicator);
 boot().catch((error) => toast(error.message));
