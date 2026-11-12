@@ -30,7 +30,8 @@ class HitProjection:
             options.get("PositionY", options.get("position_y", 0)),
         )
         self.scale = scale * pixels
-        self.model_scale = factor * (10 / max(canvas) if canvas else world_height / 2)
+        # ViewerEX's Model2Mesh spans 20 world units before the model scale.
+        self.model_scale = factor * (20 / max(canvas) if canvas else world_height / 2)
         self.origin = (canvas[0] / 2, canvas[1] / 2) if canvas else (0, 0)
         self.mirror = -1 if transform.get("mirror") else 1
         # ViewerEX rotates the model plane around Unity's Y axis.
