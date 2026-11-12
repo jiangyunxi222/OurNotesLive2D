@@ -361,8 +361,14 @@ async function loadModel(key) {
     host.onpointermove = (event) => {
       if (!view.model) return;
       const rectangle = host.getBoundingClientRect();
+      if (event.clientX < rectangle.left || event.clientX > rectangle.right || event.clientY < rectangle.top || event.clientY > rectangle.bottom) {
+        view.model.internalModel.focusController.focus(0, 0);
+        return;
+      }
       view.model.internalModel.focusController.focus((event.clientX - rectangle.left) / rectangle.width * 2 - 1, 1 - (event.clientY - rectangle.top) / rectangle.height * 2);
     };
+    host.onpointerleave = () => view.model?.internalModel.focusController.focus(0, 0);
+    host.onpointercancel = host.onpointerleave;
     host.onclick = safely(async (event) => {
       event.stopPropagation();
       if (event.target !== view.app.view) return;
