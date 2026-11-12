@@ -45,7 +45,7 @@ def endpoint_for(panel):
     try:
         with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/state", timeout=.5) as response:
             state = json.load(response)
-        return port if state.get("instance") == instance_id(panel) else None
+        return port if isinstance(state, dict) and state.get("instance") == instance_id(panel) else None
     except (OSError, ValueError, KeyError, TypeError):
         return None
 

@@ -211,8 +211,10 @@ class Player:
                 if opcode == 1 and self.on_tap:
                     try:
                         message = json.loads(payload)
-                        if message.get("msg") == 10002:
-                            self.on_tap(message.get("data") or {})
+                        if isinstance(message, dict) and message.get("msg") == 10002:
+                            data = message.get("data") or {}
+                            if isinstance(data, dict):
+                                self.on_tap(data)
                     except (ValueError, KeyError):
                         pass
         except (OSError, ConnectionError):
@@ -251,8 +253,12 @@ class Studio:
             self.saved = read(self.state_path)
         except (OSError, ValueError):
             self.saved = {"roles": {}}
+        if not isinstance(self.saved, dict):
+            self.saved = {}
+        if not isinstance(self.saved.get("roles"), dict):
+            self.saved["roles"] = {}
         self.current = self.saved.get("current")
-        if self.current not in self.roles:
+        if not isinstance(self.current, str) or self.current not in self.roles:
             self.current = next(
                 (
                     key
@@ -294,7 +300,7 @@ class Studio:
 
     def settings(self, role_id=None):
         role_id = role_id or self.current
-        if role_id not in self.saved["roles"]:
+        if not isinstance(self.saved["roles"].get(role_id), dict):
             values = {}
             profiles = NATIVE / "save/cha"
             favorites = set()
@@ -329,12 +335,23 @@ class Studio:
                 "voiceScope": int(values.get("heart_voice_scope", 0)),
             }
         settings = self.saved["roles"][role_id]
-        settings.setdefault("costumeScope", 0)
+        for key, default in (("costume", 1), ("captions", True), ("bodyOnly", False),
+                             ("actionScope", 0), ("voiceScope", 0), ("costumeScope", 0)):
+            settings.setdefault(key, default)
+            if key != "costume" and settings[key] not in (True, False, 0, 1):
+                settings[key] = default
+        for key in ("favorites", "dirty"):
+            values = settings.get(key, [])
+            settings[key] = list(dict.fromkeys(value for value in values if isinstance(value, str))) if isinstance(values, list) else []
         for kind, interval in (("action", 12), ("voice", 2.5), ("costume", 15)):
-            settings.setdefault(kind + "Order", "random")
-            settings.setdefault(kind + "Interval", interval)
+            if settings.get(kind + "Order") not in ("random", "sequence"):
+                settings[kind + "Order"] = "random"
+            value = settings.get(kind + "Interval")
+            minimum = 1 if kind == "costume" else 0
+            if type(value) not in (int, float) or not math.isfinite(value) or not minimum <= value <= 3600:
+                settings[kind + "Interval"] = interval
         valid = {costume["id"] for costume in self.catalog(role_id)["costumes"]}
-        if settings["costume"] not in valid:
+        if type(settings["costume"]) is not int or settings["costume"] not in valid:
             settings["costume"] = min(valid)
         return settings
 
@@ -879,6 +896,8 @@ class Studio:
             ):
                 return
             name = data.get("hitArea") or ""
+            if not isinstance(name, str):
+                return
             kinds = []
             if "语音" in name:
                 kinds = ["voice"]
