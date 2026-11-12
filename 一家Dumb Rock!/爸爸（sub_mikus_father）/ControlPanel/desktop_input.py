@@ -51,6 +51,8 @@ class HitProjection:
         )
 
     def region_at(self, point):
+        if self.scale == 0 or self.model_scale == 0:
+            return None
         x, y = point[0] - self.center[0], self.center[1] - point[1]
         x, y = (x * self.cosine + y * self.sine) * self.mirror / self.scale, (
             -x * self.sine + y * self.cosine
@@ -89,6 +91,8 @@ class DesktopInput:
         self.options = {}
         self.canvas = None
         self.active = False
+        self.closed = False
+        self.worker = None
         self.status = {"active": False, "capturedClicks": 0}
         self.commands = queue.Queue()
         self.configure_api()
@@ -102,7 +106,8 @@ class DesktopInput:
         if not self.hook:
             self.status["error"] = "Windows 鼠标拦截未能启动"
             return
-        threading.Thread(target=self.dispatch, daemon=True).start()
+        self.worker = threading.Thread(target=self.dispatch, daemon=True)
+        self.worker.start()
 
     def configure_api(self):
         self.user32.SetWindowsHookExW.argtypes = (
@@ -126,6 +131,8 @@ class DesktopInput:
         self.user32.GetTopWindow.restype = wintypes.HWND
         self.user32.GetWindow.argtypes = (wintypes.HWND, wintypes.UINT)
         self.user32.GetWindow.restype = wintypes.HWND
+        self.user32.EnumWindows.argtypes = (ctypes.c_void_p, wintypes.LPARAM)
+        self.user32.EnumChildWindows.argtypes = (wintypes.HWND, ctypes.c_void_p, wintypes.LPARAM)
         self.user32.WindowFromPoint.argtypes = (wintypes.POINT,)
         self.user32.WindowFromPoint.restype = wintypes.HWND
         self.user32.GetWindowThreadProcessId.argtypes = (
@@ -212,15 +219,21 @@ class DesktopInput:
         self.user32.EnumWindows(callback_type(visit), 0)
         self.native_roots = {self.user32.GetAncestor(window, 2) for window in native}
         self.status["nativeWindows"] = len(native)
-        if native:
+        self.viewport = None
+        for window in native:
             rectangle, origin = wintypes.RECT(), wintypes.POINT()
-            self.user32.GetClientRect(native[0], ctypes.byref(rectangle))
-            self.user32.ClientToScreen(native[0], ctypes.byref(origin))
-            self.viewport = (origin.x, origin.y, rectangle.right, rectangle.bottom)
-        else:
-            self.viewport = None
+            if (
+                self.user32.GetClientRect(window, ctypes.byref(rectangle))
+                and self.user32.ClientToScreen(window, ctypes.byref(origin))
+                and rectangle.right > 0
+                and rectangle.bottom > 0
+            ):
+                self.viewport = (origin.x, origin.y, rectangle.right, rectangle.bottom)
+                break
 
     def update(self, anchor):
+        if self.closed:
+            return anchor
         now = time.monotonic()
         if anchor:
             self.last_anchor, self.last_anchor_at = anchor, now
@@ -242,20 +255,34 @@ class DesktopInput:
             return anchor
         costume = self.studio.costume()
         key = (self.studio.current, costume["id"])
-        if key != self.model_key:
-            model = json.loads(
-                (self.studio.root() / costume["file"]).read_text(encoding="utf-8-sig")
-            )
-            self.options = model.get("Options", model.get("options", {}))
-            self.canvas = None
-            if not costume.get("cubism3"):
-                self.canvas = struct.unpack(
-                    ">ii", (self.studio.root() / model["model"]).read_bytes()[-12:-4]
+        try:
+            if key != self.model_key:
+                model = json.loads(
+                    (self.studio.root() / costume["file"]).read_text(encoding="utf-8-sig")
                 )
+                if not isinstance(model, dict):
+                    raise ValueError("模型格式无效")
+                self.options = model.get("Options", model.get("options", {}))
+                if not isinstance(self.options, dict):
+                    raise ValueError("模型参数无效")
+                self.canvas = None
+                if not costume.get("cubism3"):
+                    self.canvas = struct.unpack(
+                        ">ii", (self.studio.root() / model["model"]).read_bytes()[-12:-4]
+                    )
+                    if min(self.canvas) <= 0:
+                        raise ValueError("模型画布无效")
+            self.projection = HitProjection(
+                costume["hitRegions"], anchor, self.options, self.viewport, self.canvas
+            )
             self.model_key = key
-        self.projection = HitProjection(
-            costume["hitRegions"], anchor, self.options, self.viewport, self.canvas
-        )
+        except (OSError, ValueError, KeyError, TypeError, struct.error):
+            self.active = False
+            self.status["active"] = False
+            self.status["error"] = "触发区域读取失败"
+            self.projection = None
+            return anchor
+        self.status.pop("error", None)
         self.projection_epoch = self.studio.input_epoch
         self.status["viewport"] = self.viewport
         return anchor
@@ -338,10 +365,14 @@ class DesktopInput:
 
     def dispatch(self):
         while True:
-            kind, press, point = self.commands.get()
+            command = self.commands.get()
+            if command is None:
+                return
+            kind, press, point = command
             with self.studio.lock:
                 if (
-                    not self.studio.linked
+                    self.closed
+                    or not self.studio.linked
                     or press["role"] != self.studio.current
                     or press["epoch"] != self.studio.input_epoch
                     or press["costume"] != self.studio.settings()["costume"]
@@ -349,7 +380,7 @@ class DesktopInput:
                     continue
                 try:
                     if kind == "move":
-                        if self.studio.slot_path() != self.studio.expected_path():
+                        if self.viewport is None or self.studio.slot_path() != self.studio.expected_path():
                             continue
                         left, top, width, height = self.viewport
                         self.studio.player.send(
@@ -380,7 +411,18 @@ class DesktopInput:
                     self.studio.emit("notice", str(error))
 
     def close(self):
+        if self.closed:
+            return
+        self.closed = True
         self.active = False
+        self.status["active"] = False
+        self.press = None
+        self.projection = None
         if self.hook:
             self.user32.UnhookWindowsHookEx(self.hook)
             self.hook = None
+        self.status["hookInstalled"] = False
+        if self.worker is not None:
+            self.commands.put(None)
+            if self.worker is not threading.current_thread():
+                self.worker.join(timeout=.5)

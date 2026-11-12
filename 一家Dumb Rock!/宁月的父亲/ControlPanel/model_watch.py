@@ -70,14 +70,16 @@ def enable(panel):
         directory = Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData/Local")) / "BandoriLove/Runtime"
         directory.mkdir(parents=True, exist_ok=True)
         runtime = directory / ("ControlPanel-" + digest[:16] + ".exe")
-        if not runtime.exists():
+        if not runtime.exists() or hashlib.sha256(runtime.read_bytes()).hexdigest() != digest:
             temporary = directory / (str(os.getpid()) + ".new")
-            shutil.copy2(source, temporary)
             try:
-                os.replace(temporary, runtime)
-            except PermissionError:
-                if not runtime.exists() or hashlib.sha256(runtime.read_bytes()).hexdigest() != digest:
-                    raise
+                shutil.copy2(source, temporary)
+                try:
+                    os.replace(temporary, runtime)
+                except PermissionError:
+                    if not runtime.exists() or hashlib.sha256(runtime.read_bytes()).hexdigest() != digest:
+                        raise
+            finally:
                 temporary.unlink(missing_ok=True)
         marker = directory / (str(os.getpid()) + ".json.tmp")
         marker.write_text(json.dumps({"executable": runtime.name}), encoding="utf-8")
@@ -116,7 +118,7 @@ def controller_for(path):
         files = {role["entry"], *model_files(str(catalog), info.st_mtime_ns, info.st_size)}
         if len(roles) == 1 and model.name in files:
             return panel, role
-    except (OSError, ValueError, KeyError, IndexError):
+    except (OSError, ValueError, KeyError, IndexError, TypeError):
         pass
     return None
 
@@ -137,12 +139,18 @@ def run(panel, native, read_native):
             marker = Path(sys.executable).parent / "current.json"
             if getattr(sys, "frozen", False) and marker.exists():
                 try:
-                    if json.loads(marker.read_text("utf-8"))["executable"] != Path(sys.executable).name:
+                    current_runtime = json.loads(marker.read_text("utf-8"))["executable"]
+                    if isinstance(current_runtime, str) and current_runtime and current_runtime != Path(sys.executable).name:
                         return
-                except (OSError, ValueError, KeyError):
+                except (OSError, ValueError, KeyError, TypeError):
                     pass
-            slots = read_native(native / "save/autosave.dat").get("charDatas", [])
+            data = read_native(native / "save/autosave.dat")
+            slots = data.get("charDatas", []) if isinstance(data, dict) else []
+            if not isinstance(slots, list):
+                slots = []
             for slot in slots:
+                if not isinstance(slot, dict):
+                    continue
                 target = controller_for(slot.get("jsonFilePath") or "")
                 if not target:
                     continue

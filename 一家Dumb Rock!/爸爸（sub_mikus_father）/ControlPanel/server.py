@@ -89,43 +89,48 @@ class Player:
             except (OSError, ValueError):
                 self.port = 10086
             connection = socket.create_connection(("127.0.0.1", self.port), timeout=3)
-            key = base64.b64encode(secrets.token_bytes(16)).decode()
-            connection.sendall(
-                (
-                    f"GET /api HTTP/1.1\r\nHost: 127.0.0.1:{self.port}\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Version: 13\r\nSec-WebSocket-Key: {key}\r\n\r\n"
-                ).encode()
-            )
-            response = b""
-            while b"\r\n\r\n" not in response:
-                chunk = connection.recv(4096)
-                if not chunk:
-                    raise ConnectionError("播放器未响应")
-                response += chunk
-                if len(response) > 16384:
-                    raise ConnectionError("播放器握手无效")
-            expected = base64.b64encode(
-                hashlib.sha1(
-                    (key + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11").encode()
-                ).digest()
-            )
-            headers = {
-                line.partition(b":")[0].lower(): line.partition(b":")[2].strip()
-                for line in response.split(b"\r\n")[1:]
-                if b":" in line
-            }
-            if (
-                not response.startswith(b"HTTP/1.1 101")
-                or headers.get(b"sec-websocket-accept") != expected
-            ):
+            try:
+                key = base64.b64encode(secrets.token_bytes(16)).decode()
+                connection.sendall(
+                    (
+                        f"GET /api HTTP/1.1\r\nHost: 127.0.0.1:{self.port}\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Version: 13\r\nSec-WebSocket-Key: {key}\r\n\r\n"
+                    ).encode()
+                )
+                response = b""
+                while b"\r\n\r\n" not in response:
+                    chunk = connection.recv(4096)
+                    if not chunk:
+                        raise ConnectionError("播放器未响应")
+                    response += chunk
+                    if len(response) > 16384:
+                        raise ConnectionError("播放器握手无效")
+                expected = base64.b64encode(
+                    hashlib.sha1(
+                        (key + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11").encode()
+                    ).digest()
+                )
+                headers = {
+                    line.partition(b":")[0].lower(): line.partition(b":")[2].strip()
+                    for line in response.split(b"\r\n")[1:]
+                    if b":" in line
+                }
+                if (
+                    not response.startswith(b"HTTP/1.1 101")
+                    or headers.get(b"sec-websocket-accept") != expected
+                ):
+                    raise ConnectionError("播放器接口未就绪")
+                connection.settimeout(None)
+                self.socket = connection
+                self.last_received = time.monotonic()
+                threading.Thread(
+                    target=self.listen, args=(connection,), daemon=True
+                ).start()
+                self.send(10000, None)
+            except OSError:
                 connection.close()
-                raise ConnectionError("播放器接口未就绪")
-            connection.settimeout(None)
-            self.socket = connection
-            self.last_received = time.monotonic()
-            threading.Thread(
-                target=self.listen, args=(connection,), daemon=True
-            ).start()
-            self.send(10000, None)
+                if self.socket is connection:
+                    self.socket = None
+                raise
 
     def close(self):
         if self.socket:
@@ -275,6 +280,7 @@ class Studio:
         self.popup = None
         self.input_router = None
         self.input_epoch = 0
+        self.native_executable = NATIVE / "lw/lw.exe"
         self.last_menu_request = None
         self.last_panel_request = None
         self.last_native_toggles = {}
@@ -1572,7 +1578,10 @@ if __name__ == "__main__":
     STUDIO.popup = CompactMenu(STUDIO, PORT)
     threading.Thread(target=server.serve_forever, daemon=True).start()
     if sys.platform == "win32":
-        enable(HERE)
+        try:
+            enable(HERE)
+        except OSError:
+            STUDIO.popup.messages.put(("error", "自动启动设置失败"))
     if not STUDIO.monitor_started:
         STUDIO.monitor_started = True
         threading.Thread(target=STUDIO.maintain_connection, daemon=True).start()
