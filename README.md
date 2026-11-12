@@ -4,17 +4,16 @@
 
 完整复制角色目录并导入 `00_integrated` 主入口。
 
-## 新版菜单
+## 角色菜单
 
-主菜单提供「动作」「表情」「换装」「声音与控制」「关闭菜单」。换装及各级列表均可直接返回主菜单。
+在角色目录中运行 `ControlPanel/OpenMenu.cmd`。腿部菜单使用随附圆体与半透明圆角浮层，「打开面板」进入完整网页。
 
-- 点击身体上的语音区域只播放语音，不展开主菜单或播放控制菜单；再次点击可以切换语音。
-- 从菜单中主动选择语音时，仍显示字幕、重播、停止和返回按钮。
-- 表情保持至下一次选择，使用「清除表情」恢复。
-- 新动作或「停止并回到待机」可解除动作保持，操作菜单无需等待动画结束。
-- 「声音与控制 → 恢复默认 / 解除保持」清除动作、表情及参数锁定；「关闭菜单」仅关闭操作框。
+- 页面提供动作、表情、衣装、语音和收藏。
+- 动作、语音和换装可分别设置循环顺序、收藏范围与间隔。换装会等待当前动作和语音结束。
+- 语音区的音符加号用于上传音频和字幕，垃圾桶同时删除两者。
+- 「恢复待机」停止循环、动作和语音，清除表情与保持状态，保留当前衣装。
 
-更新后请完整重载 `00_integrated` 主入口，确保旧实例中的控制器已卸载；仅切换衣装不会更新父模型。
+更新配置后完整重载 `00_integrated` 主入口。移动角色时保留同目录的 `ControlPanel` 与 `assets`。
 
 ## 角色索引
 
@@ -28,7 +27,7 @@
 | MyGO!!!!! | 千早爱音 | 10 | [导入入口](<MyGO!!!!!/千早爱音/00_integrated.model3.json>) |
 | MyGO!!!!! | 椎名立希 | 9 | [导入入口](<MyGO!!!!!/椎名立希/00_integrated.model3.json>) |
 | MyGO!!!!! | 要乐奈 | 6 | [导入入口](<MyGO!!!!!/要乐奈/00_integrated.model3.json>) |
-| MyGO!!!!! | 长崎素世 | 7 | [导入入口](<MyGO!!!!!/长崎素世/00_integrated.model3.json>) |
+| MyGO!!!!! | 长崎爽世 | 7 | [导入入口](<MyGO!!!!!/长崎素世/00_integrated.model3.json>) |
 | MyGO!!!!! | 高松灯 | 7 | [导入入口](<MyGO!!!!!/高松灯/00_integrated.model3.json>) |
 | millsage | 伊泽枣 | 7 | [导入入口](<millsage/伊泽枣/00_integrated.model3.json>) |
 | millsage | 和泉朋花 | 8 | [导入入口](<millsage/和泉朋花/00_integrated.model3.json>) |
@@ -37,14 +36,14 @@
 | millsage | 滨崎茉幌 | 9 | [导入入口](<millsage/滨崎茉幌/00_integrated.model3.json>) |
 | millsage | 琴平凪 | 8 | [导入入口](<millsage/琴平凪/00_integrated.model3.json>) |
 | millsage | 琴平树 | 3 | [导入入口](<millsage/琴平树/00_integrated.model3.json>) |
-| 一家Dumb Rock! | 佣人（sub_shizukus_maid） | 1 | [导入入口](<一家Dumb Rock!/佣人（sub_shizukus_maid）/00_integrated.model3.json>) |
+| 一家Dumb Rock! | 宁月家的女仆 | 1 | [导入入口](<一家Dumb Rock!/佣人（sub_shizukus_maid）/00_integrated.model3.json>) |
 | 一家Dumb Rock! | 四宫宁月 | 7 | [导入入口](<一家Dumb Rock!/四宫宁月/00_integrated.model3.json>) |
-| 一家Dumb Rock! | 奶奶（sub_raikas_grandmother） | 1 | [导入入口](<一家Dumb Rock!/奶奶（sub_raikas_grandmother）/00_integrated.model3.json>) |
-| 一家Dumb Rock! | 妈妈（sub_mikus_mother） | 1 | [导入入口](<一家Dumb Rock!/妈妈（sub_mikus_mother）/00_integrated.model3.json>) |
+| 一家Dumb Rock! | 蕾叶的奶奶 | 1 | [导入入口](<一家Dumb Rock!/奶奶（sub_raikas_grandmother）/00_integrated.model3.json>) |
+| 一家Dumb Rock! | 心玖的母亲 | 1 | [导入入口](<一家Dumb Rock!/妈妈（sub_mikus_mother）/00_integrated.model3.json>) |
 | 一家Dumb Rock! | 宁月的母亲 | 1 | [导入入口](<一家Dumb Rock!/宁月的母亲/00_integrated.model3.json>) |
 | 一家Dumb Rock! | 宁月的父亲 | 1 | [导入入口](<一家Dumb Rock!/宁月的父亲/00_integrated.model3.json>) |
 | 一家Dumb Rock! | 梅里千樱梨 | 6 | [导入入口](<一家Dumb Rock!/梅里千樱梨/00_integrated.model3.json>) |
-| 一家Dumb Rock! | 爸爸（sub_mikus_father） | 1 | [导入入口](<一家Dumb Rock!/爸爸（sub_mikus_father）/00_integrated.model3.json>) |
+| 一家Dumb Rock! | 心玖的父亲 | 1 | [导入入口](<一家Dumb Rock!/爸爸（sub_mikus_father）/00_integrated.model3.json>) |
 | 一家Dumb Rock! | 矢仓蓬咲 | 5 | [导入入口](<一家Dumb Rock!/矢仓蓬咲/00_integrated.model3.json>) |
 | 一家Dumb Rock! | 须贺蕾叶 | 7 | [导入入口](<一家Dumb Rock!/须贺蕾叶/00_integrated.model3.json>) |
 | 一家Dumb Rock! | 马桥心玖 | 9 | [导入入口](<一家Dumb Rock!/马桥心玖/00_integrated.model3.json>) |
@@ -60,7 +59,7 @@
 | 夢限大みゅーたいぷ | 歌美 | 1 | [导入入口](<夢限大みゅーたいぷ/歌美/00_integrated.model3.json>) |
 | 夢限大みゅーたいぷ | 波塔 | 1 | [导入入口](<夢限大みゅーたいぷ/波塔/00_integrated.model3.json>) |
 | 夢限大みゅーたいぷ | 波波 | 1 | [导入入口](<夢限大みゅーたいぷ/波波/00_integrated.model3.json>) |
-| 夢限大みゅーたいぷ | 经纪人（sub_yumemita_manager） | 2 | [导入入口](<夢限大みゅーたいぷ/经纪人（sub_yumemita_manager）/00_integrated.model3.json>) |
+| 夢限大みゅーたいぷ | 梦限大的经纪人 | 2 | [导入入口](<夢限大みゅーたいぷ/经纪人（sub_yumemita_manager）/00_integrated.model3.json>) |
 | 夢限大みゅーたいぷ | 蓓儿 | 1 | [导入入口](<夢限大みゅーたいぷ/蓓儿/00_integrated.model3.json>) |
 | 夢限大みゅーたいぷ | 薇欧拉 | 2 | [导入入口](<夢限大みゅーたいぷ/薇欧拉/00_integrated.model3.json>) |
 | 夢限大みゅーたいぷ | 藤都子 | 7 | [导入入口](<夢限大みゅーたいぷ/藤都子/00_integrated.model3.json>) |

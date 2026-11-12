@@ -291,7 +291,6 @@ class Studio:
         role_id = role_id or self.current
         if role_id not in self.saved["roles"]:
             values = {}
-            target = str(self.root(role_id)).replace("\\", "/").casefold() + "/"
             profiles = NATIVE / "save/cha"
             favorites = set()
             if profiles.exists():
@@ -917,8 +916,10 @@ class Studio:
             raise ValueError("语音已删除，请刷新列表")
         if role_id == self.current and self.playing.get("voice", {}).get("id") == delete_id:
             self.stop("voice")
-        updated, item = voice_library.edit(self.root(role_id), catalog, audio=audio,
-                                            subtitle=subtitle, filename=filename, delete_id=delete_id)
+        updated, _ = voice_library.edit(
+            self.root(role_id), catalog, audio=audio,
+            subtitle=subtitle, filename=filename, delete_id=delete_id,
+        )
         self.catalogs[role_id] = updated
         if deleted:
             if role_id == self.current:

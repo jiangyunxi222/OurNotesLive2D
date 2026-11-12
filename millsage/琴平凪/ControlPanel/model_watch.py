@@ -146,7 +146,7 @@ def run(panel, native, read_native):
                 target = controller_for(slot.get("jsonFilePath") or "")
                 if not target:
                     continue
-                destination, role = target
+                destination, _ = target
                 if time.monotonic() < retry_at.get(str(destination), 0):
                     continue
                 retry_at[str(destination)] = time.monotonic() + 3

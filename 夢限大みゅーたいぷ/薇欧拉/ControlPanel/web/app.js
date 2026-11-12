@@ -4,7 +4,7 @@ const $ = (selector) => document.querySelector(selector);
 const labels = { action: "动作", expression: "表情", costume: "衣装", voice: "语音", favorites: "收藏" };
 const directions = { body: "正面动作", left: "左向动作", right: "右向动作", other: "其他动作" };
 const view = {
-  library: [], catalog: null, state: null, game: "OurNotes", tab: "action",
+  library: [], catalog: null, state: null, tab: "action",
   onlyFavorites: false, favoriteCategory: "all", request: 0, model: null,
   app: null, mouthIds: [], mouth: 0, thumbnails: new Map(), visibleVoice: null,
   currentAction: null, currentExpression: null, modelKey: null, volume: null,
@@ -455,17 +455,11 @@ function updateTabIndicator() {
   indicator.style.transform = `translateX(${tab.offsetLeft}px)`;
 }
 
-async function selectRole(role, costume) {
-  const selected = await api("select", { role, ...(costume ? { costume } : {}) });
-  await applySelection(selected);
-}
-
 async function applySelection(state) {
   view.state = state;
   const roleChanged = view.catalog?.id !== state.role;
   if (roleChanged || (view.catalog.voiceLibraryRevision || 0) !== (state.voiceLibraryRevision || 0)) {
     view.catalog = await api("catalog/" + state.role);
-    view.game = view.catalog.game;
     if (roleChanged) view.currentExpression = null;
     view.itemsSignature = "";
     if (roleChanged) $("#item-search").value = "";
