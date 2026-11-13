@@ -420,6 +420,7 @@ function renderState() {
   const settings = view.state.settings;
   $("#captions-toggle").checked = Boolean(settings.captions);
   $("#body-toggle").checked = Boolean(settings.bodyOnly);
+  $("#click-through-toggle").checked = settings.preventClickThrough !== false;
   $("#connect").classList.toggle("connected", view.state.linked);
   $("#connect-label").textContent = view.state.linked ? "桌面已连接" : view.state.reconnecting ? "桌面重连中" : "连接桌面";
   $("#connect").title = view.state.linked ? `控制桌面模型位 ${view.state.slot + 1}` : "将当前角色连接到 Live2DViewerEX";
@@ -936,7 +937,7 @@ document.querySelectorAll("[data-order]").forEach((button) => button.addEventLis
 $("#loop-interval").addEventListener("change", safely((event) =>
   savePreference(view.tab + "Interval", Number(event.target.value))
 ));
-for (const [id, key] of [["#captions-toggle", "captions"], ["#body-toggle", "bodyOnly"]]) {
+for (const [id, key] of [["#captions-toggle", "captions"], ["#body-toggle", "bodyOnly"], ["#click-through-toggle", "preventClickThrough"]]) {
   $(id).addEventListener("change", safely(async (event) => {
     try { view.state = await api("preference", { key, value: event.target.checked }); }
     finally { renderState(); }

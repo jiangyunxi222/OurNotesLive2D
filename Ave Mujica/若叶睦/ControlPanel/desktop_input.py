@@ -248,6 +248,7 @@ class DesktopInput:
             and self.viewport
             and self.studio.linked
             and self.studio.player.socket
+            and self.studio.settings().get("preventClickThrough", True)
         )
         self.status["active"] = self.active
         if not self.active:

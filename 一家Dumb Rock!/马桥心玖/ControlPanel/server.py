@@ -133,16 +133,18 @@ class Player:
                 raise
 
     def close(self):
-        if self.socket:
+        with self.lock:
+            connection = self.socket
+            self.socket = None
+        if connection:
             try:
-                self.socket.shutdown(socket.SHUT_RDWR)
+                connection.shutdown(socket.SHUT_RDWR)
             except OSError:
                 pass
             try:
-                self.socket.close()
+                connection.close()
             except OSError:
                 pass
-        self.socket = None
 
     def send(self, message, data):
         with self.lock:
@@ -225,8 +227,9 @@ class Player:
         except (OSError, ConnectionError):
             pass
         finally:
-            if self.socket is connection:
-                self.close()
+            with self.lock:
+                if self.socket is connection:
+                    self.close()
 
 
 class Studio:
@@ -342,6 +345,7 @@ class Studio:
             }
         settings = self.saved["roles"][role_id]
         for key, default in (("costume", 1), ("captions", True), ("bodyOnly", False),
+                             ("preventClickThrough", True),
                              ("actionScope", 0), ("voiceScope", 0), ("costumeScope", 0)):
             settings.setdefault(key, default)
             if key != "costume" and settings[key] not in (True, False, 0, 1):
@@ -1013,6 +1017,7 @@ class Studio:
             "actionScope": "heart_action_scope",
             "voiceScope": "heart_voice_scope",
             "costumeScope": None,
+            "preventClickThrough": None,
         }
         orders = {kind + "Order" for kind in self.jobs}
         intervals = {kind + "Interval" for kind in self.jobs}
