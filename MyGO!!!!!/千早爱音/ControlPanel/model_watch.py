@@ -6,11 +6,70 @@ import json
 import os
 from pathlib import Path
 from functools import lru_cache
+import re
 import shutil
 import subprocess
 import sys
 import time
 import urllib.request
+
+
+def steam_libraries(steam):
+    yield steam
+    try:
+        folders = (steam / "steamapps/libraryfolders.vdf").read_text("utf-8-sig")
+    except (OSError, UnicodeError):
+        return
+    for location in re.findall(r'"path"\s*"((?:[^"\\]|\\.)*)"', folders):
+        yield Path(location.replace("\\\\", "\\"))
+
+
+def registry_path(hive, key, value):
+    import winreg
+
+    try:
+        with winreg.OpenKey(hive, key) as handle:
+            location, _ = winreg.QueryValueEx(handle, value)
+            return Path(os.path.expandvars(location)) if location else None
+    except OSError:
+        return None
+
+
+def viewer_bin(panel):
+    default_steam = Path(os.environ.get("ProgramFiles(x86)", "C:/Program Files (x86)")) / "Steam"
+    default = default_steam / "steamapps/common/Live2DViewerEX/bin"
+    candidates = []
+    try:
+        configured = (panel / "viewer-path.txt").read_text("utf-8-sig").strip().strip('"')
+    except (OSError, UnicodeError):
+        configured = ""
+    if configured:
+        location = Path(os.path.expandvars(configured)).expanduser()
+        candidates.extend((location, location / "bin"))
+    steam_roots = [default_steam]
+    if sys.platform == "win32":
+        import winreg
+
+        steam = registry_path(winreg.HKEY_CURRENT_USER, r"Software\Valve\Steam", "SteamPath")
+        if steam:
+            steam_roots.insert(0, steam)
+        for prefix in (r"SOFTWARE\Microsoft", r"SOFTWARE\WOW6432Node\Microsoft"):
+            install = registry_path(winreg.HKEY_LOCAL_MACHINE,
+                prefix + r"\Windows\CurrentVersion\Uninstall\Steam App 616720", "InstallLocation")
+            if install:
+                candidates.append(install / "bin")
+    libraries = dict.fromkeys(library for steam in steam_roots for library in steam_libraries(steam))
+    for library in libraries:
+        steamapps = library / "steamapps"
+        try:
+            manifest = (steamapps / "appmanifest_616720.acf").read_text("utf-8-sig")
+        except (OSError, UnicodeError):
+            continue
+        name = re.search(r'"installdir"\s*"([^"/\\]+)"', manifest)
+        if name:
+            candidates.append(steamapps / "common" / name[1] / "bin")
+    candidates.extend(library / "steamapps/common/Live2DViewerEX/bin" for library in libraries)
+    return next((path for path in candidates if (path / "lw/lw.exe").is_file()), default)
 
 
 def command(panel):
@@ -84,7 +143,7 @@ def enable(panel):
         marker = directory / (str(os.getpid()) + ".json.tmp")
         marker.write_text(json.dumps({"executable": runtime.name}), encoding="utf-8")
         os.replace(marker, directory / "current.json")
-        arguments = [str(runtime), "--watch-models"]
+        arguments = [str(runtime), "--watch-models", "--panel-dir", str(panel.resolve())]
     with winreg.CreateKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run") as key:
         winreg.SetValueEx(key, "BandGDreamModels", 0, winreg.REG_SZ, subprocess.list2cmdline(arguments))
     launch(arguments, panel)

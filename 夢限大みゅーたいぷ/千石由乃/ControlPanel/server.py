@@ -20,7 +20,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 import voice_library
-from model_watch import instance_id, endpoint_for, endpoint_record
+from model_watch import instance_id, endpoint_for, endpoint_record, viewer_bin
 
 HERE = (
     Path(sys.executable).resolve().parent
@@ -35,10 +35,7 @@ if __name__ == "__main__":
         HERE = location_args.panel_dir.resolve()
 REPO = HERE.parent
 PORT = 25000
-NATIVE = (
-    Path(os.environ.get("ProgramFiles(x86)", "C:/Program Files (x86)"))
-    / "Steam/steamapps/common/Live2DViewerEX/bin"
-)
+NATIVE = viewer_bin(HERE)
 KINDS = ("action", "expression", "costume", "voice")
 
 
@@ -86,6 +83,8 @@ class Player:
             self.close()
             try:
                 self.port = int((NATIVE / "app_port").read_text().strip())
+                if not 1 <= self.port <= 65535:
+                    raise ValueError("Invalid ExAPI port")
             except (OSError, ValueError):
                 self.port = 10086
             connection = socket.create_connection(("127.0.0.1", self.port), timeout=3)
@@ -667,7 +666,12 @@ class Studio:
         try:
             self.player.connect()
         except OSError:
-            raise ConnectionError("请先启动 Live2DViewerEX，再点击连接桌面") from None
+            if not self.native_executable.is_file():
+                message = "找不到 Live2DViewerEX。请在 ControlPanel/viewer-path.txt 写入播放器安装目录，然后重启控制台。"
+            else:
+                message = (f"无法连接 Live2DViewerEX 的本机接口（127.0.0.1:{self.player.port}）。"
+                           "请确认角色已显示在播放器中，然后重试。")
+            raise ConnectionError(message) from None
         attached = False
         slots = native_data(NATIVE / "save/autosave.dat").get("charDatas", [])
         expected = self.expected_path()

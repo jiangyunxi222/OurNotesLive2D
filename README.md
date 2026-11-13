@@ -15,6 +15,8 @@
 
 更新配置后完整重载 `00_integrated` 主入口。移动角色时保留同目录的 `ControlPanel` 与 `assets`。
 
+控制台自动查找 Steam 游戏库。若使用独立安装，请将安装目录写入角色的 `ControlPanel/viewer-path.txt`，然后重启控制台。
+
 ## 角色索引
 
 | 团体 | 角色 | 衣装数 | 整合入口 |
