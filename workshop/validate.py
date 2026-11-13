@@ -84,6 +84,8 @@ def check_native(root, reference_models):
                 assert not any(token in command_text for token in ("ControlPanel", "127.0.0.1", "page_open_panel")), (file, group)
                 for command in command_text.split(";"):
                     words = command.split()
+                    if words == ["hide_text"]:
+                        assert file.parent == root and file.name.startswith("00_integrated."), (file, group, "submodel hide_text aborts playback controls")
                     if words[:1] == ["start_mtn"]:
                         if len(words) == 2:
                             pending.append((identity, words[1]))
