@@ -19,3 +19,6 @@ OurNotes 创意工坊版，包含 15 套衣装。
 ## 人格模型资料
 
 莫提斯父模型保存为 `900_original_carrier.model3.json`。睦与莫提斯的衣装通过 `00_integrated.model3.json` 整合入口切换。
+
+QQ群：1084876401
+制作者：缘词
