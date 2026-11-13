@@ -821,432 +821,6 @@
           "FadeInLoop": 1000
         }
       ],
-      "ui_main#4": [
-        {
-          "Name": "state_000",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 60000,
-          "Text": "<size=0></size>",
-          "TextDuration": 60000,
-          "Choices": [
-            {
-              "Text": "循环动作",
-              "NextMtn": "web_cycle_action#6"
-            },
-            {
-              "Text": "循环语音",
-              "NextMtn": "web_cycle_voice#6"
-            },
-            {
-              "Text": "循环换装",
-              "NextMtn": "web_cycle_costume#6"
-            },
-            {
-              "Text": "恢复待机",
-              "NextMtn": "ws_reset#6"
-            },
-            {
-              "Text": "关闭菜单",
-              "NextMtn": "ui_close#4"
-            }
-          ],
-          "VarFloats": [
-            {
-              "Name": "page_loop_action",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "page_loop_voice",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "page_loop_costume",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "ws_menu_open",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ],
-          "Command": "start_mtn ws_menu_timeout#5"
-        },
-        {
-          "Name": "state_001",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 60000,
-          "Text": "<size=0></size>",
-          "TextDuration": 60000,
-          "Choices": [
-            {
-              "Text": "循环动作",
-              "NextMtn": "web_cycle_action#6"
-            },
-            {
-              "Text": "循环语音",
-              "NextMtn": "web_cycle_voice#6"
-            },
-            {
-              "Text": "停止换装",
-              "NextMtn": "web_cycle_costume#6"
-            },
-            {
-              "Text": "恢复待机",
-              "NextMtn": "ws_reset#6"
-            },
-            {
-              "Text": "关闭菜单",
-              "NextMtn": "ui_close#4"
-            }
-          ],
-          "VarFloats": [
-            {
-              "Name": "page_loop_action",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "page_loop_voice",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "page_loop_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "ws_menu_open",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ],
-          "Command": "start_mtn ws_menu_timeout#5"
-        },
-        {
-          "Name": "state_010",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 60000,
-          "Text": "<size=0></size>",
-          "TextDuration": 60000,
-          "Choices": [
-            {
-              "Text": "循环动作",
-              "NextMtn": "web_cycle_action#6"
-            },
-            {
-              "Text": "停止语音",
-              "NextMtn": "web_cycle_voice#6"
-            },
-            {
-              "Text": "循环换装",
-              "NextMtn": "web_cycle_costume#6"
-            },
-            {
-              "Text": "恢复待机",
-              "NextMtn": "ws_reset#6"
-            },
-            {
-              "Text": "关闭菜单",
-              "NextMtn": "ui_close#4"
-            }
-          ],
-          "VarFloats": [
-            {
-              "Name": "page_loop_action",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "page_loop_voice",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "page_loop_costume",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "ws_menu_open",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ],
-          "Command": "start_mtn ws_menu_timeout#5"
-        },
-        {
-          "Name": "state_011",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 60000,
-          "Text": "<size=0></size>",
-          "TextDuration": 60000,
-          "Choices": [
-            {
-              "Text": "循环动作",
-              "NextMtn": "web_cycle_action#6"
-            },
-            {
-              "Text": "停止语音",
-              "NextMtn": "web_cycle_voice#6"
-            },
-            {
-              "Text": "停止换装",
-              "NextMtn": "web_cycle_costume#6"
-            },
-            {
-              "Text": "恢复待机",
-              "NextMtn": "ws_reset#6"
-            },
-            {
-              "Text": "关闭菜单",
-              "NextMtn": "ui_close#4"
-            }
-          ],
-          "VarFloats": [
-            {
-              "Name": "page_loop_action",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "page_loop_voice",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "page_loop_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "ws_menu_open",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ],
-          "Command": "start_mtn ws_menu_timeout#5"
-        },
-        {
-          "Name": "state_100",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 60000,
-          "Text": "<size=0></size>",
-          "TextDuration": 60000,
-          "Choices": [
-            {
-              "Text": "停止动作",
-              "NextMtn": "web_cycle_action#6"
-            },
-            {
-              "Text": "循环语音",
-              "NextMtn": "web_cycle_voice#6"
-            },
-            {
-              "Text": "循环换装",
-              "NextMtn": "web_cycle_costume#6"
-            },
-            {
-              "Text": "恢复待机",
-              "NextMtn": "ws_reset#6"
-            },
-            {
-              "Text": "关闭菜单",
-              "NextMtn": "ui_close#4"
-            }
-          ],
-          "VarFloats": [
-            {
-              "Name": "page_loop_action",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "page_loop_voice",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "page_loop_costume",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "ws_menu_open",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ],
-          "Command": "start_mtn ws_menu_timeout#5"
-        },
-        {
-          "Name": "state_101",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 60000,
-          "Text": "<size=0></size>",
-          "TextDuration": 60000,
-          "Choices": [
-            {
-              "Text": "停止动作",
-              "NextMtn": "web_cycle_action#6"
-            },
-            {
-              "Text": "循环语音",
-              "NextMtn": "web_cycle_voice#6"
-            },
-            {
-              "Text": "停止换装",
-              "NextMtn": "web_cycle_costume#6"
-            },
-            {
-              "Text": "恢复待机",
-              "NextMtn": "ws_reset#6"
-            },
-            {
-              "Text": "关闭菜单",
-              "NextMtn": "ui_close#4"
-            }
-          ],
-          "VarFloats": [
-            {
-              "Name": "page_loop_action",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "page_loop_voice",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "page_loop_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "ws_menu_open",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ],
-          "Command": "start_mtn ws_menu_timeout#5"
-        },
-        {
-          "Name": "state_110",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 60000,
-          "Text": "<size=0></size>",
-          "TextDuration": 60000,
-          "Choices": [
-            {
-              "Text": "停止动作",
-              "NextMtn": "web_cycle_action#6"
-            },
-            {
-              "Text": "停止语音",
-              "NextMtn": "web_cycle_voice#6"
-            },
-            {
-              "Text": "循环换装",
-              "NextMtn": "web_cycle_costume#6"
-            },
-            {
-              "Text": "恢复待机",
-              "NextMtn": "ws_reset#6"
-            },
-            {
-              "Text": "关闭菜单",
-              "NextMtn": "ui_close#4"
-            }
-          ],
-          "VarFloats": [
-            {
-              "Name": "page_loop_action",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "page_loop_voice",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "page_loop_costume",
-              "Type": 1,
-              "Code": "equal 0"
-            },
-            {
-              "Name": "ws_menu_open",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ],
-          "Command": "start_mtn ws_menu_timeout#5"
-        },
-        {
-          "Name": "state_111",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 60000,
-          "Text": "<size=0></size>",
-          "TextDuration": 60000,
-          "Choices": [
-            {
-              "Text": "停止动作",
-              "NextMtn": "web_cycle_action#6"
-            },
-            {
-              "Text": "停止语音",
-              "NextMtn": "web_cycle_voice#6"
-            },
-            {
-              "Text": "停止换装",
-              "NextMtn": "web_cycle_costume#6"
-            },
-            {
-              "Text": "恢复待机",
-              "NextMtn": "ws_reset#6"
-            },
-            {
-              "Text": "关闭菜单",
-              "NextMtn": "ui_close#4"
-            }
-          ],
-          "VarFloats": [
-            {
-              "Name": "page_loop_action",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "page_loop_voice",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "page_loop_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "ws_menu_open",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ],
-          "Command": "start_mtn ws_menu_timeout#5"
-        }
-      ],
       "ui_tap_body#6": [
         {
           "Name": "all",
@@ -1304,7 +878,7 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 5; stop_mtn 4; hide_text; stop_mtn 7; stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_shizuku ws_manual_voice_started_4#9",
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku ws_close_menu#6; stop_mtn 5; stop_mtn 4; hide_text; stop_mtn 7; stop_mtn 2; stop_all_sounds; start_mtn ournotes_l2d_carrier_shizuku ws_manual_voice_started_4#9",
           "NextMtn": "ws_voice_1_0#2",
           "VarFloats": [
             {
@@ -1366,7 +940,7 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 5; stop_mtn 8; stop_mtn 4; hide_text; stop_mtn 7; stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; stop_mtn 2; stop_mtn 3; stop_all_sounds; clear_exp; parts unlock; lip_sync enable; start_mtn Idle",
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku ws_close_menu#6; stop_mtn 5; stop_mtn 8; stop_mtn 4; hide_text; stop_mtn 7; stop_mtn 0; stop_mtn 1; animations unlock; parameters unlock; stop_mtn 2; stop_mtn 3; stop_all_sounds; clear_exp; parts unlock; lip_sync enable; start_mtn Idle",
           "VarFloats": [
             {
               "Name": "page_loop_action",
@@ -1523,576 +1097,576 @@
           "File": "assets/motions/bb0b119b67e69fe9c14fdb635c942861.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_1",
           "File": "assets/motions/cb5b0f69d87ccdf13b4cb80700efe86b.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_2",
           "File": "assets/motions/5113bd72dab5c1982dd135c4506f1522.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_3",
           "File": "assets/motions/99f8f76ef7d79ae5756038ae5523f0ae.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_4",
           "File": "assets/motions/474984dafbf280464d1064b5eddac1d8.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_5",
           "File": "assets/motions/1b4017891282466fb040afd42cfb0b66.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeOut": 1000,
           "FadeIn": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_6",
           "File": "assets/motions/a8c00a1e8ea89111e77e9ac7915ad875.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_7",
           "File": "assets/motions/12187722b7458c973e13116ee4eaa37a.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_8",
           "File": "assets/motions/e8446e7bc2bd920bc609efeb3ab4f6fd.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_9",
           "File": "assets/motions/d281980686cc02ffe78f5f29849f87be.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_10",
           "File": "assets/motions/5063c0093cca1937d819095120e9967f.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_11",
           "File": "assets/motions/f656e9b237aba7561f270b876289874d.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_12",
           "File": "assets/motions/4433844b5cc793a829c1fcf80cdac429.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_13",
           "File": "assets/motions/6d94a9126c7b827ca6d9fe598da05a1a.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_14",
           "File": "assets/motions/b6caf62f5b9e6ccfff3370f292f1ff0a.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_15",
           "File": "assets/motions/bf3fbf49893af6d4ca0653f62a8a6f1c.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_16",
           "File": "assets/motions/5cdf0ea8c175d581009728e56ee2f4a9.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_17",
           "File": "assets/motions/3998c49c3f58fcd8db2ae58019b740c1.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_18",
           "File": "assets/motions/d001ee10c57c58ce272a175ca8342121.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_19",
           "File": "assets/motions/8abf6e6e449222947aba4ebbc98b9999.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_20",
           "File": "assets/motions/cf7f1bc63ef30cc6c379b90aacca015e.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_21",
           "File": "assets/motions/15ec0376739f59eb41dc0c00eea3a118.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_22",
           "File": "assets/motions/d0aa5f332d86dc1bf790655a0a1947ca.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_23",
           "File": "assets/motions/3e7a53b2f666b8f4d5b06035645e7978.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_24",
           "File": "assets/motions/75275cad74214787cfe6d9720b95b20f.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_25",
           "File": "assets/motions/e845a9df42c9b79b8f1734bb63b0c3f9.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_26",
           "File": "assets/motions/bd323a9f3c4006fdac91fa9fa2dbf0a3.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_27",
           "File": "assets/motions/4ff6f29201bc9cccbe5b98fdbe490737.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_28",
           "File": "assets/motions/6c87110cd6b8a7148659897d2f9666d8.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_29",
           "File": "assets/motions/0fd2f1eb6f8b976630a934acb812dffd.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_30",
           "File": "assets/motions/da655e0e8ae437a2f270d6ae6b040a5f.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_31",
           "File": "assets/motions/f8b55f3dfb3ab7c709f16c309447ca75.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_32",
           "File": "assets/motions/b1e57a8d36d1e0a31c8972f1cf033efd.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_33",
           "File": "assets/motions/2212f402bf1d41394c3e01dc5a92ca2b.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_34",
           "File": "assets/motions/16d37ab52a09a02b7ba92bc0f7143c82.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_35",
           "File": "assets/motions/8c7aadc8f8daf3743c32017d129b1017.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_36",
           "File": "assets/motions/e20a76cb643e7770088b6a7fc7017611.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_37",
           "File": "assets/motions/ee0637f0ffb709f9061f93e4cac85f73.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_38",
           "File": "assets/motions/507a1ffd39be290024f3716d3716e682.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_39",
           "File": "assets/motions/45122cab2d4f20c74cc19be6f1889b31.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_40",
           "File": "assets/motions/d138c727a2d60e1ecd56cadcb97ea041.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_41",
           "File": "assets/motions/76889c981a5bccfd040f3bf045567bd5.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_42",
           "File": "assets/motions/998940c93ba0e91c55b2b6f4690cab59.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_43",
           "File": "assets/motions/4545093e742c85ce67550e0e81fea5c3.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_44",
           "File": "assets/motions/04a86fb2d46d1a14030b4d1faf7db016.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_45",
           "File": "assets/motions/5df0d3a5db67820baeecdae82c781f51.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_46",
           "File": "assets/motions/71f4cc6de09bcd84c467124a59eee5c0.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         },
         {
           "Name": "action_47",
           "File": "assets/motions/4b4a56883891ae2125358953a505f1c7.motion3.json",
           "Priority": 3,
           "Interruptable": true,
-          "NextMtn": "Idle",
           "FadeIn": 1000,
           "FadeOut": 1000,
           "FadeInLoop": 1000,
           "FileLoop": false,
-          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_shizuku ws_action_finished_4#9; start_mtn ws_action_gap#8",
+          "WrapMode": 0
         }
       ],
       "ws_action_gap#8": [
@@ -2910,7 +2484,7 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 5; stop_mtn 4; hide_text",
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku ws_close_menu#6; stop_mtn 5; stop_mtn 4; hide_text",
           "VarFloats": [
             {
               "Name": "ws_menu_open",
@@ -2944,7 +2518,7 @@
           "Priority": 9,
           "Interruptable": true,
           "MotionDuration": 1,
-          "Command": "stop_mtn 5; stop_mtn 4; hide_text",
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku ws_close_menu#6; stop_mtn 5; stop_mtn 4; hide_text",
           "VarFloats": [
             {
               "Name": "ws_menu_open",
@@ -2952,6 +2526,216 @@
               "Code": "assign 0"
             }
           ]
+        }
+      ],
+      "ws_refresh_menu#9": [
+        {
+          "Name": "000",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku_costume_004_menu state_000#9"
+        },
+        {
+          "Name": "001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku_costume_004_menu state_001#9"
+        },
+        {
+          "Name": "010",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku_costume_004_menu state_010#9"
+        },
+        {
+          "Name": "011",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku_costume_004_menu state_011#9"
+        },
+        {
+          "Name": "100",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku_costume_004_menu state_100#9"
+        },
+        {
+          "Name": "101",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku_costume_004_menu state_101#9"
+        },
+        {
+          "Name": "110",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 0"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku_costume_004_menu state_110#9"
+        },
+        {
+          "Name": "111",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "page_loop_action",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_voice",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "page_loop_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "Command": "start_mtn ournotes_l2d_carrier_shizuku_costume_004_menu state_111#9"
+        }
+      ],
+      "ws_menu_mark_open#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "ws_menu_open",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "Command": "hide_text; start_mtn ws_menu_timeout#5"
         }
       ]
     },

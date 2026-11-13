@@ -40,7 +40,7 @@ def strings(value):
 def check_native(root, reference_models):
     documents = {}
     pending = []
-    for file in [*root.glob("*.model*.json"), *(root / "assets/hitareas").glob("*.json")]:
+    for file in [*root.glob("*.model*.json"), *(root / "assets/hitareas").glob("*.json"), *(root / "assets/menu").glob("*.model.json")]:
         if file.name in reference_models:
             continue
         model = json.loads(file.read_bytes())
@@ -69,8 +69,7 @@ def check_native(root, reference_models):
         for row in rows:
             if group.startswith("ui_prepare_voice_"):
                 assert "stop_mtn 4" in field(row, "Command", ""), (file, "manual voice leaves stale menu")
-                assert any(field(variable, "Name") == "ws_menu_open" and field(variable, "Code") == "assign 0"
-                           for variable in field(row, "VarFloats", [])), (file, "manual voice menu state")
+                assert "ws_close_menu#6" in field(row, "Command", ""), (file, "manual voice leaves menu model")
             next_motion = field(row, "NextMtn")
             if next_motion:
                 pending.append((identity, next_motion))

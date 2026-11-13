@@ -124,11 +124,6 @@
               "Code": "assign 1"
             },
             {
-              "Name": "page_input_blocked",
-              "Type": 2,
-              "Code": "assign 0"
-            },
-            {
               "Name": "page_loop_action",
               "Type": 2,
               "Code": "assign 0"
@@ -280,7 +275,7 @@
               "Code": "assign 0"
             }
           ],
-          "PostCommand": "start_mtn web_sync_frontend#9; start_mtn web_sync_input_guard"
+          "PostCommand": "start_mtn web_sync_frontend#9"
         },
         {
           "Name": "finish_1_1_1",
@@ -305,7 +300,7 @@
               "Code": "assign 0"
             }
           ],
-          "PostCommand": "start_mtn web_sync_frontend#9; start_mtn web_sync_input_guard"
+          "PostCommand": "start_mtn web_sync_frontend#9"
         }
       ],
       "web_sync_frontend#9": [
@@ -315,79 +310,6 @@
           "Interruptable": true,
           "MotionDuration": 1,
           "NextMtn": "ws_sync_page_loop_action#9"
-        }
-      ],
-      "web_block_input#8": [
-        {
-          "Name": "costume_001",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1200,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001_hits page_block_input#8",
-          "VarFloats": [
-            {
-              "Name": "selected_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "page_input_blocked",
-              "Type": 2,
-              "Code": "assign 1"
-            }
-          ],
-          "NextMtn": "web_allow_input#8"
-        }
-      ],
-      "web_allow_input#8": [
-        {
-          "Name": "costume_001",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001_hits page_allow_input#8",
-          "VarFloats": [
-            {
-              "Name": "selected_costume",
-              "Type": 1,
-              "Code": "equal 1"
-            },
-            {
-              "Name": "page_input_blocked",
-              "Type": 2,
-              "Code": "assign 0"
-            }
-          ]
-        }
-      ],
-      "web_sync_input_guard": [
-        {
-          "Name": "1",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "VarFloats": [
-            {
-              "Name": "page_input_blocked",
-              "Type": 1,
-              "Code": "equal 1"
-            }
-          ],
-          "NextMtn": "web_block_input#8"
-        },
-        {
-          "Name": "0",
-          "Priority": 9,
-          "Interruptable": true,
-          "MotionDuration": 1,
-          "VarFloats": [
-            {
-              "Name": "page_input_blocked",
-              "Type": 1,
-              "Code": "equal 0"
-            }
-          ],
-          "NextMtn": "web_allow_input#8"
         }
       ],
       "ws_sync_page_loop_action#9": [
@@ -461,7 +383,7 @@
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_set_page_loop_action_0#9",
-          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ui_main#4; start_mtn ws_tick#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_refresh_menu#9; start_mtn ws_tick#8"
         }
       ],
       "ws_set_page_loop_action_1#9": [
@@ -493,7 +415,7 @@
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_set_page_loop_action_1#9",
-          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ui_main#4; start_mtn ws_tick#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_refresh_menu#9; start_mtn ws_tick#8"
         }
       ],
       "ws_sync_page_loop_voice#9": [
@@ -567,7 +489,7 @@
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_set_page_loop_voice_0#9",
-          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ui_main#4; start_mtn ws_tick#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_refresh_menu#9; start_mtn ws_tick#8"
         }
       ],
       "ws_set_page_loop_voice_1#9": [
@@ -599,7 +521,7 @@
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_set_page_loop_voice_1#9",
-          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ui_main#4; start_mtn ws_tick#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_refresh_menu#9; start_mtn ws_tick#8"
         }
       ],
       "ws_sync_page_loop_costume#9": [
@@ -668,7 +590,7 @@
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_set_page_loop_costume_0#9; stop_mtn 7",
-          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ui_main#4; start_mtn ws_tick#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_refresh_menu#9; start_mtn ws_tick#8"
         }
       ],
       "ws_set_page_loop_costume_1#9": [
@@ -695,7 +617,7 @@
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_set_page_loop_costume_1#9; start_mtn ws_costume_wait#7",
-          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ui_main#4; start_mtn ws_tick#8"
+          "PostCommand": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_refresh_menu#9; start_mtn ws_tick#8"
         }
       ],
       "ws_after_sync#9": [
@@ -1502,6 +1424,31 @@
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 web_reset#6"
+        }
+      ],
+      "ws_open_menu_1#9": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "start_mtn ournotes_l2d_carrier_sub_mikus_mother_costume_001 ws_menu_mark_open#6; remove_submodel assets/hitareas/001.model.json; remove_submodel assets/menu/001.model.json; add_submodel assets/menu/001.model.json 2"
+        }
+      ],
+      "ws_close_menu#6": [
+        {
+          "Name": "001",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "selected_costume",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ],
+          "Command": "remove_submodel assets/menu/001.model.json; add_submodel assets/hitareas/001.model.json 2"
         }
       ]
     }
