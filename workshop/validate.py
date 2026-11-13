@@ -40,7 +40,12 @@ def strings(value):
 def check_native(root, reference_models):
     documents = {}
     pending = []
-    for file in [*root.glob("*.model*.json"), *(root / "assets/hitareas").glob("*.json"), *(root / "assets/menu").glob("*.model.json")]:
+    model_files = [*root.glob("*.model*.json"), *(root / "assets/hitareas").glob("*.json"),
+                   *(root / "assets/menu").glob("*.model.json")]
+    # EX Studio collects model configs only from the entry's own directory.
+    assert all(file.parent == root for file in model_files), (root, "nested model omitted by EX Studio packaging")
+    collected = {file.name for file in model_files}
+    for file in model_files:
         if file.name in reference_models:
             continue
         model = json.loads(file.read_bytes())
@@ -81,9 +86,17 @@ def check_native(root, reference_models):
                 pending.append((identity, field(choice, "NextMtn")))
             for key in ("Command", "PostCommand"):
                 command_text = field(row, key, "")
+                if group == "tap_reset" and key == "Command":
+                    words = command_text.split()
+                    assert len(words) == 3 and words[2] == "ws_reset#9", (file, "reset must bypass the busy costume layer")
+                    assert documents[words[1]][0].name.startswith("00_integrated."), (file, "reset must target the parent")
                 assert not any(token in command_text for token in ("ControlPanel", "127.0.0.1", "page_open_panel")), (file, group)
                 for command in command_text.split(";"):
                     words = command.split()
+                    if words[:1] in (["add_submodel"], ["remove_submodel"], ["change_model"]):
+                        assert len(words) >= 2 and words[1] in collected, (file, group, "model missing from package", words)
+                    if words[:1] == ["replace_tex"]:
+                        assert len(words) >= 3 and (root / words[2]).is_file(), (file, group, "missing texture", words)
                     if words == ["hide_text"]:
                         assert file.parent == root and file.name.startswith("00_integrated."), (file, group, "submodel hide_text aborts playback controls")
                     if words[:1] == ["start_mtn"]:
