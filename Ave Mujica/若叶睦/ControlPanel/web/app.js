@@ -116,7 +116,7 @@ function favoriteSet() {
 
 function itemList(kind) {
   if (!view.catalog) return [];
-  if (kind === "voice") return view.catalog.voices;
+  if (kind === "voice") return view.catalog.voices.filter(voice => !voice.costumeIds || voice.costumeIds.includes(currentCostume()?.id));
   if (kind === "costume") return view.catalog.costumes;
   return currentCostume()?.[kind === "action" ? "actions" : "expressions"] || [];
 }

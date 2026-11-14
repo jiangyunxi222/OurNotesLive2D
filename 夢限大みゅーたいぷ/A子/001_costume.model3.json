@@ -155,12 +155,76 @@
       ],
       "ui_voice_tap#2": [
         {
-          "Name": "no_voice",
-          "Text": "当前角色未提供语音素材",
-          "MotionDuration": 3000,
-          "TextDuration": 3000,
+          "Name": "voice_000",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_143.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
           "Priority": 9,
-          "Interruptable": true
+          "Interruptable": true,
+          "Text": "啊——嗯。我赞成薇欧拉……"
+        },
+        {
+          "Name": "voice_001",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_139.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "确实。\n那样可能会更好"
+        },
+        {
+          "Name": "voice_002",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_012.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "我是A子。还负责作曲～"
+        },
+        {
+          "Name": "voice_003",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_03_009.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "是什么呢～？"
+        },
+        {
+          "Name": "voice_004",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_19_238.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "对不起"
+        },
+        {
+          "Name": "voice_005",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_19_244.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "加油"
+        },
+        {
+          "Name": "voice_006",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_03_015.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "啊——嗯"
+        },
+        {
+          "Name": "voice_007",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_022.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "嗯～"
         }
       ],
       "ui_tap_body#6": [
@@ -315,10 +379,66 @@
       ],
       "ui_voice_tap_plain#2": [
         {
-          "Name": "no_voice",
-          "Text": "当前角色未提供语音素材",
-          "MotionDuration": 3000,
-          "TextDuration": 3000,
+          "Name": "voice_000",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_143.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_001",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_139.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_002",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_012.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_003",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_03_009.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_004",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_19_238.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_005",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_19_244.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_006",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_03_015.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true
+        },
+        {
+          "Name": "voice_007",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_022.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
           "Priority": 9,
           "Interruptable": true
         }
@@ -415,6 +535,11 @@
               "Name": "heart_voice_active",
               "Type": 2,
               "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 1,
+              "Code": "greater 0"
             }
           ]
         }
@@ -472,6 +597,11 @@
               "Name": "heart_voice_active",
               "Type": 2,
               "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 1,
+              "Code": "greater 0"
             }
           ]
         }
@@ -564,8 +694,258 @@
           ]
         }
       ],
-      "heart_voice_caption#2": [],
-      "heart_voice_plain#2": [],
+      "heart_voice_caption#2": [
+        {
+          "Name": "voice_000",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_143.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "啊——嗯。我赞成薇欧拉……",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_106259b422f97f2f",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_001",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_139.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "确实。\n那样可能会更好",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_dbefe01c1202b9fc",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_002",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_012.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "我是A子。还负责作曲～",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_6b144364e0d9c646",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_003",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_03_009.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "是什么呢～？",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_4554b1dc84ed8f1c",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_004",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_19_238.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "对不起",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_b6d51fc3ccd5f724",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_005",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_19_244.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "加油",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_cd6e34fc906918d2",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_006",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_03_015.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "啊——嗯",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_f004b4014d3b8c67",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_007",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_022.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "嗯～",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_21f5cfe20e670bab",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_voice_plain#2": [
+        {
+          "Name": "voice_000",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_143.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_106259b422f97f2f",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_001",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_139.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_dbefe01c1202b9fc",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_002",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_012.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_6b144364e0d9c646",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_003",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_03_009.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_4554b1dc84ed8f1c",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_004",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_19_238.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_b6d51fc3ccd5f724",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_005",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_19_244.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_cd6e34fc906918d2",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_006",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_03_015.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_f004b4014d3b8c67",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        },
+        {
+          "Name": "voice_007",
+          "Sound": "assets/voices/curated_adv_voice_yumemita_003_1_06_022.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_21f5cfe20e670bab",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
       "ui_heart_boot#6": [
         {
           "Name": "initialize",
@@ -602,6 +982,51 @@
               "Name": "heart_ready_709d6a7624d554d6",
               "Type": 2,
               "Code": "assign 1"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_106259b422f97f2f"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_dbefe01c1202b9fc"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_6b144364e0d9c646"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_4554b1dc84ed8f1c"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_b6d51fc3ccd5f724"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_cd6e34fc906918d2"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_f004b4014d3b8c67"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_21f5cfe20e670bab"
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko carrier_finish_costume"
@@ -616,6 +1041,51 @@
               "Name": "heart_ready_709d6a7624d554d6",
               "Type": 1,
               "Code": "equal 1"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_106259b422f97f2f"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_dbefe01c1202b9fc"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_6b144364e0d9c646"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_4554b1dc84ed8f1c"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_b6d51fc3ccd5f724"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_cd6e34fc906918d2"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_f004b4014d3b8c67"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_21f5cfe20e670bab"
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_a_ko carrier_finish_costume"
@@ -695,6 +1165,51 @@
               "Name": "heart_count_44e7bbdbc23dcdb5",
               "Type": 2,
               "Code": "add $heart_fav_09ab615756803ebd"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_106259b422f97f2f"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_dbefe01c1202b9fc"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_6b144364e0d9c646"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_4554b1dc84ed8f1c"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_b6d51fc3ccd5f724"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_cd6e34fc906918d2"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_f004b4014d3b8c67"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_21f5cfe20e670bab"
             }
           ]
         }
@@ -1158,6 +1673,758 @@
               "Name": "page_loop_costume",
               "Type": 2,
               "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_fav_106259b422f97f2f_0#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_106259b422f97f2f",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_fav_106259b422f97f2f_1#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_106259b422f97f2f",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_voice_000#6": [
+        {
+          "Name": "captions_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap_plain#2:voice_000",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "captions_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap#2:voice_000",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_dbefe01c1202b9fc_0#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_dbefe01c1202b9fc",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_fav_dbefe01c1202b9fc_1#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_dbefe01c1202b9fc",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_voice_001#6": [
+        {
+          "Name": "captions_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap_plain#2:voice_001",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "captions_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap#2:voice_001",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 1"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_6b144364e0d9c646_0#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_6b144364e0d9c646",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_fav_6b144364e0d9c646_1#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_6b144364e0d9c646",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_voice_002#6": [
+        {
+          "Name": "captions_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap_plain#2:voice_002",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 2"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "captions_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap#2:voice_002",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 2"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_4554b1dc84ed8f1c_0#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_4554b1dc84ed8f1c",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_fav_4554b1dc84ed8f1c_1#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_4554b1dc84ed8f1c",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_voice_003#6": [
+        {
+          "Name": "captions_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap_plain#2:voice_003",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 3"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "captions_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap#2:voice_003",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 3"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_b6d51fc3ccd5f724_0#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_b6d51fc3ccd5f724",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_fav_b6d51fc3ccd5f724_1#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_b6d51fc3ccd5f724",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_voice_004#6": [
+        {
+          "Name": "captions_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap_plain#2:voice_004",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 4"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "captions_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap#2:voice_004",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 4"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_cd6e34fc906918d2_0#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_cd6e34fc906918d2",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_fav_cd6e34fc906918d2_1#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_cd6e34fc906918d2",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_voice_005#6": [
+        {
+          "Name": "captions_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap_plain#2:voice_005",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 5"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "captions_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap#2:voice_005",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 5"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_f004b4014d3b8c67_0#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_f004b4014d3b8c67",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_fav_f004b4014d3b8c67_1#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_f004b4014d3b8c67",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_voice_006#6": [
+        {
+          "Name": "captions_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap_plain#2:voice_006",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 6"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "captions_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap#2:voice_006",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 6"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        }
+      ],
+      "web_fav_21f5cfe20e670bab_0#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_21f5cfe20e670bab",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_fav_21f5cfe20e670bab_1#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_21f5cfe20e670bab",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_voice_007#6": [
+        {
+          "Name": "captions_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap_plain#2:voice_007",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 7"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "captions_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap#2:voice_007",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 7"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
             }
           ]
         }

@@ -155,12 +155,13 @@
       ],
       "ui_voice_tap#2": [
         {
-          "Name": "no_voice",
-          "Text": "当前角色未提供语音素材",
-          "MotionDuration": 3000,
-          "TextDuration": 3000,
+          "Name": "voice_000",
+          "Sound": "assets/voices/curated_adv_voice_mujica_002_exstory_1_03_052.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
           "Priority": 9,
-          "Interruptable": true
+          "Interruptable": true,
+          "Text": "オブリビオニスさん、どうぞ花束を受け取ってください。\nこれは豊川グループからの感謝の気持ちです"
         }
       ],
       "ui_tap_body#6": [
@@ -315,10 +316,10 @@
       ],
       "ui_voice_tap_plain#2": [
         {
-          "Name": "no_voice",
-          "Text": "当前角色未提供语音素材",
-          "MotionDuration": 3000,
-          "TextDuration": 3000,
+          "Name": "voice_000",
+          "Sound": "assets/voices/curated_adv_voice_mujica_002_exstory_1_03_052.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
           "Priority": 9,
           "Interruptable": true
         }
@@ -415,6 +416,11 @@
               "Name": "heart_voice_active",
               "Type": 2,
               "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 1,
+              "Code": "greater 0"
             }
           ]
         }
@@ -472,6 +478,11 @@
               "Name": "heart_voice_active",
               "Type": 2,
               "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 1,
+              "Code": "greater 0"
             }
           ]
         }
@@ -564,8 +575,41 @@
           ]
         }
       ],
-      "heart_voice_caption#2": [],
-      "heart_voice_plain#2": [],
+      "heart_voice_caption#2": [
+        {
+          "Name": "voice_000",
+          "Sound": "assets/voices/curated_adv_voice_mujica_002_exstory_1_03_052.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "Text": "オブリビオニスさん、どうぞ花束を受け取ってください。\nこれは豊川グループからの感謝の気持ちです",
+          "VarFloats": [
+            {
+              "Name": "heart_fav_ce8dd192f7c05c5c",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
+      "heart_voice_plain#2": [
+        {
+          "Name": "voice_000",
+          "Sound": "assets/voices/curated_adv_voice_mujica_002_exstory_1_03_052.wav",
+          "Command": "lip_sync enforce",
+          "PostCommand": "lip_sync enable",
+          "Priority": 9,
+          "Interruptable": true,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_ce8dd192f7c05c5c",
+              "Type": 1,
+              "Code": "equal 1"
+            }
+          ]
+        }
+      ],
       "ui_heart_boot#6": [
         {
           "Name": "initialize",
@@ -602,6 +646,16 @@
               "Name": "heart_ready_709d6a7624d554d6",
               "Type": 2,
               "Code": "assign 1"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_ce8dd192f7c05c5c"
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_raikas_fathers_secretary carrier_finish_costume"
@@ -616,6 +670,16 @@
               "Name": "heart_ready_709d6a7624d554d6",
               "Type": 1,
               "Code": "equal 1"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_ce8dd192f7c05c5c"
             }
           ],
           "Command": "start_mtn ournotes_l2d_carrier_sub_raikas_fathers_secretary carrier_finish_costume"
@@ -695,6 +759,16 @@
               "Name": "heart_count_44e7bbdbc23dcdb5",
               "Type": 2,
               "Code": "add $heart_fav_09ab615756803ebd"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_count_curated_voices",
+              "Type": 2,
+              "Code": "add $heart_fav_ce8dd192f7c05c5c"
             }
           ]
         }
@@ -1158,6 +1232,100 @@
               "Name": "page_loop_costume",
               "Type": 2,
               "Code": "assign 1"
+            }
+          ]
+        }
+      ],
+      "web_fav_ce8dd192f7c05c5c_0#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_ce8dd192f7c05c5c",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_fav_ce8dd192f7c05c5c_1#6": [
+        {
+          "Name": "run",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "VarFloats": [
+            {
+              "Name": "heart_fav_ce8dd192f7c05c5c",
+              "Type": 2,
+              "Code": "assign 1"
+            }
+          ],
+          "NextMtn": "web_recount#6"
+        }
+      ],
+      "web_voice_000#6": [
+        {
+          "Name": "captions_0",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap_plain#2:voice_000",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 0"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
+            }
+          ]
+        },
+        {
+          "Name": "captions_1",
+          "Priority": 9,
+          "Interruptable": true,
+          "MotionDuration": 1,
+          "Command": "stop_mtn 4; stop_mtn 7; stop_mtn 2; stop_all_sounds",
+          "NextMtn": "ui_voice_tap#2:voice_000",
+          "VarFloats": [
+            {
+              "Name": "voice_captions_enabled",
+              "Type": 1,
+              "Code": "equal 1"
+            },
+            {
+              "Name": "selected_voice",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_loop",
+              "Type": 2,
+              "Code": "assign 0"
+            },
+            {
+              "Name": "heart_voice_active",
+              "Type": 2,
+              "Code": "assign 0"
             }
           ]
         }

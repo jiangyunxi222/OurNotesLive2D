@@ -12,14 +12,17 @@ import random
 import secrets
 import socket
 import struct
+import tempfile
 import threading
 import time
 import sys
 import webbrowser
+import zipfile
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 import voice_library
+import role_package
 from model_watch import instance_id, endpoint_for, endpoint_record, viewer_bin
 
 HERE = (
@@ -35,7 +38,8 @@ if __name__ == "__main__":
         HERE = location_args.panel_dir.resolve()
 REPO = HERE.parent
 PORT = 25000
-NATIVE = viewer_bin(HERE)
+STANDALONE = (__name__ == "__main__" and (HERE / "standalone.mode").is_file())
+NATIVE = HERE / ".local/no-player" if STANDALONE else viewer_bin(HERE)
 KINDS = ("action", "expression", "costume", "voice")
 
 
@@ -232,8 +236,11 @@ class Player:
 
 
 class Studio:
-    def __init__(self):
+    def __init__(self, standalone=False):
         self.lock = threading.RLock()
+        self.standalone = standalone
+        self.import_lock = threading.Lock()
+        self.active_package = None
         self.changed = threading.Condition(self.lock)
         self.events = []
         self.sequence = 0
@@ -247,7 +254,7 @@ class Studio:
         self.loading = False
         self.reconnect_requested = False
         self.monitor_started = False
-        candidates = [REPO]
+        candidates = [] if standalone else [REPO]
         for root in dict.fromkeys(path.resolve() for path in candidates):
             catalog = panel_directory(root) / "library.json"
             if not catalog.exists():
@@ -288,8 +295,52 @@ class Studio:
         self.last_native_toggles = {}
         self.next_reconnect_at = 0
         self.playing = {}
-        if self.saved.get("desktop_requested"):
+        if not standalone and self.saved.get("desktop_requested"):
             self.reconnect_requested = True
+
+    def import_role(self, source, length):
+        if not self.standalone or not 0 < length <= role_package.MAX_BYTES:
+            raise ValueError("请选择不超过 2 GB 的角色 ZIP")
+        if not self.import_lock.acquire(blocking=False):
+            raise ValueError("另一个角色包正在加载")
+        staged = None
+        try:
+            staged = tempfile.TemporaryDirectory(prefix="BandoriLove-role-")
+            folder = Path(staged.name)
+            archive = folder / "role.zip"
+            with archive.open("wb") as stream:
+                remaining = length
+                while remaining:
+                    chunk = source.read(min(remaining, 1024 * 1024))
+                    if not chunk:
+                        raise ValueError("角色包传输不完整")
+                    stream.write(chunk)
+                    remaining -= len(chunk)
+            root = folder / "role"
+            role, catalog = role_package.extract(archive, root)
+            archive.unlink()
+            with self.lock:
+                previous = self.active_package
+                for kind in self.jobs:
+                    self.jobs[kind] += 1
+                    self.looping[kind] = False
+                for timer in self.timers.values():
+                    timer.cancel()
+                self.timers.clear()
+                self.cursors.clear()
+                self.playing.clear()
+                self.costume_due = False
+                self.current = role["id"]
+                self.roles = {self.current: role}
+                self.roots = {self.current: root}
+                self.catalogs = {self.current: catalog}
+                self.active_package, staged = staged, None
+            if previous is not None:
+                previous.cleanup()
+        finally:
+            if staged is not None:
+                staged.cleanup()
+            self.import_lock.release()
 
     def catalog(self, role_id=None):
         role_id = role_id or self.current
@@ -312,7 +363,7 @@ class Studio:
             values = {}
             profiles = NATIVE / "save/cha"
             favorites = set()
-            if profiles.exists():
+            if not self.standalone and profiles.exists():
                 paths = [self.root(role_id) / self.catalog(role_id)["entry"]] + [
                     self.root(role_id) / costume["file"]
                     for costume in self.catalog(role_id)["costumes"]
@@ -379,7 +430,7 @@ class Studio:
         return {
             "instance": instance_id(HERE),
             "role": self.current,
-            "settings": copy.deepcopy(self.settings()),
+            "settings": copy.deepcopy(self.settings()) if self.current else {},
             "linked": self.linked and self.player.socket is not None,
             "reconnecting": self.reconnect_requested
             and (not self.linked or self.player.socket is None),
@@ -387,7 +438,7 @@ class Studio:
             "looping": self.looping.copy(),
             "playing": self.playing.copy(),
             "sequence": self.sequence,
-            "voiceLibraryRevision": self.catalog().get("voiceLibraryRevision", 0),
+            "voiceLibraryRevision": self.catalog().get("voiceLibraryRevision", 0) if self.current else 0,
             "waitingForCostume": self.costume_due,
             "menu": self.popup.status.copy() if self.popup else None,
             "input": self.input_router.status.copy() if self.input_router else None,
@@ -661,6 +712,8 @@ class Studio:
         return self.snapshot()
 
     def connect(self, attach=False):
+        if self.standalone:
+            raise ValueError("此控制台用于网页预览")
         if self.linked and self.player.socket is not None and self.slot_path() == self.expected_path():
             return self.snapshot()
         try:
@@ -938,7 +991,9 @@ class Studio:
 
     def entries(self, kind):
         if kind == "voice":
-            return self.catalog()["voices"]
+            costume = self.costume()["id"]
+            return [voice for voice in self.catalog()["voices"]
+                    if "costumeIds" not in voice or costume in voice["costumeIds"]]
         if kind == "costume":
             return self.catalog()["costumes"]
         return self.costume()["actions" if kind == "action" else "expressions"]
@@ -1399,6 +1454,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self.respond(200, list(STUDIO.roles.values()))
             if path == "/api/state":
                 return self.respond(200, STUDIO.snapshot())
+            if path == "/api/mode":
+                return self.respond(200, {"standalone": STUDIO.standalone})
             if path.startswith("/api/catalog/"):
                 return self.respond(200, STUDIO.page_catalog(path.rsplit("/", 1)[1]))
             if path.startswith("/api/thumbnail/"):
@@ -1415,10 +1472,16 @@ class Handler(BaseHTTPRequestHandler):
                 return self.respond(200, STUDIO.preview(role_id, int(costume_id)))
             if path.startswith("/assets/"):
                 _, _, role_id, relative = path.split("/", 3)
-                root = STUDIO.root(role_id)
-                file = (root / relative).resolve()
-                if not file.is_relative_to(root) or not file.is_file():
+                if STUDIO.standalone and not role_package.preview_asset(relative):
                     raise ValueError("资源不存在")
+                with STUDIO.lock:
+                    root = STUDIO.root(role_id)
+                    file = (root / relative).resolve()
+                    if not file.is_relative_to(root) or not file.is_file():
+                        raise ValueError("资源不存在")
+                    mime = mimetypes.guess_type(file.name)[0] or "application/octet-stream"
+                    data = file.read_bytes()
+                return self.respond(200, data, mime)
             else:
                 root = HERE / "web"
                 file = (root / (path.lstrip("/") or "index.html")).resolve()
@@ -1485,6 +1548,21 @@ class Handler(BaseHTTPRequestHandler):
             if length < 0:
                 self.close_connection = True
                 raise ValueError("请求长度无效")
+            if self.path == "/api/import":
+                self.close_connection = True
+                try:
+                    STUDIO.import_role(self.rfile, length)
+                except (zipfile.BadZipFile, NotImplementedError, RuntimeError, AttributeError, IndexError,
+                        KeyError, TypeError, json.JSONDecodeError) as error:
+                    raise ValueError("无法读取角色 ZIP，请重新下载角色包") from error
+                return self.respond(200, {"imported": True})
+            if self.path == "/api/exit" and STUDIO.standalone:
+                self.close_connection = True
+                self.respond(200, {"closed": True})
+                threading.Thread(target=self.server.shutdown, daemon=True).start()
+                return
+            if STUDIO.standalone and (not STUDIO.current or self.path.startswith("/api/voices/")):
+                return self.respond(400, {"error": "请先导入角色包" if not STUDIO.current else "预览模式下仅可播放语音"})
             if self.path == "/api/voices/upload":
                 if not 0 < length <= voice_library.MAX_AUDIO_BYTES:
                     self.close_connection = True
@@ -1568,8 +1646,9 @@ if __name__ == "__main__":
                     break
                 time.sleep(.1)
             raise SystemExit(0)
-    STUDIO = Studio()
-    if not STUDIO.roles:
+    standalone = STANDALONE
+    STUDIO = Studio(standalone=True) if standalone else Studio()
+    if not standalone and not STUDIO.roles:
         raise SystemExit("没有找到资源目录，请将控制台保留在项目目录内。")
     previous_endpoint = endpoint_record(HERE)
     try:
@@ -1582,6 +1661,10 @@ if __name__ == "__main__":
     atomic_write(HERE / ".local/endpoint.json", {"instance": instance_id(HERE), "port": PORT})
     if not args.no_browser:
         webbrowser.open(f"http://127.0.0.1:{PORT}")
+    if standalone:
+        with server:
+            server.serve_forever()
+        raise SystemExit(0)
     from compact_menu import CompactMenu
 
     STUDIO.popup = CompactMenu(STUDIO, PORT)
