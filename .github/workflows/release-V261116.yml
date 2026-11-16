@@ -1,0 +1,26 @@
+name: Build and upload V261116 role packages
+on:
+  push:
+    branches: [release-build/V261116]
+permissions:
+  contents: write
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_REPO: ${{ github.repository }}
+      BUILD_REF: ${{ github.sha }}
+      SHARD: ${{ matrix.shard }}
+    steps:
+      - name: Fetch packaging scripts
+        run: |
+          gh api "repos/$SOURCE_REPO/contents/.github/release-V261116.py?ref=$BUILD_REF" --jq .content | base64 --decode > release.py
+          gh api "repos/$SOURCE_REPO/contents/.github/release-V261116.json?ref=$BUILD_REF" --jq .content | base64 --decode > inventory.json
+      - name: Verify and upload the role ZIPs
+        run: python -u release.py
