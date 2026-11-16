@@ -290,8 +290,13 @@ class CompactMenu:
                 kind, value = self.messages.get_nowait()
                 if kind == "show":
                     self.display(value)
+                elif kind == "hide":
+                    if self.input_blocked or self.root.state() != "withdrawn":
+                        self.hide()
                 elif kind == "panel":
-                    self.open_panel()
+                    ticket = (self.studio.current, self.studio.input_epoch)
+                    if self.studio.linked and value == ticket:
+                        self.open_panel()
                 elif kind == "error":
                     self.error.configure(text=value)
                     self.error.pack(fill="x", padx=8, pady=(5, 4))

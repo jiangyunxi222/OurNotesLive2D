@@ -283,6 +283,7 @@ class Studio:
         self.input_router = None
         self.input_epoch = 0
         self.native_executable = NATIVE / "lw/lw.exe"
+        self.native_menu_generation = None
         self.last_menu_request = None
         self.last_panel_request = None
         self.last_native_toggles = {}
@@ -517,6 +518,7 @@ class Studio:
                         if matched_slot == self.slot and costume is not None:
                             self.settings()["costume"] = costume
                             self.player.connect()
+                            self.reset_native_menu_requests()
                             self.linked = True
                             self.load_native()
                             self.emit("connection")
@@ -531,6 +533,7 @@ class Studio:
                     if not actual:
                         continue
                     self.player.connect()
+                    self.reset_native_menu_requests()
                     self.linked = True
                     self.native("carrier_hide_text#5")
                     self.adopt_native_costume()
@@ -672,6 +675,7 @@ class Studio:
                 message = (f"无法连接 Live2DViewerEX 的本机接口（127.0.0.1:{self.player.port}）。"
                            "请确认角色已显示在播放器中，然后重试。")
             raise ConnectionError(message) from None
+        self.reset_native_menu_requests()
         attached = False
         slots = native_data(NATIVE / "save/autosave.dat").get("charDatas", [])
         expected = self.expected_path()
@@ -740,6 +744,7 @@ class Studio:
         return self.snapshot()
 
     def load_native(self):
+        self.reset_native_menu_requests()
         self.loading = True
         try:
             previous_count = self.native_variables().get("page_load_count", 0)
@@ -837,11 +842,32 @@ class Studio:
                         + "循环",
                     )
 
+    def reset_native_menu_requests(self):
+        self.input_epoch += 1
+        self.native_menu_generation = None
+        self.last_menu_request = None
+        self.last_panel_request = None
+        self.last_native_toggles.clear()
+        if self.popup:
+            self.popup.messages.put(("hide", None))
+
     def native_menu_events(self):
         variables = self.native_variables()
+        generation = variables.get("page_load_count")
+        if generation is None or variables.get("costume_loading"):
+            self.native_menu_generation = None
+            return
+        if generation != self.native_menu_generation:
+            self.native_menu_generation = generation
+            self.last_panel_request = variables.get("page_panel_request", 0)
+            self.last_menu_request = variables.get("page_menu_request", 0)
+            self.last_native_toggles = {
+                kind: variables.get("page_toggle_request_" + kind, 0) for kind in self.jobs
+            }
+            return
         panel_request = variables.get("page_panel_request", 0)
         if self.last_panel_request is not None and panel_request > self.last_panel_request and self.popup:
-            self.popup.messages.put(("panel", None))
+            self.popup.messages.put(("panel", (self.current, self.input_epoch)))
         self.last_panel_request = panel_request
         request = variables.get("page_menu_request", 0)
         if request != self.last_menu_request:
@@ -1550,10 +1576,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-browser", action="store_true")
     parser.add_argument("--watch-models", action="store_true")
+    parser.add_argument("--enable-auto-start", action="store_true")
     parser.add_argument("--panel-dir", type=Path)
     args = parser.parse_args()
     from model_watch import acquire_instance, enable, run
 
+    if args.enable_auto_start:
+        enable(HERE)
+        raise SystemExit(0)
     if args.watch_models:
         run(HERE, NATIVE, native_data)
         raise SystemExit(0)
@@ -1586,7 +1616,7 @@ if __name__ == "__main__":
 
     STUDIO.popup = CompactMenu(STUDIO, PORT)
     threading.Thread(target=server.serve_forever, daemon=True).start()
-    if sys.platform == "win32":
+    if sys.platform == "win32" and not args.no_browser:
         try:
             enable(HERE)
         except OSError:

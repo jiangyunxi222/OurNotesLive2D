@@ -116,13 +116,16 @@ def model_files(path, modified, size):
 
 
 def launch(arguments, panel):
-    return subprocess.Popen(arguments, cwd=panel, creationflags=subprocess.CREATE_NO_WINDOW)
+    environment = {**os.environ, "PYINSTALLER_RESET_ENVIRONMENT": "1"}
+    return subprocess.Popen(arguments, cwd=panel, env=environment,
+                            creationflags=subprocess.CREATE_NO_WINDOW)
 
 
 def enable(panel):
     import winreg
 
     arguments = command(panel) + ["--watch-models"]
+    working_directory = panel
     if getattr(sys, "frozen", False):
         source = Path(sys.executable)
         digest = hashlib.sha256(source.read_bytes()).hexdigest()
@@ -144,9 +147,10 @@ def enable(panel):
         marker.write_text(json.dumps({"executable": runtime.name}), encoding="utf-8")
         os.replace(marker, directory / "current.json")
         arguments = [str(runtime), "--watch-models", "--panel-dir", str(panel.resolve())]
+        working_directory = directory
     with winreg.CreateKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run") as key:
         winreg.SetValueEx(key, "BandGDreamModels", 0, winreg.REG_SZ, subprocess.list2cmdline(arguments))
-    launch(arguments, panel)
+    launch(arguments, working_directory)
 
 
 def acquire_instance(name):
@@ -175,7 +179,7 @@ def controller_for(path):
         catalog = panel / "data" / (role["id"] + ".json")
         info = catalog.stat()
         files = {role["entry"], *model_files(str(catalog), info.st_mtime_ns, info.st_size)}
-        if len(roles) == 1 and model.name in files:
+        if len(roles) == 1 and model.name.casefold() in {name.casefold() for name in files}:
             return panel, role
     except (OSError, ValueError, KeyError, IndexError, TypeError):
         pass
@@ -185,7 +189,7 @@ def controller_for(path):
 def run(panel, native, read_native):
     mutex = acquire_instance("BandGDreamModelWatcher")
     if mutex is None and getattr(sys, "frozen", False):
-        for attempt in range(20):
+        for attempt in range(100):
             time.sleep(.1)
             mutex = acquire_instance("BandGDreamModelWatcher")
             if mutex is not None:
