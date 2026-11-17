@@ -1,26 +1,68 @@
 # OurNotesLive2D
 
-整理后的 Live2DViewerEX 资源：44 个角色，230 套衣装。
+![OurNotes 角色包 · 千早爱音模型展示](docs/media/cover.png)
 
-完整复制角色目录并导入 `00_integrated` 主入口。
+《BanG Dream! Our Notes》Live2D 角色库。收录 MyGO!!!!!、Ave Mujica、夢限大みゅーたいぷ、millsage 与一家Dumb Rock!。衣装、动作、表情与语音按角色整合。
 
-## 角色菜单
+**[挑选角色 ZIP](https://github.com/jiangyunxi222/OurNotesLive2D/releases/latest)** · [下载示例 · 千早爱音](https://github.com/jiangyunxi222/OurNotesLive2D/releases/download/V261116/ournotes_Anon_Chihaya_V261116.zip) · [Steam 创意工坊 · 千早爱音](https://steamcommunity.com/sharedfiles/filedetails/?id=3838891634) · [获取 BandoriLovePet](https://github.com/jiangyunxi222/BandoriLovePet/releases)
 
-在这台 Windows 电脑上首次使用或升级时，双击任意新版角色目录中的 `ControlPanel/EnableAutoStart.cmd` 一次。之后用 Live2DViewerEX 导入 `00_integrated`，角色控制台会在后台启动。点击腿部打开菜单，再选「打开面板」进入网页。
+**V261116 提供 27 个单角色 ZIP。** 发布页按乐团排列，下载时选择 **Assets** 里带角色全名的 ZIP。
 
-- 页面提供动作、表情、衣装、语音和收藏。
-- 动作、语音和换装可分别设置循环顺序、收藏范围与间隔。换装会等待当前动作和语音结束。
-- 语音区的音符加号用于上传音频和字幕，垃圾桶同时删除两者。
-- 「恢复待机」停止循环、动作和语音，清除表情与保持状态，保留当前衣装。
+## 角色实录
 
-更新配置后完整重载 `00_integrated` 主入口。移动角色时保留同目录的 `ControlPanel` 与 `assets`。
+![千早爱音在 BandoriLovePet 中播放动作和切换 OurNotes 衣装](docs/media/character-demo.gif)
 
-控制台自动查找 Steam 游戏库。若使用独立安装，请将安装目录写入角色的 `ControlPanel/viewer-path.txt`，然后重启控制台。
+*MyGO!!!!! · 千早爱音（OurNotes）· 动作与演出服换装实录*
 
-## 角色索引
+## 导入
+
+### BandoriLovePet · Windows / Android
+
+1. 在 BandoriLovePet 点「选择模型」，直接导入单角色 ZIP。
+2. 在应用内预览，或点「显示桌宠」。Android 显示桌宠需授予浮窗权限。
+
+Windows 也可导入解压后的 `00_integrated.model3.json`。[BandoriLovePet 使用指南](https://github.com/jiangyunxi222/BandoriLovePet)
+
+### Live2DViewerEX · Windows 本地导入
+
+1. 解压 ZIP，保留完整角色目录，包括 `ControlPanel` 和 `assets`。
+2. 首次使用或升级后，双击一次 `ControlPanel/EnableAutoStart.cmd`。
+3. 在 Live2DViewerEX 导入 `00_integrated.model3.json`。控制台会在后台启动。
+4. 点击角色腿部，再点「打开面板」进入网页控制台。
+
+控制台支持收藏与循环播放。可分别设置动作、语音和换装的顺序与间隔。语音页支持添加本地音频和字幕。[Live2DViewerEX](https://store.steampowered.com/app/616720/Live2DViewerEX/)
+
+### Steam 创意工坊
+
+在工坊订阅角色，再从 ViewerEX 的创意工坊列表加载。需要包内网页控制台时，请按上面的 Windows 本地导入流程操作。[工坊示例 · 千早爱音](https://steamcommunity.com/sharedfiles/filedetails/?id=3838891634)
+
+## 角色互动
+
+| 点击位置 | 互动 |
+| --- | --- |
+| 头顶或刘海上部 | 切换表情 |
+| 脸部下半部 | 播放随机语音，可显示字幕 |
+| 上身中央 | 播放普通动作 |
+| 屏幕右侧 / 左侧手臂 | 播放角色左臂 / 右臂动作 |
+| 腰部或衣服中段 | 随机换装 |
+| 腿部或衣服下段 | 打开菜单 |
+
+头像形态的上身、腰部和腿部触控区位于头像下方。语音与字幕以各角色包为准，来源见 `assets/voices/voice-sources.json`。
+
+## 导入排查
+
+- **ZIP 无法导入**。请下载发布页 Assets 中的单角色 ZIP。`Source code (zip)` 是仓库快照。
+- **腿部菜单打不开**。运行 `EnableAutoStart.cmd`，再完整重载 `00_integrated.model3.json`。
+- **控制台提示启动 ViewerEX**。先在 ViewerEX 加载角色。独立安装未被识别时，将安装路径写入 `ControlPanel/viewer-path.txt`，再重启控制台。
+
+## 角色图鉴
+
+<details>
+<summary>展开全部角色与衣装数量</summary>
+
+以下为仓库收录的角色和衣装。可直接下载的单角色 ZIP 见 [角色发布页](https://github.com/jiangyunxi222/OurNotesLive2D/releases/latest)。
 
 | 团体 | 角色 | 衣装数 | 整合入口 |
-|---|---|---:|---|
 | Ave Mujica | 三角初华 | 11 | [导入入口](<Ave Mujica/三角初华/00_integrated.model3.json>) |
 | Ave Mujica | 丰川祥子 | 9 | [导入入口](<Ave Mujica/丰川祥子/00_integrated.model3.json>) |
 | Ave Mujica | 八幡海铃 | 9 | [导入入口](<Ave Mujica/八幡海铃/00_integrated.model3.json>) |
@@ -66,32 +108,12 @@
 | 夢限大みゅーたいぷ | 薇欧拉 | 2 | [导入入口](<夢限大みゅーたいぷ/薇欧拉/00_integrated.model3.json>) |
 | 夢限大みゅーたいぷ | 藤都子 | 7 | [导入入口](<夢限大みゅーたいぷ/藤都子/00_integrated.model3.json>) |
 
-模型 ID 独立，换装由固定父模型管理。仅提交处理后的模型配置、运行资源、清单和必要说明，不包含原始 LPK、备份及处理工具。
+</details>
 
-配置与资源引用已校验；样本做过官方接口冒烟检查，完整鼠标点击实测尚未完成。素材权利归原权利人。
+## 相关项目
 
-## 统一点击规则
+Poppin’Party、Roselia 等《少女乐团派对！》角色与衣装。[GarupaLive2D](https://github.com/jiangyunxi222/GarupaLive2D)
 
-| 实际点击位置 | 效果 |
-|---|---|
-| 头顶、刘海上部 | 切换表情 |
-| 脸部下半部 | 随机语音，按开关显示字幕 |
-| 上身中央 | 播放普通动作 |
-| 画面右侧手臂 | 角色左臂动作 |
-| 画面左侧手臂 | 角色右臂动作 |
-| 腰部、衣服中段 | 直接随机换装 |
-| 腿部、衣服下段 | 打开主菜单 |
+Windows 和 Android 独立桌宠。[BandoriLovePet](https://github.com/jiangyunxi222/BandoriLovePet)
 
-每套衣装均包含七个独立矩形点击区，按该衣装默认站姿的头部和身体比例定位，跟随模型整体移动和缩放。点击层保持透明，衣服网格合并或隐藏不会取消入口。动作造成的局部身体变形不会改变矩形分区。
-
-仅头像形态也保留相同布局，上身、腰部、腿部入口位于头像下方的透明区域，左右手入口位于对应两侧。
-
-表情、语音和身体动作不会展开菜单。缺少方向动作时播放普通动作，缺少素材时保持待机。点击分区之间的空白可打开主菜单。
-
-请完整重载 `00_integrated` 主入口，保留 `assets/hitareas` 中的点击层文件。
-
-语音菜单可切换字幕显示，默认开启，并在同一角色换装后保留。
-
-语音字幕默认开启，同一角色换装后保留设置。尚未收录语音的角色，点击语音区显示「当前角色未提供语音素材」，此提示不受字幕开关影响。
-
-原有带语音角色按各角色原有数量重建，无法追溯或属于他人的旧条目以来源明确的本角色语音替换。祖母与经纪人另归回 12 条，合计 701 条。各角色 assets/voices/voice-sources.json 记录实际说话者、台词、音频来源及校验值。
+同好制作。角色与游戏素材权利归原权利人。
