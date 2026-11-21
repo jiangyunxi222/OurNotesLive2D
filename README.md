@@ -4,9 +4,9 @@
 
 《BanG Dream! Our Notes》Live2D 角色库。收录 MyGO!!!!!、Ave Mujica、夢限大みゅーたいぷ、millsage 与一家Dumb Rock!。衣装、动作、表情与语音按角色整合。
 
-**[挑选角色 ZIP](https://github.com/jiangyunxi222/OurNotesLive2D/releases/latest)** · [下载示例 · 千早爱音](https://github.com/jiangyunxi222/OurNotesLive2D/releases/download/V261116/ournotes_Anon_Chihaya_V261116.zip) · [Steam 创意工坊 · 千早爱音](https://steamcommunity.com/sharedfiles/filedetails/?id=3838891634) · [获取 BandoriLovePet](https://github.com/jiangyunxi222/BandoriLovePet/releases)
+**[挑选角色 ZIP](https://github.com/jiangyunxi222/OurNotesLive2D/releases/tag/V261119)** · [高松灯最新衣装](https://github.com/jiangyunxi222/OurNotesLive2D/releases/tag/V261122) · [手机版 WPK](https://github.com/jiangyunxi222/OurNotesLive2D-Mobile/releases/latest) · [Steam 创意工坊 · 千早爱音](https://steamcommunity.com/sharedfiles/filedetails/?id=3838891634)
 
-**V261116 提供 27 个单角色 ZIP。** 发布页按乐团排列，下载时选择 **Assets** 里带角色全名的 ZIP。
+**V261119 提供 27 个单角色 ZIP。** 高松灯的生日衣装在 V261122。下载时选择 **Assets** 里带角色全名的 ZIP。
 
 ## 角色实录
 
@@ -60,7 +60,7 @@ Windows 也可导入解压后的 `00_integrated.model3.json`。[BandoriLovePet �
 <details>
 <summary>展开全部角色与衣装数量</summary>
 
-以下为仓库收录的角色和衣装。可直接下载的单角色 ZIP 见 [角色发布页](https://github.com/jiangyunxi222/OurNotesLive2D/releases/latest)。
+以下为仓库收录的角色和衣装。[角色发布页](https://github.com/jiangyunxi222/OurNotesLive2D/releases)
 
 | 团体 | 角色 | 衣装数 | 整合入口 |
 | Ave Mujica | 三角初华 | 11 | [导入入口](<Ave Mujica/三角初华/00_integrated.model3.json>) |
@@ -72,7 +72,7 @@ Windows 也可导入解压后的 `00_integrated.model3.json`。[BandoriLovePet �
 | MyGO!!!!! | 椎名立希 | 9 | [导入入口](<MyGO!!!!!/椎名立希/00_integrated.model3.json>) |
 | MyGO!!!!! | 要乐奈 | 6 | [导入入口](<MyGO!!!!!/要乐奈/00_integrated.model3.json>) |
 | MyGO!!!!! | 长崎爽世 | 7 | [导入入口](<MyGO!!!!!/长崎素世/00_integrated.model3.json>) |
-| MyGO!!!!! | 高松灯 | 7 | [导入入口](<MyGO!!!!!/高松灯/00_integrated.model3.json>) |
+| MyGO!!!!! | 高松灯 | 8 | [导入入口](<MyGO!!!!!/高松灯/00_integrated.model3.json>) |
 | millsage | 伊泽枣 | 7 | [导入入口](<millsage/伊泽枣/00_integrated.model3.json>) |
 | millsage | 和泉朋花 | 8 | [导入入口](<millsage/和泉朋花/00_integrated.model3.json>) |
 | millsage | 汐见萤 | 4 | [导入入口](<millsage/汐见萤/00_integrated.model3.json>) |
