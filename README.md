@@ -36,6 +36,8 @@ Windows 也可导入解压后的 `00_integrated.model3.json`。[BandoriLovePet �
 
 在工坊订阅角色，再从 ViewerEX 的创意工坊列表加载。需要包内网页控制台时，请按上面的 Windows 本地导入流程操作。[工坊示例 · 千早爱音](https://steamcommunity.com/sharedfiles/filedetails/?id=3838891634)
 
+工坊角色包的源码与发布资料集中在独立仓库。[OurNotes 创意工坊源码](https://github.com/jiangyunxi222/OurNotesLive2D-Workshop)
+
 ## 角色互动
 
 | 点击位置 | 互动 |
