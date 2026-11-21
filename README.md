@@ -21,7 +21,7 @@
 1. 在 BandoriLovePet 点「选择模型」，直接导入单角色 ZIP。
 2. 在应用内预览，或点「显示桌宠」。Android 显示桌宠需授予浮窗权限。
 
-Windows 也可导入解压后的 `00_integrated.model3.json`。[BandoriLovePet 使用指南](https://github.com/jiangyunxi222/BandoriLovePet)
+Windows 也可导入解压后的 `00_integrated.model3.json`。[Windows 使用指南](https://github.com/jiangyunxi222/LovePet-Windows) · [Android 使用指南](https://github.com/jiangyunxi222/LovePet-Android)
 
 ### Live2DViewerEX · Windows 本地导入
 
@@ -116,6 +116,6 @@ Windows 也可导入解压后的 `00_integrated.model3.json`。[BandoriLovePet �
 
 Poppin’Party、Roselia 等《少女乐团派对！》角色与衣装。[GarupaLive2D](https://github.com/jiangyunxi222/GarupaLive2D)
 
-Windows 和 Android 独立桌宠。[BandoriLovePet](https://github.com/jiangyunxi222/BandoriLovePet)
+Windows 和 Android 独立桌宠。[LovePet Windows](https://github.com/jiangyunxi222/LovePet-Windows) · [LovePet Android](https://github.com/jiangyunxi222/LovePet-Android)
 
 同好制作。角色与游戏素材权利归原权利人。
