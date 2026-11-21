@@ -1,10 +1,10 @@
-# OurNotesLive2D
+# OurNotesLive2D-Windows
 
 ![OurNotes 角色包 · 千早爱音模型展示](docs/media/cover.png)
 
 《BanG Dream! Our Notes》Live2D 角色库。收录 MyGO!!!!!、Ave Mujica、夢限大みゅーたいぷ、millsage 与一家Dumb Rock!。衣装、动作、表情与语音按角色整合。
 
-**[挑选角色 ZIP](https://github.com/jiangyunxi222/OurNotesLive2D/releases/tag/V261119)** · [高松灯最新衣装](https://github.com/jiangyunxi222/OurNotesLive2D/releases/tag/V261122) · [手机版 WPK](https://github.com/jiangyunxi222/OurNotesLive2D-Mobile/releases/latest) · [Steam 创意工坊 · 千早爱音](https://steamcommunity.com/sharedfiles/filedetails/?id=3838891634)
+**[挑选角色 ZIP](https://github.com/jiangyunxi222/OurNotesLive2D-Windows/releases/tag/V261119)** · [高松灯最新衣装](https://github.com/jiangyunxi222/OurNotesLive2D-Windows/releases/tag/V261122) · [手机版 WPK](https://github.com/jiangyunxi222/OurNotesLive2D-Mobile/releases/latest) · [Steam 创意工坊 · 千早爱音](https://steamcommunity.com/sharedfiles/filedetails/?id=3838891634)
 
 **V261119 提供 27 个单角色 ZIP。** 高松灯的生日衣装在 V261122。下载时选择 **Assets** 里带角色全名的 ZIP。
 
@@ -62,7 +62,7 @@ Windows 也可导入解压后的 `00_integrated.model3.json`。[BandoriLovePet �
 <details>
 <summary>展开全部角色与衣装数量</summary>
 
-以下为仓库收录的角色和衣装。[角色发布页](https://github.com/jiangyunxi222/OurNotesLive2D/releases)
+以下为仓库收录的角色和衣装。[角色发布页](https://github.com/jiangyunxi222/OurNotesLive2D-Windows/releases)
 
 | 团体 | 角色 | 衣装数 | 整合入口 |
 | Ave Mujica | 三角初华 | 11 | [导入入口](<Ave Mujica/三角初华/00_integrated.model3.json>) |
